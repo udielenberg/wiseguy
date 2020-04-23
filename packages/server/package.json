@@ -1,0 +1,16 @@
+{
+  "name": "@todo/server",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "start": "echo hi!",
+    "build": "tsc",
+    "build:watch": "tsc --watch"
+  },
+  "devDependencies": {
+    "@types/node": "^13.13.2",
+    "typescript": "^3.8.3"
+  }
+}
