@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { Input, InputOnChangeData } from "semantic-ui-react";
 import styled from "styled-components";
 
-export const AddNote = () => {
+interface Props {
+  add(note: any): void;
+}
+export const AddNote = ({ add }: Props) => {
   const [note, setNote] = useState<string>();
 
   const handleChange = (_: any, data: InputOnChangeData) => {
@@ -11,6 +14,7 @@ export const AddNote = () => {
   const handleEnter = (event: any) => {
     const value = note && note.trim();
     if (event.key === "Enter" && value) {
+      add(note);
       setNote("");
     }
   };
