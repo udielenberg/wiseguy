@@ -1,6 +1,6 @@
 import React from "react";
 import { Table as SemanticUITable } from "semantic-ui-react";
-import { notes, Note } from "../../dummydata/notes";
+import { notes, Note } from "dummydata/notes";
 import capitalize from "lodash/capitalize";
 import { Label } from "semantic-ui-react";
 import { Button } from "semantic-ui-react";
@@ -29,7 +29,9 @@ const createTags = (tags: string[]) => {
   return (
     <Cell>
       {tags.map((tag) => (
-        <Label tag>{tag}</Label>
+        <Label key={tag} tag>
+          {tag}
+        </Label>
       ))}
     </Cell>
   );

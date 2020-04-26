@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.css";
-import { AddNote } from "./components/AddNote";
-import { NotesTable } from "./components/NotesTable/index";
-import { CenteredLayout } from "./layouts";
+import { AddNote } from "components/AddNote";
+import { NotesTable } from "components/NotesTable/index";
+import { CenteredLayout } from "layouts";
 function App() {
   return (
     <div className="App">
