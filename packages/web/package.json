@@ -17,6 +17,7 @@
     "react-scripts": "3.4.1",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.2",
+    "styled-components": "^5.1.0",
     "typescript": "~3.7.2"
   },
   "scripts": {
@@ -39,7 +40,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
     "@types/faker": "^4.1.11",
     "@types/lodash": "^4.14.150",
+    "@types/styled-components": "^5.1.0"
   }
 }
