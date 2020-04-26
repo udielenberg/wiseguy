@@ -24,11 +24,14 @@ function App() {
       return prevNotes.filter((note) => note.id !== id);
     });
   };
+  const openNoteResult = (id: string) => {
+    console.log("note id:", id);
+  };
   return (
     <div className="App">
       <AddNote add={addNote} />
       <CenteredLayout>
-        <NotesTable />
+        <NotesTable notes={notes} open={openNoteResult} remove={removeNote} />
       </CenteredLayout>
     </div>
   );
