@@ -1,11 +1,12 @@
 import React from "react";
-import { Table } from "semantic-ui-react";
+import { Table as SemanticUITable } from "semantic-ui-react";
 import { notes, Note } from "../../dummydata/notes";
 import capitalize from "lodash/capitalize";
 import { Label } from "semantic-ui-react";
 import { Button } from "semantic-ui-react";
+import styled from "styled-components";
 
-const { Header, HeaderCell, Row, Cell, Body } = Table;
+const { Header, HeaderCell, Row, Cell, Body } = SemanticUITable;
 
 interface Header {
   type: string;
@@ -17,10 +18,10 @@ const headers: Header[] = [
   { type: "lastVisit", header: "last time visited" },
   { type: "fetchMore", header: "fetch more" },
   { type: "remove", header: "remove" },
-  { type: "date", header: "date" },
+  { type: "date", header: "created  " },
 ];
 
-const createDate = (date: Date) => <Cell>{date.toDateString()}</Cell>;
+const createDate = (date: Date) => <DateCell>{date.toDateString()}</DateCell>;
 
 const createSearch = (search: string) => <Cell>{search}</Cell>;
 
@@ -33,9 +34,7 @@ const createTags = (tags: string[]) => {
     </Cell>
   );
 };
-const createLastVisit = (lastVisit: Date) => {
-  return <Cell>{lastVisit.toDateString()}</Cell>;
-};
+
 const fetchMore = () => {
   return (
     <Cell>
@@ -53,14 +52,13 @@ const remove = () => {
 
 const createCell = (headerType: string, note: Note) => {
   switch (headerType) {
+    case "lastVisit":
     case "date":
       return createDate(note[headerType]);
     case "search":
       return createSearch(note[headerType]);
     case "tags":
       return createTags(note[headerType]);
-    case "lastVisit":
-      return createLastVisit(note[headerType]);
     case "fetchMore":
       return fetchMore();
     case "remove":
@@ -83,12 +81,7 @@ const createNote = (note: any, headers: Header[]) => {
 
 export const NotesTable = () => {
   return (
-    <Table
-      celled
-      size="large"
-      sortable={true}
-      style={{ margin: "auto", maxWidth: "80%" }}
-    >
+    <Table celled size="large" sortable={true}>
       <Header>
         <Row>
           {headers.map(({ header }) => (
@@ -103,3 +96,17 @@ export const NotesTable = () => {
     </Table>
   );
 };
+
+const DateCell = styled(Cell)`
+  font-size: 14px;
+  font-weight: 100;
+`;
+
+const Table = styled(SemanticUITable)`
+  margin: auto !important;
+  max-width: 70% !important;
+
+  tbody {
+    font-size: 14px;
+  }
+`;
