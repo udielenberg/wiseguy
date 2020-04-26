@@ -16,17 +16,21 @@ const createNote = (note: string) => ({
 
 function App() {
   const [notes, setNotes] = useState<Note[]>(dummyNotes);
+
   const addNote = useCallback((note: string) => {
     setNotes((prevNotes) => [createNote(note), ...prevNotes]);
   }, []);
+
   const removeNote = (id: string): void => {
     setNotes((prevNotes) => {
       return prevNotes.filter((note) => note.id !== id);
     });
   };
+
   const openNoteResult = (id: string) => {
     console.log("note id:", id);
   };
+
   return (
     <div className="App">
       <AddNote add={addNote} />

@@ -39,10 +39,9 @@ export const NotesTable = ({ notes, remove, open }: Props) => {
       </Header>
 
       <Body>
-        {notes &&
-          notes.map((note) => (
-            <Note key={note.id} {...{ note, remove, open, headers }} />
-          ))}
+        {notes?.map((note) => (
+          <Note key={note.id} {...{ note, remove, open, headers }} />
+        ))}
       </Body>
     </Table>
   );
