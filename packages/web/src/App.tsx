@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.css";
-import { Search } from "./components/Search";
+import { AddNote } from "./components/AddNote";
 import { NotesTable } from "./components/NotesTable/index";
 import { CenteredLayout } from "./layouts";
 function App() {
   return (
     <div className="App">
-      <Search />
+      <AddNote />
       <CenteredLayout>
         <NotesTable />
       </CenteredLayout>
