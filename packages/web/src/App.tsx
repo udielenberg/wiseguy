@@ -19,6 +19,11 @@ function App() {
   const addNote = useCallback((note: string) => {
     setNotes((prevNotes) => [createNote(note), ...prevNotes]);
   }, []);
+  const removeNote = (id: string): void => {
+    setNotes((prevNotes) => {
+      return prevNotes.filter((note) => note.id !== id);
+    });
+  };
   return (
     <div className="App">
       <AddNote add={addNote} />
