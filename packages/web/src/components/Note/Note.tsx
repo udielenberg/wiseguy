@@ -65,9 +65,18 @@ export const Note = ({ note, remove, headers, open }: Props) => {
   );
 };
 
-const StyledRow = styled(Row)`
-  font-weight: bold;
-  background: ${({ watched }) => (!watched ? "aquamarine" : "initial")};
+export const unwatchedNoteStyle = `
+    background: aquamarine;
+    font-weight: bold;
+`;
+
+export const watchedNoteStyle = `
+    background: initial;
+    font-weight: initial;
+`;
+
+export const StyledRow = styled(Row)`
+  ${({ watched }) => (watched ? watchedNoteStyle : unwatchedNoteStyle)}
 `;
 const DateCell = styled(Cell)`
   font-size: 14px;
