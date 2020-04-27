@@ -1,4 +1,3 @@
-import React from "react";
 import { render, cleanup, act, fireEvent } from '@testing-library/react'
 
 const globalAny: any = global;
