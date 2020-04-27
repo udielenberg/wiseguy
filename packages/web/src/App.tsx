@@ -13,6 +13,7 @@ const createNote = (note: string) => ({
   tags: [],
   date: new Date(),
   lastVisit: new Date(),
+  watched: false,
 });
 
 function App() {
@@ -31,7 +32,11 @@ function App() {
 
   const openNote = (id: string) => {
     openModal(true);
-    console.log("note id:", id);
+    const clonedNotes = [...notes];
+
+    const noteIndex = clonedNotes.findIndex((note) => note.id === id);
+    clonedNotes.splice(noteIndex, 1, { ...notes[noteIndex], watched: true });
+    setNotes(clonedNotes);
   };
 
   const toggleNotePanel = (mode: boolean) => {
