@@ -19,7 +19,7 @@ const { Header, Cell, Row } = SemanticUITable;
 
 export const Note = ({ note, remove, headers, open }: Props) => {
   return (
-    <Row>
+    <StyledRow watched={note.watched}>
       {headers.map(({ type }) => {
         if (type === "lastVisit" || type === "date") {
           return <DateCell>{note[type].toDateString()}</DateCell>;
@@ -61,10 +61,23 @@ export const Note = ({ note, remove, headers, open }: Props) => {
           );
         }
       })}
-    </Row>
+    </StyledRow>
   );
 };
 
+export const unwatchedNoteStyle = `
+    background: aquamarine;
+    font-weight: bold;
+`;
+
+export const watchedNoteStyle = `
+    background: initial;
+    font-weight: initial;
+`;
+
+export const StyledRow = styled(Row)`
+  ${({ watched }) => (watched ? watchedNoteStyle : unwatchedNoteStyle)}
+`;
 const DateCell = styled(Cell)`
   font-size: 14px;
   font-weight: 100;

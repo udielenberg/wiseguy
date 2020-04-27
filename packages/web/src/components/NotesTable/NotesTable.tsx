@@ -4,13 +4,14 @@ import capitalize from "lodash/capitalize";
 import styled from "styled-components";
 import { Note as TNote } from "dummydata/notes";
 import { Note } from "components/Note";
+
 const { Header, HeaderCell, Row, Body } = SemanticUITable;
 
 interface Header {
   type: string;
   header: string;
 }
-const headers: Header[] = [
+export const headers: Header[] = [
   { type: "search", header: "search" },
   { type: "tags", header: "tags" },
   { type: "lastVisit", header: "last time visited" },
