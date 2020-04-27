@@ -1,5 +1,6 @@
 import React from "react";
 import { AddNote } from "./AddNote";
+import { render, fireEvent } from "@testing-library/react";
 
 describe("AddNote component", () => {
   it("should clear text after enter", () => {

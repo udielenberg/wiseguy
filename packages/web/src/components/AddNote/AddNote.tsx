@@ -21,6 +21,7 @@ export const AddNote = ({ add }: Props) => {
   return (
     <Wrapper>
       <Input
+        data-testid="addNote"
         size="huge"
         icon="add"
         value={note}
