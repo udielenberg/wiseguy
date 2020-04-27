@@ -18,6 +18,7 @@ const createNote = (note: string) => ({
 function App() {
   const [notes, setNotes] = useState<Note[]>(dummyNotes);
   const [isModalOpen, openModal] = useState(false);
+
   const addNote = useCallback((note: string) => {
     setNotes((prevNotes) => [createNote(note), ...prevNotes]);
   }, []);
@@ -28,23 +29,22 @@ function App() {
     });
   };
 
-  const openNoteResult = (id: string) => {
+  const openNote = (id: string) => {
     openModal(true);
     console.log("note id:", id);
   };
 
-  const closeNotePanel = () => {
-    openModal(false);
+  const toggleNotePanel = (mode: boolean) => {
+    openModal(mode);
   };
 
   return (
     <div className="App">
-      <NotePanelModal
-        {...{ closeModal: closeNotePanel, isOpen: isModalOpen }}
-      />
+      <NotePanelModal toggleModal={toggleNotePanel} isOpen={isModalOpen} />
+
       <AddNote add={addNote} />
       <CenteredLayout>
-        <NotesTable notes={notes} open={openNoteResult} remove={removeNote} />
+        <NotesTable notes={notes} open={openNote} remove={removeNote} />
       </CenteredLayout>
     </div>
   );
