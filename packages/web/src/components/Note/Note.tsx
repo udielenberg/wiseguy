@@ -18,6 +18,7 @@ interface Props {
 const { Header, Cell, Row } = SemanticUITable;
 
 export const Note = ({ note, remove, headers, open }: Props) => {
+  console.log("watched:", note.watched);
   return (
     <StyledRow watched={note.watched}>
       {headers.map(({ type }) => {
@@ -71,8 +72,8 @@ export const unwatchedNoteStyle = `
 `;
 
 export const watchedNoteStyle = `
-    background: initial;
-    font-weight: initial;
+    background: red;
+    font-weight: 100;
 `;
 
 export const StyledRow = styled(Row)`

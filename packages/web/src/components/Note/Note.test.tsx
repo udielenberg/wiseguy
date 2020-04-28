@@ -1,6 +1,6 @@
 import React from "react";
 import { Note, watchedNoteStyle, unwatchedNoteStyle } from "./Note";
-import { render } from "@testing-library/react";
+import { render, fireEvent, waitFor } from "@testing-library/react";
 import { headers } from "../NotesTable";
 
 const mockedRemove = () => {};
@@ -31,5 +31,27 @@ describe("Note component", () => {
     );
 
     expect(container.children[0]).toHaveStyle(style);
+  });
+  it.skip("should update Note's styles after it is being open", () => {
+    const { container, getByText } = render(
+      <Note
+        note={setMockedNote(false)}
+        remove={mockedRemove}
+        headers={headers}
+        open={mockedOpen}
+      />
+    );
+    const openButton = getByText("Open");
+    const element = container.children[0];
+    expect(element).toHaveStyle(unwatchedNoteStyle);
+
+    fireEvent.click(openButton);
+
+    waitFor(() => {
+      fireEvent.keyDown(document.body, { key: "Escape", code: "Escape" });
+      waitFor(() => {
+        expect(element).toHaveStyle(unwatchedNoteStyle);
+      });
+    });
   });
 });
