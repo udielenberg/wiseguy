@@ -7,19 +7,20 @@ import { Note } from "components/Note";
 
 const { Header, HeaderCell, Row, Body } = SemanticUITable;
 
-interface Header {
+interface BaseHeaders {
   type: string;
   header: string;
 }
-export const headers: Header[] = [
+export const baseHeaders: BaseHeaders[] = [
   { type: "search", header: "search" },
   { type: "tags", header: "tags" },
   { type: "lastVisit", header: "last time visited" },
-  { type: "open", header: "fetch more" },
+  { type: "open", header: "open" },
   { type: "remove", header: "remove" },
-  { type: "date", header: "created  " },
+  { type: "created", header: "created" },
 ];
 
+function toMaterialUiColumns(headers: BaseHeader[]) {
 interface Props {
   notes: TNote[];
   remove(id: string): void;
