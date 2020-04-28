@@ -1,11 +1,8 @@
+// @ts-ignore
 import React from "react";
-import { Table as SemanticUITable } from "semantic-ui-react";
-import capitalize from "lodash/capitalize";
-import styled from "styled-components";
 import { Note as TNote } from "dummydata/notes";
-import { Note } from "components/Note";
-
-const { Header, HeaderCell, Row, Body } = SemanticUITable;
+// import { Note } from "components/Note";
+import MaterialTable from "material-table";
 
 interface BaseHeaders {
   type: string;
@@ -14,46 +11,70 @@ interface BaseHeaders {
 export const baseHeaders: BaseHeaders[] = [
   { type: "search", header: "search" },
   { type: "tags", header: "tags" },
-  { type: "lastVisit", header: "last time visited" },
+  { type: "date", header: "last time visited" },
   { type: "open", header: "open" },
   { type: "remove", header: "remove" },
-  { type: "created", header: "created" },
+  { type: "date", header: "created" },
 ];
 
-function toMaterialUiColumns(headers: BaseHeader[]) {
-interface Props {
-  notes: TNote[];
-  remove(id: string): void;
-  open(id: string): void;
-}
+const renderTags = ({ tags }: any) =>
+  tags.map((tag: any) => (
+    <span
+      style={{
+        display: "inline-block",
+        background: "lightgray",
+        borderRadius: 10,
+        margin: 10,
+        padding: 5,
+      }}
+      key={tag}
+    >
+      {tag}
+    </span>
+  ));
 
-export const NotesTable = ({ notes, remove, open }: Props) => {
-  return (
-    <Table celled size="large" sortable={true}>
-      <Header>
-        <Row>
-          {headers.map(({ header }) => (
-            <HeaderCell style={{ textAlign: "center" }} key={header}>
-              {capitalize(header)}
-            </HeaderCell>
-          ))}
-        </Row>
-      </Header>
-
-      <Body>
-        {notes?.map((note) => (
-          <Note key={note.id} {...{ note, remove, open, headers }} />
-        ))}
-      </Body>
-    </Table>
-  );
+const renderDate = ({ date }: any) => {
+  return <span>{date.toDateString()}</span>;
+};
+const renderSearch = ({ search }: any) => {
+  return <span>{search}</span>;
 };
 
-const Table = styled(SemanticUITable)`
-  margin: auto !important;
-  max-width: 70% !important;
+function toMaterialUiColumns(headers: BaseHeaders[]) {
+  return headers.map(({ type, header }) => {
+    const base = {
+      title: header,
+      field: type,
+    };
+    if (type === "tags") {
+      return {
+        ...base,
+        render: renderTags,
+      };
+    }
+    if (type === "date") {
+      return {
+        ...base,
+        render: renderDate,
+      };
+    }
+    if (type === "search") {
+      return {
+        ...base,
+        render: renderSearch,
+      };
+    }
+    return { title: header, field: type };
+  });
+}
 
-  tbody {
-    font-size: 14px;
-  }
-`;
+const columns = toMaterialUiColumns(baseHeaders);
+interface Props {
+  notes: TNote[];
+  remove?(id: string): void;
+  open?(id: string): void;
+}
+
+export const NotesTable = ({ notes }: Props) => {
+  return <MaterialTable data={notes} columns={columns} />;
+};
