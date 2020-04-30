@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import "./App.css";
 import { AddNote } from "components/AddNote";
 import { NotesTable } from "components/NotesTable/index";
@@ -11,13 +11,14 @@ const createNote = (note: string) => ({
   search: note,
   id: faker.random.uuid(),
   tags: [],
-  date: new Date(),
+  created: new Date(),
   lastVisit: new Date(),
   watched: false,
 });
 
 function App() {
-  const [notes, setNotes] = useState<Note[]>(dummyNotes);
+  const [notes, setNotes] = useState<Note[]>([]);
+
   const [isModalOpen, openModal] = useState(false);
 
   const addNote = useCallback((note: string) => {
@@ -42,6 +43,18 @@ function App() {
   const toggleNotePanel = (mode: boolean) => {
     openModal(mode);
   };
+
+  useEffect(() => {
+    const updatedNotes = dummyNotes.map((note) => ({
+      ...note,
+      remove: () => removeNote(note.id),
+      open: () => {
+        console.log("note id:", note.id);
+        // openNote(note.id)
+      },
+    }));
+    setNotes(updatedNotes);
+  }, []);
 
   return (
     <div className="App">
