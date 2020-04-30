@@ -3,11 +3,11 @@ import { TransitionablePortal, Modal } from "semantic-ui-react";
 
 interface Props {
   isOpen: boolean;
-  toggleModal(mode: boolean): void;
+  toggle(mode: boolean): void;
 }
-export const NotePanelModal = ({ isOpen, toggleModal }: Props) => {
+export const NotePanelModal = ({ isOpen, toggle }: Props) => {
   const handleCloseModal = () => {
-    toggleModal(false);
+    toggle(false);
   };
 
   return (

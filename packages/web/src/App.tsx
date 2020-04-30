@@ -58,7 +58,7 @@ function App() {
 
   return (
     <div className="App">
-      <NotePanelModal toggleModal={toggleNotePanel} isOpen={isModalOpen} />
+      <NotePanelModal toggle={toggleNotePanel} isOpen={isModalOpen} />
 
       <AddNote add={addNote} />
       <CenteredLayout>
