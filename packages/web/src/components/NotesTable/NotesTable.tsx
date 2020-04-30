@@ -1,80 +1,64 @@
-// @ts-ignore
 import React from "react";
-import { Note as TNote } from "dummydata/notes";
-// import { Note } from "components/Note";
-import MaterialTable from "material-table";
-
+import { makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import { Note } from "dummydata/notes";
+import { Cell } from "./cells";
 interface BaseHeaders {
-  type: string;
-  header: string;
+  field: string;
+  title: string;
 }
 export const baseHeaders: BaseHeaders[] = [
-  { type: "search", header: "search" },
-  { type: "tags", header: "tags" },
-  { type: "date", header: "last time visited" },
-  { type: "open", header: "open" },
-  { type: "remove", header: "remove" },
-  { type: "date", header: "created" },
+  { field: "search", title: "search" },
+  { field: "tags", title: "tags" },
+  { field: "lastVisit", title: "last time visited" },
+  { field: "open", title: "results" },
+  { field: "remove", title: "remove" },
+  { field: "created", title: "created" },
 ];
 
-const renderTags = ({ tags }: any) =>
-  tags.map((tag: any) => (
-    <span
-      style={{
-        display: "inline-block",
-        background: "lightgray",
-        borderRadius: 10,
-        margin: 10,
-        padding: 5,
-      }}
-      key={tag}
-    >
-      {tag}
-    </span>
-  ));
-
-const renderDate = ({ date }: any) => {
-  return <span>{date.toDateString()}</span>;
-};
-const renderSearch = ({ search }: any) => {
-  return <span>{search}</span>;
-};
-
-function toMaterialUiColumns(headers: BaseHeaders[]) {
-  return headers.map(({ type, header }) => {
-    const base = {
-      title: header,
-      field: type,
-    };
-    if (type === "tags") {
-      return {
-        ...base,
-        render: renderTags,
-      };
-    }
-    if (type === "date") {
-      return {
-        ...base,
-        render: renderDate,
-      };
-    }
-    if (type === "search") {
-      return {
-        ...base,
-        render: renderSearch,
-      };
-    }
-    return { title: header, field: type };
-  });
-}
-
-const columns = toMaterialUiColumns(baseHeaders);
 interface Props {
-  notes: TNote[];
-  remove?(id: string): void;
-  open?(id: string): void;
+  notes: Note[];
+  open: any;
+  remove: any;
 }
 
-export const NotesTable = ({ notes }: Props) => {
-  return <MaterialTable data={notes} columns={columns} />;
+const useStyles = makeStyles({
+  table: {
+    minWidth: 650,
+  },
+});
+
+export const NotesTable = ({ notes, open, remove }: Props) => {
+  const classes = useStyles();
+
+  return (
+    <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            {baseHeaders.map(({ field, title }) => (
+              <TableCell key={field}>{title}</TableCell>
+            ))}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {notes.map((note: Note) => (
+            <TableRow key={note.id}>
+              {baseHeaders.map(({ field }) => (
+                <TableCell key={field}>
+                  <Cell field={field} data={note} />
+                </TableCell>
+              ))}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
 };
