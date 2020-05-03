@@ -19,6 +19,7 @@ function App() {
   const [rawNotes, setRawNotes] = useState<Note[]>([]);
 
   const [isModalOpen, openModal] = useState(false);
+  const [selectedNote, setSelectedNote] = useState<Note | undefined>();
 
   const addNote = useCallback((note: string) => {
     setRawNotes((prevNotes) => [createNote(note), ...prevNotes]);
@@ -34,7 +35,7 @@ function App() {
     const clonedNotes = [...rawNotes];
     const noteIndex = clonedNotes.findIndex((note) => note.id === id);
     clonedNotes.splice(noteIndex, 1, { ...rawNotes[noteIndex], watched: true });
-
+    setSelectedNote(clonedNotes[noteIndex]);
     openModal(true);
     setRawNotes(clonedNotes);
   };
@@ -55,7 +56,11 @@ function App() {
 
   return (
     <div className="App">
-      <NotePanelModal toggle={toggleNotePanel} isOpen={isModalOpen} />
+      <NotePanelModal
+        note={selectedNote}
+        toggle={toggleNotePanel}
+        isOpen={isModalOpen}
+      />
       <AddNote add={addNote} />
       <NotesTable notes={updatedNotes} />
     </div>

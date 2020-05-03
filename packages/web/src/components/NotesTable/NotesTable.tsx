@@ -55,7 +55,7 @@ export const NotesTable = ({ notes }: Props) => {
             {notes.map((note: Note) => (
               <TableRow
                 key={note.id}
-                className={note.watched ? classes.selectedRow : ""}
+                className={!note.watched ? classes.selectedRow : ""}
               >
                 {baseHeaders.map(({ field }) => (
                   <TableCell key={field}>

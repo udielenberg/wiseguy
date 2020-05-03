@@ -1,27 +1,21 @@
 import React from "react";
-import { TransitionablePortal, Modal } from "semantic-ui-react";
+import Modal from "shared/Modal";
+import { Note } from "dummydata/notes";
 
 interface Props {
+  note: Note | undefined;
   isOpen: boolean;
   toggle(mode: boolean): void;
 }
-export const NotePanelModal = ({ isOpen, toggle }: Props) => {
-  const handleCloseModal = () => {
-    toggle(false);
-  };
-  return (
-    <div>
-      <TransitionablePortal
-        open={isOpen}
-        transition={{ animation: "scale", duration: 300 }}
-      >
-        <Modal open={true} closeIcon onClose={handleCloseModal}>
-          <Modal.Header>Resize test</Modal.Header>
-          <Modal.Content>
-            <img src="https://semantic-ui.com/images/wireframe/paragraph.png" />
-          </Modal.Content>
-        </Modal>
-      </TransitionablePortal>
-    </div>
-  );
+
+export const NotePanelModal = ({ isOpen, toggle, note }: Props) => {
+  if (note) {
+    return (
+      <Modal open={isOpen} {...{ toggle, note }}>
+        <div>Hey!</div>
+      </Modal>
+    );
+  } else {
+    return null;
+  }
 };
