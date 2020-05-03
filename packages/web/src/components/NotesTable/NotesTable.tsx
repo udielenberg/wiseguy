@@ -7,7 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { Note } from "dummydata/notes";
+import { Note } from "models/Note";
 import { CenteredLayout } from "layouts";
 import { Cell } from "./cells";
 

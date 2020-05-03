@@ -2,17 +2,13 @@ import React, { useCallback, useState, useEffect } from "react";
 import "./App.css";
 import { AddNote } from "components/AddNote";
 import { NotesTable } from "components/NotesTable/index";
-import { notes as dummyNotes, Note } from "dummydata/notes";
-import faker from "faker";
+import { dummyNotes } from "dummydata/notes";
+import { Note } from "models/Note";
 import { NotePanelModal } from "components/NotePanelModal";
-
-const createNote = (note: string) => ({
+import { baseNote } from "models/Note";
+const createNote = (note: string): Note => ({
+  ...baseNote,
   search: note,
-  id: faker.random.uuid(),
-  tags: [],
-  created: new Date(),
-  lastVisit: new Date(),
-  watched: false,
 });
 
 function App() {
