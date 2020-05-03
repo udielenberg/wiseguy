@@ -9,7 +9,6 @@ export const NotePanelModal = ({ isOpen, toggle }: Props) => {
   const handleCloseModal = () => {
     toggle(false);
   };
-
   return (
     <div>
       <TransitionablePortal

@@ -8,7 +8,9 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Note } from "dummydata/notes";
+import { CenteredLayout } from "layouts";
 import { Cell } from "./cells";
+
 interface BaseHeaders {
   field: string;
   title: string;
@@ -24,41 +26,47 @@ export const baseHeaders: BaseHeaders[] = [
 
 interface Props {
   notes: Note[];
-  open: any;
-  remove: any;
 }
 
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
+  selectedRow: {
+    background: "aquamarine",
+  },
 });
 
-export const NotesTable = ({ notes, open, remove }: Props) => {
+export const NotesTable = ({ notes }: Props) => {
   const classes = useStyles();
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            {baseHeaders.map(({ field, title }) => (
-              <TableCell key={field}>{title}</TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {notes.map((note: Note) => (
-            <TableRow key={note.id}>
-              {baseHeaders.map(({ field }) => (
-                <TableCell key={field}>
-                  <Cell field={field} data={note} />
-                </TableCell>
+    <CenteredLayout>
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              {baseHeaders.map(({ field, title }) => (
+                <TableCell key={field}>{title}</TableCell>
               ))}
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {notes.map((note: Note) => (
+              <TableRow
+                key={note.id}
+                className={note.watched ? classes.selectedRow : ""}
+              >
+                {baseHeaders.map(({ field }) => (
+                  <TableCell key={field}>
+                    <Cell field={field} data={note} />
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </CenteredLayout>
   );
 };
