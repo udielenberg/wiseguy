@@ -1,22 +1,18 @@
 import faker from 'faker';
 import range from 'lodash/range';
-
-export interface Note {
-  id: string;
-  created: Date;
-  search: string;
-  tags: Array<string>;
-  lastVisit: Date;
-  watched: boolean
-}
+import { baseNote, Note } from 'models/Note'
 
 const setTags = () => range(faker.random.number({ min: 0, max: 3 })).map(_ => faker.commerce.product())
 
-export const notes: Note[] = range(10).map((_) => ({
-  id: faker.random.uuid(),
-  created: new Date(),
-  search: faker.lorem.words(),
+const setResources = () => ['one', 'two', 'three', 'four', 'five', 'six', 'seven']
+const setApproved = () => ['good', 'true', 'nice']
+const setRejected = () => ['evil', 'bad', 'lie']
+
+export const dummyNotes: Note[] = range(10).map((_) => ({
+  ...baseNote,
   tags: setTags(),
-  lastVisit: new Date(),
-  watched: false
+  search: faker.lorem.words(),
+  resources: setResources(),
+  approved: setApproved(),
+  rejected: setRejected()
 }));
