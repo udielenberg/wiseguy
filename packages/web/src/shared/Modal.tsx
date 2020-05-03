@@ -6,7 +6,6 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { Note } from "dummydata/notes";
 
 interface Props {
-  note: Note | undefined;
   open: boolean;
   toggle(mode: boolean): void;
   children: any;
@@ -28,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Modal: React.FC<Props> = ({ note, open, toggle, children }) => {
+const Modal: React.FC<Props> = ({ open, toggle, children }) => {
   const classes = useStyles();
 
   const handleCloseModal = () => {
@@ -45,7 +44,9 @@ const Modal: React.FC<Props> = ({ note, open, toggle, children }) => {
       }}
       className={classes.modal}
     >
-      <Fade in={open}>{children}</Fade>
+      <Fade in={open}>
+        <div className={classes.paper}>{children}</div>
+      </Fade>
     </ModalUI>
   );
 };
