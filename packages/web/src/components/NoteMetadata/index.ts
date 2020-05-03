@@ -1,0 +1,1 @@
+export { NoteMetadata } from './NoteMetadata';
