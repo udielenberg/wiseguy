@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Input, InputOnChangeData } from "semantic-ui-react";
 import styled from "styled-components";
 
 interface Props {
@@ -8,7 +7,7 @@ interface Props {
 export const AddNote = ({ add }: Props) => {
   const [note, setNote] = useState<string>();
 
-  const handleChange = (_: any, data: InputOnChangeData) => {
+  const handleChange = (_: any, data: any) => {
     setNote(data.value);
   };
   const handleEnter = (event: any) => {
@@ -20,7 +19,7 @@ export const AddNote = ({ add }: Props) => {
   };
   return (
     <Wrapper>
-      <Input
+      {/* <Input
         data-testid="addNote"
         size="huge"
         icon="add"
@@ -28,7 +27,8 @@ export const AddNote = ({ add }: Props) => {
         placeholder="Add note..."
         onChange={handleChange}
         onKeyDown={handleEnter}
-      />
+      /> */}
+      <input placeholder="asdasd" />
     </Wrapper>
   );
 };
