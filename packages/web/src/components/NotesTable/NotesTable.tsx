@@ -1,58 +1,72 @@
 import React from "react";
-import { Table as SemanticUITable } from "semantic-ui-react";
-import capitalize from "lodash/capitalize";
-import styled from "styled-components";
-import { Note as TNote } from "dummydata/notes";
-import { Note } from "components/Note";
+import { makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import { Note } from "dummydata/notes";
+import { CenteredLayout } from "layouts";
+import { Cell } from "./cells";
 
-const { Header, HeaderCell, Row, Body } = SemanticUITable;
-
-interface Header {
-  type: string;
-  header: string;
+interface BaseHeaders {
+  field: string;
+  title: string;
 }
-export const headers: Header[] = [
-  { type: "search", header: "search" },
-  { type: "tags", header: "tags" },
-  { type: "lastVisit", header: "last time visited" },
-  { type: "open", header: "fetch more" },
-  { type: "remove", header: "remove" },
-  { type: "date", header: "created  " },
+export const baseHeaders: BaseHeaders[] = [
+  { field: "search", title: "search" },
+  { field: "tags", title: "tags" },
+  { field: "lastVisit", title: "last time visited" },
+  { field: "open", title: "results" },
+  { field: "remove", title: "remove" },
+  { field: "created", title: "created" },
 ];
 
 interface Props {
-  notes: TNote[];
-  remove(id: string): void;
-  open(id: string): void;
+  notes: Note[];
 }
 
-export const NotesTable = ({ notes, remove, open }: Props) => {
-  return (
-    <Table celled size="large" sortable={true}>
-      <Header>
-        <Row>
-          {headers.map(({ header }) => (
-            <HeaderCell style={{ textAlign: "center" }} key={header}>
-              {capitalize(header)}
-            </HeaderCell>
-          ))}
-        </Row>
-      </Header>
+const useStyles = makeStyles({
+  table: {
+    minWidth: 650,
+  },
+  selectedRow: {
+    background: "aquamarine",
+  },
+});
 
-      <Body>
-        {notes?.map((note) => (
-          <Note key={note.id} {...{ note, remove, open, headers }} />
-        ))}
-      </Body>
-    </Table>
+export const NotesTable = ({ notes }: Props) => {
+  const classes = useStyles();
+
+  return (
+    <CenteredLayout>
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              {baseHeaders.map(({ field, title }) => (
+                <TableCell key={field}>{title}</TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {notes.map((note: Note) => (
+              <TableRow
+                key={note.id}
+                className={note.watched ? classes.selectedRow : ""}
+              >
+                {baseHeaders.map(({ field }) => (
+                  <TableCell key={field}>
+                    <Cell field={field} data={note} />
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </CenteredLayout>
   );
 };
-
-const Table = styled(SemanticUITable)`
-  margin: auto !important;
-  max-width: 70% !important;
-
-  tbody {
-    font-size: 14px;
-  }
-`;

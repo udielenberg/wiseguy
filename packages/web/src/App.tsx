@@ -1,8 +1,7 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import "./App.css";
 import { AddNote } from "components/AddNote";
 import { NotesTable } from "components/NotesTable/index";
-import { CenteredLayout } from "layouts";
 import { notes as dummyNotes, Note } from "dummydata/notes";
 import faker from "faker";
 import { NotePanelModal } from "components/NotePanelModal";
@@ -11,46 +10,54 @@ const createNote = (note: string) => ({
   search: note,
   id: faker.random.uuid(),
   tags: [],
-  date: new Date(),
+  created: new Date(),
   lastVisit: new Date(),
   watched: false,
 });
 
 function App() {
-  const [notes, setNotes] = useState<Note[]>(dummyNotes);
+  const [rawNotes, setRawNotes] = useState<Note[]>([]);
+
   const [isModalOpen, openModal] = useState(false);
 
   const addNote = useCallback((note: string) => {
-    setNotes((prevNotes) => [createNote(note), ...prevNotes]);
+    setRawNotes((prevNotes) => [createNote(note), ...prevNotes]);
   }, []);
 
   const removeNote = (id: string): void => {
-    setNotes((prevNotes) => {
+    setRawNotes((prevNotes) => {
       return prevNotes.filter((note) => note.id !== id);
     });
   };
 
   const openNote = (id: string) => {
-    openModal(true);
-    const clonedNotes = [...notes];
-
+    const clonedNotes = [...rawNotes];
     const noteIndex = clonedNotes.findIndex((note) => note.id === id);
-    clonedNotes.splice(noteIndex, 1, { ...notes[noteIndex], watched: true });
-    setNotes(clonedNotes);
+    clonedNotes.splice(noteIndex, 1, { ...rawNotes[noteIndex], watched: true });
+
+    openModal(true);
+    setRawNotes(clonedNotes);
   };
 
   const toggleNotePanel = (mode: boolean) => {
     openModal(mode);
   };
 
+  const updatedNotes = rawNotes.map((note) => ({
+    ...note,
+    remove: () => removeNote(note.id),
+    open: () => openNote(note.id),
+  }));
+
+  useEffect(() => {
+    setRawNotes(dummyNotes);
+  }, []);
+
   return (
     <div className="App">
-      <NotePanelModal toggleModal={toggleNotePanel} isOpen={isModalOpen} />
-
+      <NotePanelModal toggle={toggleNotePanel} isOpen={isModalOpen} />
       <AddNote add={addNote} />
-      <CenteredLayout>
-        <NotesTable notes={notes} open={openNote} remove={removeNote} />
-      </CenteredLayout>
+      <NotesTable notes={updatedNotes} />
     </div>
   );
 }
