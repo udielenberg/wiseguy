@@ -16,6 +16,14 @@ interface TabPanelProps {
   index: any;
   value: any;
 }
+
+interface TabManagerProps {
+  tabIndex: number;
+  data: any;
+  title: number;
+  children?: React.ReactNode;
+}
+
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
 
@@ -36,44 +44,48 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
-export const NoteMetadata: React.FC<Props> = ({ note }) => {
-  const [value, setValue] = React.useState(2);
+const TabManager: React.FC<TabManagerProps> = (props) => {
+  const { tabIndex, data, title, children } = props;
+  return (
+    <TabPanel value={title} index={tabIndex}>
+      {data.map((d: any) => (
+        <div>
+          <div>{d}</div>
+          <div>{children}</div>
+        </div>
+      ))}
+    </TabPanel>
+  );
+};
 
+const tabs = ["Main", "Approved", "Rejected"];
+
+export const NoteMetadata: React.FC<Props> = ({ note }) => {
+  const [tab, setTab] = React.useState(2);
+  const { resources, approved, rejected } = note;
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setValue(newValue);
+    setTab(newValue);
   };
   console.log("note metadata:", note);
   return (
     <Paper square>
       <AppBar position="static" color="default">
         <Tabs
-          value={value}
+          value={tab}
           indicatorColor="primary"
           textColor="primary"
           onChange={handleChange}
           aria-label="disabled tabs example"
           variant="fullWidth"
         >
-          <Tab label="Main" />
-          <Tab label="Approved" />
-          <Tab label="Rejected" />
+          {tabs.map((tab) => (
+            <Tab key={tab} label={`${tab} (${note.resources.length})`} />
+          ))}
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
-        {note.resources.map((r) => (
-          <div>{r}</div>
-        ))}
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        {note.approved.map((r) => (
-          <div>{r}</div>
-        ))}
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        {note.rejected.map((r) => (
-          <div>{r}</div>
-        ))}
-      </TabPanel>
+      {[resources, approved, rejected].map((data, tabIndex) => (
+        <TabManager key={tabIndex} {...{ data, tabIndex, title: tab }} />
+      ))}
     </Paper>
   );
 };
