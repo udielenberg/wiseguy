@@ -52,7 +52,6 @@ const TabManager: React.FC<TabManagerProps> = (props) => {
   const textStyle = { fontWeight: "bold" } as React.CSSProperties;
   const subjectStyle = { marginRight: 5 };
   const { value, index, data, children } = props;
-  console.log("tab manager data:", data);
   return (
     <TabPanel value={value} index={index}>
       <div style={style}>
@@ -69,19 +68,21 @@ const TabManager: React.FC<TabManagerProps> = (props) => {
       </div>
       <div style={style}>
         <span style={subjectStyle}>tags: </span>
-        {data.tags.map((tag: string, index: number) => (
-          <span
-            style={{
-              backgroundColor: "lightgray",
-              borderRadius: 5,
-              padding: 2,
-              marginRight: 5,
-            }}
-            key={index}
-          >
-            {tag}
-          </span>
-        ))}
+        {data.includeWords.map(
+          (word: { label: string; value: string }, index: number) => (
+            <span
+              style={{
+                backgroundColor: "lightgray",
+                borderRadius: 5,
+                padding: 2,
+                marginRight: 5,
+              }}
+              key={index}
+            >
+              {word.label}
+            </span>
+          )
+        )}
       </div>
       <div style={style}>
         <span style={subjectStyle}>article:</span>
