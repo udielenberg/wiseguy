@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import Chip from "@material-ui/core/Chip";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -9,36 +8,40 @@ const useStyles = makeStyles({
     margin: "0 5px",
   },
 });
-const Tags: React.FC<any> = ({ data }) => {
+
+const IncludeWords: React.FC<any> = ({ data }) => {
   const classes = useStyles();
   return (
     <>
-      {data.includeWords.map((word: any) => (
-        <Chip className={classes.word} key={word} size="small" label={word} />
-      ))}
+      {data.map((word: string, index: number) => {
+        return (
+          <Chip
+            className={classes.word}
+            key={index}
+            size="small"
+            label={word}
+          />
+        );
+      })}
     </>
   );
 };
 
 const LastVisit: React.FC<any> = ({ data }) => {
-  return (
-    <Typography variant="overline">{data.lastVisit?.toDateString()}</Typography>
-  );
+  return <Typography variant="overline">{data.toDateString()}</Typography>;
 };
 const Created: React.FC<any> = ({ data }) => {
-  return (
-    <Typography variant="overline">{data.created?.toDateString()}</Typography>
-  );
+  return <Typography variant="overline">{data.toDateString()}</Typography>;
 };
 const Search: React.FC<any> = ({ data }) => {
-  return <span>{data.search}</span>;
+  return <span>{data}</span>;
 };
 
-const Open: React.FC<any> = ({ data }) => {
-  return <button onClick={data.open}>Open</button>;
+const Open: React.FC<any> = ({ open }) => {
+  return <button onClick={open}>Open</button>;
 };
-const Remove: React.FC<any> = ({ data }) => {
-  return <button onClick={data.remove}>Remove</button>;
+const Remove: React.FC<any> = ({ remove }) => {
+  return <button onClick={remove}>Remove</button>;
 };
 
 interface Props {
@@ -50,25 +53,23 @@ export const Cell: React.FC<Props> = (props) => {
   const { field, data } = props;
 
   if (field === "search") {
-    return <Search data={data} />;
+    return <Search data={data.search} />;
   }
   if (field === "includeWords") {
-    return <Tags data={data} />;
+    return <IncludeWords data={data.includeWords} />;
   }
   if (field === "lastVisit") {
-    return <LastVisit data={data} />;
+    return <LastVisit data={data.lastVisit} />;
   }
   if (field === "open") {
-    return <Open data={data} />;
+    return <Open open={data.open} />;
   }
   if (field === "remove") {
-    return <Remove data={data} />;
+    return <Remove remove={data.remove} />;
   }
   if (field === "created") {
-    return <Created data={data} />;
+    return <Created data={data.created} />;
   } else {
-    throw Error("Invalid field");
+    throw Error(`invalid field: ${field}`);
   }
 };
-
-const Wrapper = styled.div``;
