@@ -3,18 +3,19 @@ import "./App.css";
 import { AddNote } from "components/AddNote";
 import { NotesTable } from "components/NotesTable/index";
 import { dummyNotes } from "dummydata/notes";
-import { Note } from "models/Note";
+import { Note, NoteSearchAndWords } from "models/Note";
 import { NotePanelModal } from "components/NotePanelModal";
 import { createNote } from "utils/noteUtils";
 
 function App() {
   const [rawNotes, setRawNotes] = useState<Note[]>([]);
-
   const [isModalOpen, openModal] = useState(false);
   const [selectedNote, setSelectedNote] = useState<Note | undefined>();
 
-  const addNote = useCallback((note: string) => {
-    setRawNotes((prevNotes) => [createNote(note), ...prevNotes]);
+  const addNote = useCallback((note: NoteSearchAndWords) => {
+    if (note.search) {
+      setRawNotes((prevNotes) => [createNote(note), ...prevNotes]);
+    }
   }, []);
 
   const removeNote = (id: string): void => {
