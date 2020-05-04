@@ -68,7 +68,7 @@ const TabManager: React.FC<TabManagerProps> = (props) => {
       </div>
       <div style={style}>
         <span style={subjectStyle}>tags: </span>
-        {data.includeWords.map(
+        {data.tags.map(
           (word: { label: string; value: string }, index: number) => (
             <span
               style={{
