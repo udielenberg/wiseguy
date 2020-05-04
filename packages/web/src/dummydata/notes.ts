@@ -3,7 +3,7 @@ import faker from 'faker';
 import range from 'lodash/range';
 import { baseNote, Note, resourceStates, baseResource } from 'models/Note'
 
-const setTags = () => range(faker.random.number({ min: 0, max: 3 })).map(_ => faker.commerce.product())
+const setIncludeWords = () => range(faker.random.number({ min: 0, max: 3 })).map(_ => faker.commerce.product())
 
 const randomArrayOfWords = () => range(faker.random.number({ min: 0, max: 4 })).map(_ => faker.random.word())
 const randomArrayOfImages = () => range(faker.random.number({ min: 0, max: 5 })).map(_ => faker.image.avatar())
@@ -27,7 +27,7 @@ const setResources = () => range(10).map(_ => createDummyResource())
 const createDummyNote = (): Note => ({
   ...baseNote,
   id: faker.random.uuid(),
-  includeWords: setTags(),
+  includeWords: setIncludeWords(),
   search: faker.lorem.words(),
   resources: setResources(),
 });
