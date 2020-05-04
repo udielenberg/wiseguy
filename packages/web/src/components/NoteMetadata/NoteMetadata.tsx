@@ -99,6 +99,7 @@ const TabManager: React.FC<TabManagerProps> = (props) => {
             height={100}
             key={img}
             src={img}
+            alt="blabla"
           />
         ))}
       </div>
