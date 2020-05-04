@@ -5,12 +5,7 @@ import { NotesTable } from "components/NotesTable/index";
 import { dummyNotes } from "dummydata/notes";
 import { Note } from "models/Note";
 import { NotePanelModal } from "components/NotePanelModal";
-import { baseNote } from "models/Note";
-
-const createNote = (note: string): Note => ({
-  ...baseNote,
-  search: note,
-});
+import { createNote } from "utils/noteUtils";
 
 function App() {
   const [rawNotes, setRawNotes] = useState<Note[]>([]);
