@@ -10,6 +10,7 @@ import Paper from "@material-ui/core/Paper";
 import { Note } from "models/Note";
 import { CenteredLayout } from "layouts";
 import { Cell } from "./cells";
+import styled from "styled-components";
 
 interface BaseHeaders {
   field: string;
@@ -19,13 +20,17 @@ export const baseHeaders: BaseHeaders[] = [
   { field: "search", title: "search" },
   { field: "includeWords", title: "Include words" },
   { field: "lastVisit", title: "last time visited" },
-  { field: "open", title: "results" },
-  { field: "remove", title: "remove" },
+  { field: "xxx", title: "xxx" },
   { field: "created", title: "created" },
+  { field: "remove", title: "" },
 ];
 
+interface NoteWithFn extends Note {
+  open(id: string): void;
+  remove(id: string): void;
+}
 interface Props {
-  notes: Note[];
+  notes: NoteWithFn[];
 }
 
 const useStyles = makeStyles({
@@ -35,11 +40,15 @@ const useStyles = makeStyles({
   selectedRow: {
     background: "aquamarine",
   },
+  rowrow: {
+    "&:hover": {
+      backgroundColor: "red",
+    },
+  },
 });
 
 export const NotesTable = ({ notes }: Props) => {
   const classes = useStyles();
-
   return (
     <CenteredLayout>
       <TableContainer component={Paper}>
@@ -53,7 +62,9 @@ export const NotesTable = ({ notes }: Props) => {
           </TableHead>
           <TableBody>
             {notes.map((note: Note) => (
-              <TableRow
+              <StyledRow
+                // @ts-ignore
+                onClick={note.open}
                 key={note.id}
                 className={!note.watched ? classes.selectedRow : ""}
               >
@@ -62,7 +73,7 @@ export const NotesTable = ({ notes }: Props) => {
                     <Cell field={field} data={note} />
                   </TableCell>
                 ))}
-              </TableRow>
+              </StyledRow>
             ))}
           </TableBody>
         </Table>
@@ -70,3 +81,12 @@ export const NotesTable = ({ notes }: Props) => {
     </CenteredLayout>
   );
 };
+
+const StyledRow = styled(TableRow)`
+  cursor: pointer;
+  transition: all 200ms ease;
+  background: transparent;
+  &:hover {
+    background: lightgray;
+  }
+`;
