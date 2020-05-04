@@ -1,36 +1,36 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import CreatableSelect from "react-select/creatable";
-
+import { WordOption } from "components/AddNote";
 const colourOptions: any = [];
 
 interface Props {
-  add(words: { label: string; value: string }[]): void;
+  setWord(word: string): void;
+  word: string;
+  setWords(words: WordOption[]): void;
+  words: WordOption[];
 }
 
 export const AddIncludeWords = (props: Props) => {
-  const { add } = props;
-  const [words, setWords] = useState<any>([]);
-  const [inputValue, setInputValue] = useState("");
-
+  const { words, word, setWord, setWords } = props;
   const handleChange = (options: any) => {
     setWords(options);
   };
 
   const handleInputChange = (input: any) => {
-    setInputValue(input);
+    setWord(input);
   };
   const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
-    const validInput = !!inputValue;
+    const validInput = !!word;
 
     if (validInput && (event.key === "Enter" || event.key === "Tab")) {
-      const newWord = { value: inputValue, label: inputValue };
-      const updatedWords = [...words, newWord];
+      const newWord = { value: word, label: word };
+      const updatedWords: WordOption[] = [...words, newWord];
       setWords(updatedWords);
-      setInputValue("");
-      add(updatedWords);
+      setWord("");
     }
   };
+  console.log("render words:", words);
   return (
     <Wrapper>
       <CreatableSelect
@@ -40,7 +40,7 @@ export const AddIncludeWords = (props: Props) => {
         onKeyDown={handleKeyDown}
         options={colourOptions}
         value={words}
-        inputValue={inputValue}
+        inputValue={word}
         menuIsOpen={false}
         isClearable
         components={{ DropdownIndicator: null }}

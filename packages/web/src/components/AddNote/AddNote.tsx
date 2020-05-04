@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
@@ -9,49 +9,57 @@ interface Props {
   add(note: NoteSearchAndWords): void;
 }
 
-interface WordOption {
+export interface WordOption {
   label: string;
   value: string;
 }
 
 export const AddNote = ({ add }: Props) => {
   const [noteText, setNoteText] = useState<string>();
-  const [includeWords, setIncludeWords] = useState<string[]>([]);
+  const [includeWords, setIncludeWords] = useState<any[]>([]);
+  const [wordValue, setWordValue] = useState("");
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNoteText(event.target.value);
-  };
-  const handleEnter = (event: any) => {
-    const value = noteText && noteText.trim();
-    if (event.key === "Enter" && value) {
-      add({
-        search: noteText,
-        includeWords,
-      });
-      setNoteText("");
+  const cleanedWordsList = includeWords.reduce((agg, option: WordOption) => {
+    if (option.label) {
+      return [...agg, option.label];
     }
-    if (event.key === "Tab") {
-      console.log("tab");
-    }
+    return agg;
+  }, [] as string[]);
+
+  const newNote = {
+    search: noteText,
+    includeWords: cleanedWordsList,
   };
 
-  const handleAddIncludeWords = (words: WordOption[]) => {
-    const cleanedList = words.reduce((agg, option: WordOption) => {
-      if (option.label) {
-        return [...agg, option.label];
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setNoteText(event.target.value);
+    },
+    []
+  );
+
+  const handleEnter = useCallback(
+    (event: any) => {
+      const value = noteText && noteText.trim();
+      if (event.key === "Enter" && value) {
+        add(newNote);
+        setNoteText("");
       }
-      return agg;
-    }, [] as string[]);
+      if (event.key === "Tab") {
+        console.log("tab");
+      }
+    },
+    [add, newNote, noteText]
+  );
 
-    setIncludeWords(cleanedList);
-  };
+  const handleAddIncludeWords = useCallback((words: WordOption[]) => {
+    setIncludeWords(words);
+  }, []);
 
   const handleAddClick = () => {
-    add({
-      search: noteText,
-      includeWords,
-    });
+    add(newNote);
     setNoteText("");
+    setIncludeWords([]);
   };
 
   return (
@@ -64,7 +72,13 @@ export const AddNote = ({ add }: Props) => {
         onKeyDown={handleEnter}
         onChange={handleChange}
       />
-      <AddIncludeWords add={handleAddIncludeWords} />
+      <AddIncludeWords
+        // add={handleAddIncludeWords}
+        words={includeWords}
+        setWords={handleAddIncludeWords}
+        word={wordValue}
+        setWord={setWordValue}
+      />
 
       <Button onClick={handleAddClick} variant="contained" color="primary">
         Add
