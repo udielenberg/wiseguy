@@ -21,12 +21,14 @@ export const AddIncludeWords = (props: Props) => {
     setInputValue(input);
   };
   const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
-    if (event.key === "Enter" || event.key === "Tab") {
+    const validInput = !!inputValue;
+
+    if (validInput && (event.key === "Enter" || event.key === "Tab")) {
       const newWord = { value: inputValue, label: inputValue };
       const updatedWords = [...words, newWord];
       setWords(updatedWords);
       setInputValue("");
-      add(updatedWords.filter(({ label }) => label));
+      add(updatedWords);
     }
   };
   return (

@@ -36,7 +36,14 @@ export const AddNote = ({ add }: Props) => {
   };
 
   const handleAddIncludeWords = (words: WordOption[]) => {
-    setIncludeWords(words.map(({ label }) => label));
+    const cleanedList = words.reduce((agg, option: WordOption) => {
+      if (option.label) {
+        return [...agg, option.label];
+      }
+      return agg;
+    }, [] as string[]);
+
+    setIncludeWords(cleanedList);
   };
 
   const handleAddClick = () => {
