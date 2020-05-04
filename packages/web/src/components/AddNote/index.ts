@@ -1,1 +1,1 @@
-export { AddNote } from './AddNote'
+export * from './AddNote'

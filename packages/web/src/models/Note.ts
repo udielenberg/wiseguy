@@ -25,6 +25,8 @@ export interface Note {
 }
 
 export const resourceStates: ResourceState[] = ["fresh", "undecided", "approved", "rejected"];
+export type NoteSearchAndWords = Pick<Note, "search" | "includeWords">;
+
 
 export const baseNote: Note = {
     id: '',
