@@ -6,7 +6,7 @@ import { baseNote, Note, resourceStates, baseResource } from 'models/Note'
 const setTags = () => range(faker.random.number({ min: 0, max: 3 })).map(_ => faker.commerce.product())
 
 const randomArrayOfWords = () => range(faker.random.number({ min: 0, max: 4 })).map(_ => faker.random.word())
-const randomArrayOfImages = () => range(faker.random.number({ min: 0, max: 5 })).map(_ => faker.image.imageUrl())
+const randomArrayOfImages = () => range(faker.random.number({ min: 0, max: 5 })).map(_ => faker.image.avatar())
 
 const createDummyResource = (): Resource => ({
   ...baseResource,
