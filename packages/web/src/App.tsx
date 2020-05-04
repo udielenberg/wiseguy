@@ -18,24 +18,30 @@ function App() {
     }
   }, []);
 
-  const removeNote = (id: string): void => {
+  const removeNote = useCallback((id: string): void => {
     setRawNotes((prevNotes) => {
       return prevNotes.filter((note) => note.id !== id);
     });
-  };
+  }, []);
 
-  const openNote = (id: string) => {
-    const clonedNotes = [...rawNotes];
-    const noteIndex = clonedNotes.findIndex((note) => note.id === id);
-    clonedNotes.splice(noteIndex, 1, { ...rawNotes[noteIndex], watched: true });
-    setSelectedNote(clonedNotes[noteIndex]);
-    openModal(true);
-    setRawNotes(clonedNotes);
-  };
+  const openNote = useCallback(
+    (id: string) => {
+      const clonedNotes = [...rawNotes];
+      const noteIndex = clonedNotes.findIndex((note) => note.id === id);
+      clonedNotes.splice(noteIndex, 1, {
+        ...rawNotes[noteIndex],
+        watched: true,
+      });
+      setSelectedNote(clonedNotes[noteIndex]);
+      openModal(true);
+      setRawNotes(clonedNotes);
+    },
+    [rawNotes]
+  );
 
-  const toggleNotePanel = (mode: boolean) => {
+  const toggleNotePanel = useCallback((mode: boolean) => {
     openModal(mode);
-  };
+  }, []);
 
   const updatedNotes = rawNotes.map((note) => ({
     ...note,
