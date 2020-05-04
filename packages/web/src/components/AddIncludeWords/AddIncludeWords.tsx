@@ -30,7 +30,7 @@ export const AddIncludeWords = (props: Props) => {
       setWord("");
     }
   };
-  console.log("render words:", words);
+
   return (
     <Wrapper>
       <CreatableSelect
