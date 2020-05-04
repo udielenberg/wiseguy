@@ -2,6 +2,8 @@ import React from "react";
 import Chip from "@material-ui/core/Chip";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const useStyles = makeStyles({
   word: {
@@ -37,13 +39,6 @@ const Search: React.FC<any> = ({ data }) => {
   return <span>{data}</span>;
 };
 
-const Open: React.FC<any> = ({ open }) => {
-  return <button onClick={open}>Open</button>;
-};
-const Remove: React.FC<any> = ({ remove }) => {
-  return <button onClick={remove}>Remove</button>;
-};
-
 interface Props {
   field: string;
   data: any;
@@ -61,11 +56,23 @@ export const Cell: React.FC<Props> = (props) => {
   if (field === "lastVisit") {
     return <LastVisit data={data.lastVisit} />;
   }
-  if (field === "open") {
-    return <Open open={data.open} />;
+  if (field === "xxx") {
+    return null;
   }
   if (field === "remove") {
-    return <Remove remove={data.remove} />;
+    return (
+      <IconButton
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          data.remove();
+        }}
+        color="secondary"
+        aria-label="add an alarm"
+      >
+        <DeleteIcon />
+      </IconButton>
+    );
   }
   if (field === "created") {
     return <Created data={data.created} />;
