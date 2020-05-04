@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import TextField from "@material-ui/core/TextField";
 
 interface Props {
   add(note: any): void;
@@ -7,8 +8,8 @@ interface Props {
 export const AddNote = ({ add }: Props) => {
   const [note, setNote] = useState<string>();
 
-  const handleChange = (_: any, data: any) => {
-    setNote(data.value);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNote(event.target.value);
   };
   const handleEnter = (event: any) => {
     const value = note && note.trim();
@@ -19,16 +20,14 @@ export const AddNote = ({ add }: Props) => {
   };
   return (
     <Wrapper>
-      {/* <Input
-        data-testid="addNote"
-        size="huge"
-        icon="add"
+      <TextField
         value={note}
-        placeholder="Add note..."
-        onChange={handleChange}
+        label="add note..."
+        variant="outlined"
+        autoFocus
         onKeyDown={handleEnter}
-      /> */}
-      <input placeholder="asdasd" />
+        onChange={handleChange}
+      />
     </Wrapper>
   );
 };
