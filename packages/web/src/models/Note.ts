@@ -6,18 +6,18 @@ export interface Resource {
     state: ResourceState;
     tags: string[];
     rating: number;
-    link: string;
-    description: string;
+    link: string | undefined;
+    description: string | undefined;
     createdAt: Date;
     updatedAt?: Date;
     images?: string[];
-    writtenBy: string;
+    writtenBy: string | undefined;
     readingTime: number;
 }
 export interface Note {
     id: string;
     created: Date;
-    search: string;
+    search: string | undefined;
     tags: Array<string>;
     lastVisit: Date;
     watched: boolean;
@@ -30,7 +30,7 @@ export const resourceStates: ResourceState[] = ["fresh", "undecided", "approved"
 export const baseNote: Note = {
     id: faker.random.uuid(),
     created: new Date(),
-    search: '',
+    search: undefined,
     tags: [],
     lastVisit: new Date(),
     watched: false,
@@ -41,11 +41,11 @@ export const baseResource: Resource = {
     id: faker.random.uuid(),
     state: "fresh",
     tags: [],
-    link: '',
+    link: undefined,
     rating: 0,
-    description: '',
+    description: undefined,
     images: [],
     createdAt: new Date(),
     readingTime: 0,
-    writtenBy: ''
+    writtenBy: undefined
 }
