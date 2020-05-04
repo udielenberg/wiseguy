@@ -1,4 +1,3 @@
-import faker from 'faker';
 
 export type ResourceState = "fresh" | "undecided" | "approved" | "rejected"
 export interface Resource {
@@ -28,7 +27,7 @@ export interface Note {
 export const resourceStates: ResourceState[] = ["fresh", "undecided", "approved", "rejected"];
 
 export const baseNote: Note = {
-    id: faker.random.uuid(),
+    id: '',
     created: new Date(),
     search: undefined,
     tags: [],
@@ -38,7 +37,7 @@ export const baseNote: Note = {
 }
 
 export const baseResource: Resource = {
-    id: faker.random.uuid(),
+    id: '',
     state: "fresh",
     tags: [],
     link: undefined,
