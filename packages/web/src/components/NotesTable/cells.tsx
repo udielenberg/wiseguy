@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
-  tag: {
+  word: {
     margin: "0 5px",
   },
 });
@@ -13,8 +13,8 @@ const Tags: React.FC<any> = ({ data }) => {
   const classes = useStyles();
   return (
     <>
-      {data.tags.map((tag: any) => (
-        <Chip className={classes.tag} key={tag} size="small" label={tag} />
+      {data.includeWords.map((word: any) => (
+        <Chip className={classes.word} key={word} size="small" label={word} />
       ))}
     </>
   );
@@ -52,7 +52,7 @@ export const Cell: React.FC<Props> = (props) => {
   if (field === "search") {
     return <Search data={data} />;
   }
-  if (field === "tags") {
+  if (field === "includeWords") {
     return <Tags data={data} />;
   }
   if (field === "lastVisit") {

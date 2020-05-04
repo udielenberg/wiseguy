@@ -17,7 +17,7 @@ export interface Note {
     id: string;
     created: Date;
     search: string | undefined;
-    tags: Array<string>;
+    includeWords: Array<string>;
     lastVisit: Date;
     watched: boolean;
     resources: Resource[];
@@ -30,7 +30,7 @@ export const baseNote: Note = {
     id: '',
     created: new Date(),
     search: undefined,
-    tags: [],
+    includeWords: [],
     lastVisit: new Date(),
     watched: false,
     resources: [],
