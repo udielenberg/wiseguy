@@ -18,6 +18,7 @@ const IncludeWords: React.FC<any> = ({ data }) => {
       {data.map((word: string, index: number) => {
         return (
           <Chip
+            variant="outlined"
             className={classes.word}
             key={index}
             size="small"
@@ -29,9 +30,6 @@ const IncludeWords: React.FC<any> = ({ data }) => {
   );
 };
 
-const LastVisit: React.FC<any> = ({ data }) => {
-  return <Typography variant="overline">{data.toDateString()}</Typography>;
-};
 const Created: React.FC<any> = ({ data }) => {
   return <Typography variant="overline">{data.toDateString()}</Typography>;
 };
@@ -52,9 +50,6 @@ export const Cell: React.FC<Props> = (props) => {
   }
   if (field === "includeWords") {
     return <IncludeWords data={data.includeWords} />;
-  }
-  if (field === "lastVisit") {
-    return <LastVisit data={data.lastVisit} />;
   }
   if (field === "xxx") {
     return null;

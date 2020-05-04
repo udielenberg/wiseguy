@@ -19,7 +19,6 @@ interface BaseHeaders {
 export const baseHeaders: BaseHeaders[] = [
   { field: "search", title: "search" },
   { field: "includeWords", title: "Include words" },
-  { field: "lastVisit", title: "last time visited" },
   { field: "xxx", title: "xxx" },
   { field: "created", title: "created" },
   { field: "remove", title: "" },
@@ -38,12 +37,7 @@ const useStyles = makeStyles({
     minWidth: 650,
   },
   selectedRow: {
-    background: "aquamarine",
-  },
-  rowrow: {
-    "&:hover": {
-      backgroundColor: "red",
-    },
+    background: "rgba(177,255,212,0.4)",
   },
 });
 
@@ -53,13 +47,13 @@ export const NotesTable = ({ notes }: Props) => {
     <CenteredLayout>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
-          <TableHead>
+          <StyledTableHeader>
             <TableRow>
               {baseHeaders.map(({ field, title }) => (
                 <TableCell key={field}>{title}</TableCell>
               ))}
             </TableRow>
-          </TableHead>
+          </StyledTableHeader>
           <TableBody>
             {notes.map((note: Note) => (
               <StyledRow
@@ -87,6 +81,10 @@ const StyledRow = styled(TableRow)`
   transition: all 200ms ease;
   background: transparent;
   &:hover {
-    background: lightgray;
+    background: rgba(211, 211, 211, 0.5);
   }
+`;
+
+const StyledTableHeader = styled(TableHead)`
+  background: rgba(0, 0, 0, 0.1);
 `;
