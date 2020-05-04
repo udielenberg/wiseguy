@@ -17,7 +17,7 @@ interface BaseHeaders {
 }
 export const baseHeaders: BaseHeaders[] = [
   { field: "search", title: "search" },
-  { field: "tags", title: "tags" },
+  { field: "includeWords", title: "Include words" },
   { field: "lastVisit", title: "last time visited" },
   { field: "open", title: "results" },
   { field: "remove", title: "remove" },

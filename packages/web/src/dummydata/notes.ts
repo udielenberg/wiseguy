@@ -27,7 +27,7 @@ const setResources = () => range(10).map(_ => createDummyResource())
 const createDummyNote = (): Note => ({
   ...baseNote,
   id: faker.random.uuid(),
-  tags: setTags(),
+  includeWords: setTags(),
   search: faker.lorem.words(),
   resources: setResources(),
 });
