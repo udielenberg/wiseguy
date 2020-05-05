@@ -3,7 +3,7 @@ export type ResourceState = "fresh" | "undecided" | "approved" | "rejected"
 export interface Resource {
     id: string;
     state: ResourceState;
-    tags: string[];
+    includeWords: string[] | undefined;
     rating: number;
     link: string | undefined;
     description: string | undefined;
@@ -39,7 +39,7 @@ export const baseNote: Note = {
 export const baseResource: Resource = {
     id: '',
     state: "fresh",
-    tags: [],
+    includeWords: [],
     link: undefined,
     rating: 0,
     description: undefined,

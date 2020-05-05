@@ -86,20 +86,22 @@ const TabPanel: React.FC<{
           </div>
 
           <div style={style}>
-            <span style={subjectStyle}>tags: </span>
-            {resources[current].tags.map((word: string, index: number) => (
-              <span
-                style={{
-                  backgroundColor: "lightgray",
-                  borderRadius: 5,
-                  padding: 2,
-                  marginRight: 5,
-                }}
-                key={index}
-              >
-                {word}
-              </span>
-            ))}
+            <span style={subjectStyle}>include words: </span>
+            {resources[current].includeWords?.map(
+              (word: string, index: number) => (
+                <span
+                  style={{
+                    backgroundColor: "lightgray",
+                    borderRadius: 5,
+                    padding: 2,
+                    marginRight: 5,
+                  }}
+                  key={index}
+                >
+                  {word}
+                </span>
+              )
+            )}
           </div>
 
           <div style={style}>

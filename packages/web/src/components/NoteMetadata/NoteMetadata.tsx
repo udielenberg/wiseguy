@@ -18,7 +18,7 @@ export const tabs = [
 export const NoteMetadata: React.FC<Props> = ({ note }) => {
   const [currentTab, setTab] = React.useState(0);
   const { resources } = note;
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+  const handleChange = (_: React.ChangeEvent<{}>, newValue: number) => {
     setTab(newValue);
   };
 
