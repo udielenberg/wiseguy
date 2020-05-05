@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import { Button } from "@material-ui/core";
 import CheckIcon from "@material-ui/icons/Check";
 import ClearIcon from "@material-ui/icons/Clear";
+import styled from "styled-components";
 
 interface Props {
   note: Note;
@@ -32,6 +33,7 @@ function TabPanel(props: TabPanelProps) {
 
   return (
     <div
+      style={{ flex: 1 }}
       role="tabpanel"
       hidden={value !== index}
       id={`scrollable-force-tabpanel-${index}`}
@@ -136,7 +138,7 @@ export const NoteMetadata: React.FC<Props> = ({ note }) => {
     setTab(newValue);
   };
   return (
-    <Paper square>
+    <StyledPaper square>
       <AppBar position="static" color="default">
         <Tabs
           value={tabIndex}
@@ -154,9 +156,26 @@ export const NoteMetadata: React.FC<Props> = ({ note }) => {
           })}
         </Tabs>
       </AppBar>
-      {resources.map((data, index) => {
-        return <TabManager key={index} {...{ data, index, value: tabIndex }} />;
-      })}
-    </Paper>
+      <div style={{ display: "flex", height: "100%" }}>
+        <Button color="primary" variant="contained">
+          Left
+        </Button>
+        {resources.map((data, index) => {
+          return (
+            <TabManager key={index} {...{ data, index, value: tabIndex }} />
+          );
+        })}
+        <Button color="primary" variant="contained">
+          Right
+        </Button>
+      </div>
+    </StyledPaper>
   );
 };
+
+const StyledPaper = styled(Paper)`
+  &&& {
+    padding: 0;
+    height: fit-content;
+  }
+`;
