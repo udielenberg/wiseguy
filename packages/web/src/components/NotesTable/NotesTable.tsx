@@ -10,6 +10,7 @@ import Paper from "@material-ui/core/Paper";
 import { Note } from "models/Note";
 import { CenteredLayout } from "layouts";
 import { Cell } from "./cells";
+import styled from "styled-components";
 
 interface BaseHeaders {
   field: string;
@@ -18,14 +19,17 @@ interface BaseHeaders {
 export const baseHeaders: BaseHeaders[] = [
   { field: "search", title: "search" },
   { field: "includeWords", title: "Include words" },
-  { field: "lastVisit", title: "last time visited" },
-  { field: "open", title: "results" },
-  { field: "remove", title: "remove" },
+  { field: "xxx", title: "xxx" },
   { field: "created", title: "created" },
+  { field: "remove", title: "" },
 ];
 
+interface NoteWithFn extends Note {
+  open(id: string): void;
+  remove(id: string): void;
+}
 interface Props {
-  notes: Note[];
+  notes: NoteWithFn[];
 }
 
 const useStyles = makeStyles({
@@ -33,27 +37,28 @@ const useStyles = makeStyles({
     minWidth: 650,
   },
   selectedRow: {
-    background: "aquamarine",
+    background: "rgba(177,255,212,0.4)",
   },
 });
 
 export const NotesTable = ({ notes }: Props) => {
   const classes = useStyles();
-
   return (
     <CenteredLayout>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
-          <TableHead>
+          <StyledTableHeader>
             <TableRow>
               {baseHeaders.map(({ field, title }) => (
                 <TableCell key={field}>{title}</TableCell>
               ))}
             </TableRow>
-          </TableHead>
+          </StyledTableHeader>
           <TableBody>
             {notes.map((note: Note) => (
-              <TableRow
+              <StyledRow
+                // @ts-ignore
+                onClick={note.open}
                 key={note.id}
                 className={!note.watched ? classes.selectedRow : ""}
               >
@@ -62,7 +67,7 @@ export const NotesTable = ({ notes }: Props) => {
                     <Cell field={field} data={note} />
                   </TableCell>
                 ))}
-              </TableRow>
+              </StyledRow>
             ))}
           </TableBody>
         </Table>
@@ -70,3 +75,16 @@ export const NotesTable = ({ notes }: Props) => {
     </CenteredLayout>
   );
 };
+
+const StyledRow = styled(TableRow)`
+  cursor: pointer;
+  transition: all 200ms ease;
+  background: transparent;
+  &:hover {
+    background: rgba(211, 211, 211, 0.5);
+  }
+`;
+
+const StyledTableHeader = styled(TableHead)`
+  background: rgba(0, 0, 0, 0.1);
+`;

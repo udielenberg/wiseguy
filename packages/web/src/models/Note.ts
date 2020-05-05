@@ -18,7 +18,6 @@ export interface Note {
     created: Date;
     search: string | undefined;
     includeWords: Array<string>;
-    lastVisit: Date;
     watched: boolean;
     resources: Resource[];
 
@@ -33,7 +32,6 @@ export const baseNote: Note = {
     created: new Date(),
     search: undefined,
     includeWords: [],
-    lastVisit: new Date(),
     watched: false,
     resources: [],
 }

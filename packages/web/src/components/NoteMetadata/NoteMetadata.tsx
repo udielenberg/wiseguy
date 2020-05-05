@@ -68,21 +68,19 @@ const TabManager: React.FC<TabManagerProps> = (props) => {
       </div>
       <div style={style}>
         <span style={subjectStyle}>tags: </span>
-        {data.tags.map(
-          (word: { label: string; value: string }, index: number) => (
-            <span
-              style={{
-                backgroundColor: "lightgray",
-                borderRadius: 5,
-                padding: 2,
-                marginRight: 5,
-              }}
-              key={index}
-            >
-              {word.label}
-            </span>
-          )
-        )}
+        {data.tags.map((word: string, index: number) => (
+          <span
+            style={{
+              backgroundColor: "lightgray",
+              borderRadius: 5,
+              padding: 2,
+              marginRight: 5,
+            }}
+            key={index}
+          >
+            {word}
+          </span>
+        ))}
       </div>
       <div style={style}>
         <span style={subjectStyle}>article:</span>
