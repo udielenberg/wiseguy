@@ -5,14 +5,13 @@ import { baseNote, Note, resourceStates, baseResource } from 'models/Note'
 
 const setIncludeWords = () => range(faker.random.number({ min: 0, max: 3 })).map(_ => faker.commerce.product())
 
-const randomArrayOfWords = () => range(faker.random.number({ min: 0, max: 4 })).map(_ => faker.random.word())
 const randomArrayOfImages = () => range(faker.random.number({ min: 0, max: 5 })).map(_ => faker.image.avatar())
 
 const createDummyResource = (): Resource => ({
   ...baseResource,
   id: faker.random.uuid(),
   state: faker.random.arrayElement(resourceStates),
-  tags: randomArrayOfWords(),
+  includeWords: undefined,
   link: 'http://www.walla.co.il',
   rating: faker.random.number({ min: 1, max: 1000 }),
   description: faker.random.words(),

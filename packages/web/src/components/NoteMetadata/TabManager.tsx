@@ -6,6 +6,7 @@ import { Resource } from "models/Note";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import isEmpty from "lodash/isEmpty";
+import Chip from "@material-ui/core/Chip";
 import styled from "styled-components";
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -35,124 +36,82 @@ const TabPanel: React.FC<{
     }
   };
 
-  // TODO:move outside
-  const style = { padding: 5 };
-  const textStyle = { fontWeight: "bold" } as React.CSSProperties;
-  const subjectStyle = { marginRight: 5 };
-
   if (isEmpty(resources)) {
     return (
-      <Wrapper>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
-          }}
-        >
-          <h3>No resources.</h3>
-        </div>
-      </Wrapper>
+      <CenteredMessageWrapper>
+        <h3>No resources.</h3>
+      </CenteredMessageWrapper>
     );
   }
   return (
     <Wrapper>
-      <div style={{ display: "flex", flex: 1 }}>
+      <CarouselWrapper>
         <Button color="primary" variant="contained" onClick={handleBack}>
           <ArrowBackIosIcon />
         </Button>
-        <div style={{ flex: 1, padding: 20 }}>
-          <div>
-            <span>
-              {current + 1}/{resources.length}
-            </span>
-          </div>
-          <div style={style}>
-            <span style={subjectStyle}>description:</span>{" "}
-            <span style={textStyle}>{resources[current].description}</span>
-          </div>
+        <ContentWrapper>
+          <StyledInfo>
+            <MarginedText>
+              ({current + 1}/{resources.length})
+            </MarginedText>
+          </StyledInfo>
+          <StyledInfo>
+            <MarginedText>description:</MarginedText>{" "}
+            <BoldText>{resources[current].description}</BoldText>
+          </StyledInfo>
 
-          <div style={style}>
-            <span style={subjectStyle}>created at: </span>
-            <span style={textStyle}>
-              {resources[current].createdAt.toDateString()}
-            </span>
-          </div>
+          <StyledInfo>
+            <MarginedText>created at: </MarginedText>
+            <BoldText>{resources[current].createdAt.toDateString()}</BoldText>
+          </StyledInfo>
 
-          <div style={style}>
-            <span style={subjectStyle}>rating:</span>{" "}
-            <span style={textStyle}>{resources[current].rating}</span>
-          </div>
+          <StyledInfo>
+            <MarginedText>rating:</MarginedText>{" "}
+            <BoldText>{resources[current].rating}</BoldText>
+          </StyledInfo>
 
-          <div style={style}>
-            <span style={subjectStyle}>tags: </span>
-            {resources[current].tags.map((word: string, index: number) => (
-              <span
-                style={{
-                  backgroundColor: "lightgray",
-                  borderRadius: 5,
-                  padding: 2,
-                  marginRight: 5,
-                }}
-                key={index}
-              >
-                {word}
-              </span>
-            ))}
-          </div>
+          <StyledInfo>
+            <MarginedText>include words: </MarginedText>
+            {resources[current].includeWords?.map(
+              (word: string, index: number) => (
+                <StyledChip
+                  variant="outlined"
+                  key={index}
+                  size="small"
+                  label={word}
+                />
+              )
+            )}
+          </StyledInfo>
 
-          <div style={style}>
-            <span style={subjectStyle}>article:</span>
-            <a style={style} href={resources[current].link}>
-              link
-            </a>
-          </div>
+          <StyledInfo>
+            <MarginedText>article:</MarginedText>
+            <a href={resources[current].link}>link</a>
+          </StyledInfo>
 
-          <div
-            style={{
-              padding: 10,
-              backgroundColor: "lightgray",
-              borderRadius: 5,
-            }}
-          >
+          <ImageContainer>
             {resources[current].images.map((img: string) => (
-              <img
-                style={{ marginRight: 10 }}
-                width={100}
-                height={100}
-                key={img}
-                src={img}
-                alt="blabla"
-              />
+              <img key={img} src={img} alt="blabla" />
             ))}
-          </div>
+          </ImageContainer>
 
-          <div style={style}>
-            written by:{" "}
-            <span style={textStyle}>{resources[current].writtenBy}</span>
-          </div>
-        </div>
+          <StyledInfo>
+            written by: <BoldText>{resources[current].writtenBy}</BoldText>
+          </StyledInfo>
+        </ContentWrapper>
 
         <Button color="primary" variant="contained" onClick={handleForward}>
           <ArrowForwardIosIcon />
         </Button>
-      </div>
-      <div
-        style={{
-          marginTop: 30,
-          display: "flex",
-          flexBasis: "50px",
-          justifyContent: "space-between",
-        }}
-      >
+      </CarouselWrapper>
+      <ActionWrapper>
         <Button variant="contained" color="primary" startIcon={<CheckIcon />}>
           (Left arrow)
         </Button>
         <Button variant="contained" color="secondary" startIcon={<ClearIcon />}>
           (Right arrow)
         </Button>
-      </div>
+      </ActionWrapper>
     </Wrapper>
   );
 };
@@ -178,4 +137,57 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 80vh;
+  margin-top: 40px;
+`;
+
+const StyledInfo = styled.div`
+  padding: 5px;
+`;
+
+const BoldText = styled.span`
+  font-weight: bold;
+`;
+
+const MarginedText = styled.span`
+  margin-right: 5px;
+`;
+
+const ImageContainer = styled.div`
+  padding: 10px;
+  background: lightgray;
+  border-radius: 5px;
+
+  img {
+    margin-right: 10px;
+    width: 100px;
+    height: 100px;
+  }
+`;
+
+const ActionWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-basis: 50px;
+  margin-top: 30px;
+`;
+
+const StyledChip = styled(Chip)`
+  margin: 0 5px;
+`;
+
+const CenteredMessageWrapper = styled(Wrapper)`
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  color: lightgray;
+`;
+
+const ContentWrapper = styled.div`
+  flex: 1;
+  padding: 20px;
+`;
+
+const CarouselWrapper = styled.div`
+  display: flex;
+  flex: 1;
 `;
