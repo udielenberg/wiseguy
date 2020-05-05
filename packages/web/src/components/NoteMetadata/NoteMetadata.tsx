@@ -1,147 +1,32 @@
 import React from "react";
 import { Note } from "models/Note";
-import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import AppBar from "@material-ui/core/AppBar";
-import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
-import { Button } from "@material-ui/core";
-import CheckIcon from "@material-ui/icons/Check";
-import ClearIcon from "@material-ui/icons/Clear";
-import styled from "styled-components";
 
+import { TabManager } from "./TabManager";
 interface Props {
   note: Note;
 }
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: any;
-  value: any;
-}
-
-interface TabManagerProps {
-  value: number;
-  index: number;
-  data: any;
-  children?: React.ReactNode;
-}
-
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      style={{ flex: 1 }}
-      role="tabpanel"
-      hidden={value !== index}
-      id={`scrollable-force-tabpanel-${index}`}
-      aria-labelledby={`scrollable-force-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-const TabManager: React.FC<TabManagerProps> = (props) => {
-  const style = { padding: 5 };
-  const textStyle = { fontWeight: "bold" } as React.CSSProperties;
-  const subjectStyle = { marginRight: 5 };
-  const { value, index, data, children } = props;
-  return (
-    <TabPanel value={value} index={index}>
-      <div style={style}>
-        <span style={subjectStyle}>description:</span>{" "}
-        <span style={textStyle}>{data.description}</span>
-      </div>
-      <div style={style}>
-        <span style={subjectStyle}>created at: </span>
-        <span style={textStyle}>{data.createdAt.toDateString()}</span>
-      </div>
-      <div style={style}>
-        <span style={subjectStyle}>rating:</span>{" "}
-        <span style={textStyle}>{data.rating}</span>
-      </div>
-      <div style={style}>
-        <span style={subjectStyle}>tags: </span>
-        {data.tags.map((word: string, index: number) => (
-          <span
-            style={{
-              backgroundColor: "lightgray",
-              borderRadius: 5,
-              padding: 2,
-              marginRight: 5,
-            }}
-            key={index}
-          >
-            {word}
-          </span>
-        ))}
-      </div>
-      <div style={style}>
-        <span style={subjectStyle}>article:</span>
-        <a style={style} href={data.link}>
-          link
-        </a>
-      </div>
-      <div
-        style={{ padding: 10, backgroundColor: "lightgray", borderRadius: 5 }}
-      >
-        {data.images.map((img: string) => (
-          <img
-            style={{ marginRight: 10 }}
-            width={100}
-            height={100}
-            key={img}
-            src={img}
-            alt="blabla"
-          />
-        ))}
-      </div>
-      <div style={style}>
-        written by: <span style={textStyle}>{data.writtenBy}</span>
-      </div>
-      <div
-        style={{
-          marginTop: 30,
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <Button variant="contained" color="primary" startIcon={<CheckIcon />}>
-          (Left arrow)
-        </Button>
-        <Button variant="contained" color="secondary" startIcon={<ClearIcon />}>
-          (Right arrow)
-        </Button>
-      </div>
-    </TabPanel>
-  );
-};
-
-const tabs = [
+export const tabs = [
   { type: "fresh", title: "Main" },
   { type: "approved", title: "Approved" },
   { type: "rejected", title: "Rejected" },
 ];
 
 export const NoteMetadata: React.FC<Props> = ({ note }) => {
-  const [tabIndex, setTab] = React.useState(0);
+  const [currentTab, setTab] = React.useState(0);
   const { resources } = note;
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setTab(newValue);
   };
+
   return (
-    <StyledPaper square>
+    <div style={{ background: "white" }}>
       <AppBar position="static" color="default">
         <Tabs
-          value={tabIndex}
+          value={currentTab}
           indicatorColor="primary"
           textColor="primary"
           onChange={handleChange}
@@ -156,26 +41,8 @@ export const NoteMetadata: React.FC<Props> = ({ note }) => {
           })}
         </Tabs>
       </AppBar>
-      <div style={{ display: "flex", height: "100%" }}>
-        <Button color="primary" variant="contained">
-          Left
-        </Button>
-        {resources.map((data, index) => {
-          return (
-            <TabManager key={index} {...{ data, index, value: tabIndex }} />
-          );
-        })}
-        <Button color="primary" variant="contained">
-          Right
-        </Button>
-      </div>
-    </StyledPaper>
+
+      <TabManager {...{ currentTab, resources }} />
+    </div>
   );
 };
-
-const StyledPaper = styled(Paper)`
-  &&& {
-    padding: 0;
-    height: fit-content;
-  }
-`;

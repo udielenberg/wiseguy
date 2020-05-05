@@ -13,7 +13,14 @@ export const NotePanelModal = ({ isOpen, toggle, note }: Props) => {
   if (note) {
     return (
       <Modal open={isOpen} {...{ toggle, note }}>
-        <NoteMetadata note={note} />
+        <div
+          style={{
+            border: "3px solid black",
+            height: "100%",
+          }}
+        >
+          <NoteMetadata note={note} />
+        </div>
       </Modal>
     );
   } else {
