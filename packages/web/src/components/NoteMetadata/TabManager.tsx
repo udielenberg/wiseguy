@@ -5,7 +5,8 @@ import { Button } from "@material-ui/core";
 import { Resource } from "models/Note";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-
+import isEmpty from "lodash/isEmpty";
+import styled from "styled-components";
 interface TabPanelProps {
   children?: React.ReactNode;
   index: any;
@@ -39,14 +40,24 @@ const TabPanel: React.FC<{
   const textStyle = { fontWeight: "bold" } as React.CSSProperties;
   const subjectStyle = { marginRight: 5 };
 
+  if (isEmpty(resources)) {
+    return (
+      <Wrapper>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+          }}
+        >
+          <h3>No resources.</h3>
+        </div>
+      </Wrapper>
+    );
+  }
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        height: "80vh",
-      }}
-    >
+    <Wrapper>
       <div style={{ display: "flex", flex: 1 }}>
         <Button color="primary" variant="contained" onClick={handleBack}>
           <ArrowBackIosIcon />
@@ -142,7 +153,7 @@ const TabPanel: React.FC<{
           (Right arrow)
         </Button>
       </div>
-    </div>
+    </Wrapper>
   );
 };
 
@@ -159,5 +170,12 @@ export const TabManager: React.FC<TabManagerProps> = (props) => {
     return all;
   }, {});
 
-  return <TabPanel resources={sortedResources[tabs[currentTab]]} />;
+  const relevantResource = sortedResources[tabs[currentTab]] || [];
+  return <TabPanel resources={relevantResource} />;
 };
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+`;
