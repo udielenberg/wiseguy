@@ -5,6 +5,7 @@ import Tab from "@material-ui/core/Tab";
 import AppBar from "@material-ui/core/AppBar";
 
 import { TabManager } from "./TabManager";
+import styled from "styled-components";
 interface Props {
   note: Note;
 }
@@ -23,7 +24,7 @@ export const NoteMetadata: React.FC<Props> = ({ note }) => {
   };
 
   return (
-    <div style={{ background: "white" }}>
+    <Wrapper>
       <AppBar position="static" color="default">
         <Tabs
           value={currentTab}
@@ -43,6 +44,10 @@ export const NoteMetadata: React.FC<Props> = ({ note }) => {
       </AppBar>
 
       <TabManager {...{ currentTab, resources }} />
-    </div>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  background: white;
+`;
