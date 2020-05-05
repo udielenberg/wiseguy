@@ -44,6 +44,7 @@ export const AddNote = ({ add }: Props) => {
       if (event.key === "Enter" && value) {
         add(newNote);
         setNoteText("");
+        setIncludeWords([]);
       }
       if (event.key === "Tab") {
         console.log("tab");
@@ -73,7 +74,8 @@ export const AddNote = ({ add }: Props) => {
         onChange={handleChange}
       />
       <AddIncludeWords
-        // add={handleAddIncludeWords}
+        noteText={noteText}
+        addNote={handleAddClick}
         words={includeWords}
         setWords={handleAddIncludeWords}
         word={wordValue}

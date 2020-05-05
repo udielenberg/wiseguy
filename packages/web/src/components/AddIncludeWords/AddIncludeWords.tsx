@@ -9,10 +9,12 @@ interface Props {
   word: string;
   setWords(words: WordOption[]): void;
   words: WordOption[];
+  addNote(): void;
+  noteText: string | undefined;
 }
 
 export const AddIncludeWords = (props: Props) => {
-  const { words, word, setWord, setWords } = props;
+  const { words, word, setWord, setWords, addNote, noteText } = props;
   const handleChange = (options: any) => {
     setWords(options);
   };
@@ -22,7 +24,9 @@ export const AddIncludeWords = (props: Props) => {
   };
   const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
     const validInput = !!word;
-
+    if (!validInput && event.key === "Enter" && noteText) {
+      addNote();
+    }
     if (validInput && (event.key === "Enter" || event.key === "Tab")) {
       const newWord = { value: word, label: word };
       const updatedWords: WordOption[] = [...words, newWord];
