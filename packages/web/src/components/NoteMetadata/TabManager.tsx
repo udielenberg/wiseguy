@@ -178,4 +178,5 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 80vh;
+  margin-top: 40px;
 `;
