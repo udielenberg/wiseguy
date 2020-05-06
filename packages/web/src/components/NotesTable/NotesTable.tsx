@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -11,6 +11,7 @@ import { Note } from "models/Note";
 import { CenteredLayout } from "layouts";
 import { Cell } from "./cells";
 import styled from "styled-components";
+import { NotesContext } from "context/Notes.context";
 
 interface BaseHeaders {
   field: string;
@@ -42,7 +43,10 @@ const useStyles = makeStyles({
 });
 
 export const NotesTable = ({ notes }: Props) => {
+  const [state, actions] = useContext(NotesContext);
+  console.log("state:", state);
   const classes = useStyles();
+
   return (
     <CenteredLayout>
       <TableContainer component={Paper}>

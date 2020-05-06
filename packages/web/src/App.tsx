@@ -6,6 +6,7 @@ import { dummyNotes } from "dummydata/notes";
 import { Note, NoteSearchAndWords } from "models/Note";
 import { NotePanelModal } from "components/NotePanelModal";
 import { createNote } from "utils/noteUtils";
+import { NotesProvider } from "context/Notes.context";
 
 function App() {
   const [rawNotes, setRawNotes] = useState<Note[]>([]);
@@ -54,7 +55,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <NotesProvider>
       <NotePanelModal
         note={selectedNote}
         toggle={toggleNotePanel}
@@ -62,7 +63,7 @@ function App() {
       />
       <AddNote add={addNote} />
       <NotesTable notes={updatedNotes} />
-    </div>
+    </NotesProvider>
   );
 }
 export default App;
