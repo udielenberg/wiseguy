@@ -33,7 +33,8 @@ const notesReducer = (state: NotesState, { type, payload }: NotesPayload) => {
       return { ...state };
     }
     case C.REMOVE: {
-      return { ...state };
+      const updatedNotes = state.notes.filter((note) => note.id !== payload);
+      return { ...state, notes: updatedNotes };
     }
     case C.UPDATE: {
       return { ...state };

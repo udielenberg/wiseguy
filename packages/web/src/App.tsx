@@ -19,12 +19,6 @@ function App() {
     }
   }, []);
 
-  const removeNote = useCallback((id: string): void => {
-    setRawNotes((prevNotes) => {
-      return prevNotes.filter((note) => note.id !== id);
-    });
-  }, []);
-
   const openNote = useCallback(
     (id: string) => {
       const clonedNotes = [...rawNotes];
