@@ -9,7 +9,6 @@ import { createNote } from "utils/noteUtils";
 import { NotesProvider } from "context/Notes.context";
 
 function App() {
-  const [rawNotes, setRawNotes] = useState<Note[]>([]);
   const [isModalOpen, openModal] = useState(false);
   const [selectedNote, setSelectedNote] = useState<Note | undefined>();
 
@@ -36,10 +35,6 @@ function App() {
 
   const toggleNotePanel = useCallback((mode: boolean) => {
     openModal(mode);
-  }, []);
-
-  useEffect(() => {
-    setRawNotes(dummyNotes);
   }, []);
 
   return (

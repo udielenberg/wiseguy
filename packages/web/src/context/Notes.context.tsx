@@ -46,14 +46,14 @@ const notesReducer = (state: NotesState, { type, payload }: NotesPayload) => {
       return { ...state };
     }
     case C.UPDATE_ALL: {
-      return { ...state, ...payload };
+      return { ...state, notes: payload };
     }
     default:
       return state;
   }
 };
 
-function useProviderSomething() {
+function useStore() {
   const [state, dispatch] = useReducer(notesReducer, notesInitialState);
 
   const addNote = (payload: any) => dispatch({ type: C.ADD, payload });
@@ -62,20 +62,23 @@ function useProviderSomething() {
   const updateAll = (payload: any) => {
     dispatch({ type: C.UPDATE_ALL, payload });
   };
+
   useEffect(() => {
     const updatedNotes = dummyNotes.map((note) => ({
       ...note,
       remove: () => removeNote(note.id),
       open: () => openNote(note.id),
     }));
+
     updateAll(updatedNotes);
-  }, []);
+  }, [state.notes.length]);
 
   return [state, { addNote, removeNote, openNote }];
 }
 
 export const NotesProvider: React.FC = ({ children }) => {
-  const noteStore = useProviderSomething();
+  const noteStore = useStore();
+
   return (
     <NotesContext.Provider value={noteStore}>{children}</NotesContext.Provider>
   );
