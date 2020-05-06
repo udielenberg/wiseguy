@@ -44,12 +44,6 @@ function App() {
     openModal(mode);
   }, []);
 
-  const updatedNotes = rawNotes.map((note) => ({
-    ...note,
-    remove: () => removeNote(note.id),
-    open: () => openNote(note.id),
-  }));
-
   useEffect(() => {
     setRawNotes(dummyNotes);
   }, []);
@@ -62,7 +56,7 @@ function App() {
         isOpen={isModalOpen}
       />
       <AddNote add={addNote} />
-      <NotesTable notes={updatedNotes} />
+      <NotesTable />
     </NotesProvider>
   );
 }
