@@ -1,20 +1,17 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useContext } from "react";
 import styled from "styled-components";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
 import { AddIncludeWords } from "components/AddIncludeWords";
-import { NoteSearchAndWords } from "models/Note";
-
-interface Props {
-  add(note: NoteSearchAndWords): void;
-}
-
+import { NotesContext } from "context/Notes.context";
 export interface WordOption {
   label: string;
   value: string;
 }
 
-export const AddNote = ({ add }: Props) => {
+export const AddNote = () => {
+  const [, { addNote }] = useContext(NotesContext);
+
   const [noteText, setNoteText] = useState<string>();
   const [includeWords, setIncludeWords] = useState<any[]>([]);
   const [wordValue, setWordValue] = useState("");
@@ -42,15 +39,14 @@ export const AddNote = ({ add }: Props) => {
     (event: any) => {
       const value = noteText && noteText.trim();
       if (event.key === "Enter" && value) {
-        add(newNote);
+        addNote(newNote);
         setNoteText("");
         setIncludeWords([]);
       }
       if (event.key === "Tab") {
-        console.log("tab");
       }
     },
-    [add, newNote, noteText]
+    [addNote, newNote, noteText]
   );
 
   const handleAddIncludeWords = useCallback((words: WordOption[]) => {
@@ -58,7 +54,7 @@ export const AddNote = ({ add }: Props) => {
   }, []);
 
   const handleAddClick = () => {
-    add(newNote);
+    addNote(newNote);
     setNoteText("");
     setIncludeWords([]);
   };

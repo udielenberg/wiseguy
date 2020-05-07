@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -11,6 +11,7 @@ import { Note } from "models/Note";
 import { CenteredLayout } from "layouts";
 import { Cell } from "./cells";
 import styled from "styled-components";
+import { NotesContext } from "context/Notes.context";
 
 interface BaseHeaders {
   field: string;
@@ -28,9 +29,7 @@ interface NoteWithFn extends Note {
   open(id: string): void;
   remove(id: string): void;
 }
-interface Props {
-  notes: NoteWithFn[];
-}
+interface Props {}
 
 const useStyles = makeStyles({
   table: {
@@ -41,7 +40,8 @@ const useStyles = makeStyles({
   },
 });
 
-export const NotesTable = ({ notes }: Props) => {
+export const NotesTable = (props: Props) => {
+  const [{ notes }, actions] = useContext(NotesContext);
   const classes = useStyles();
   return (
     <CenteredLayout>
@@ -55,20 +55,21 @@ export const NotesTable = ({ notes }: Props) => {
             </TableRow>
           </StyledTableHeader>
           <TableBody>
-            {notes.map((note: Note) => (
-              <StyledRow
-                // @ts-ignore
-                onClick={note.open}
-                key={note.id}
-                className={!note.watched ? classes.selectedRow : ""}
-              >
-                {baseHeaders.map(({ field }) => (
-                  <TableCell key={field}>
-                    <Cell field={field} data={note} />
-                  </TableCell>
-                ))}
-              </StyledRow>
-            ))}
+            {notes.length &&
+              notes.map((note: Note) => (
+                <StyledRow
+                  // @ts-ignore
+                  onClick={note.open}
+                  key={note.id}
+                  className={!note.watched ? classes.selectedRow : ""}
+                >
+                  {baseHeaders.map(({ field }) => (
+                    <TableCell key={field}>
+                      <Cell field={field} data={note} />
+                    </TableCell>
+                  ))}
+                </StyledRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
