@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
 import { AddIncludeWords } from "components/AddIncludeWords";
 import { NotesContext } from "context/Notes/";
+import { cleanedWordsList } from "utils/noteUtils";
 import { WordOption } from "models/Note";
 
 export const AddNote = () => {
@@ -18,37 +19,31 @@ export const AddNote = () => {
     includeWords: cleanedWordsList(includeWords),
   };
 
-  const handleChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setNoteText(event.target.value);
-    },
-    []
-  );
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNoteText(event.target.value);
+  };
 
-  const handleEnter = useCallback(
-    (event: any) => {
-      const value = noteText && noteText.trim();
-      if (event.key === "Enter" && value) {
-        addNote(newNote);
-        setNoteText("");
-        setIncludeWords([]);
-      }
-      if (event.key === "Tab") {
-        // add use case
-      }
-    },
-    [addNote, newNote, noteText]
-  );
+  const handleEnter = (event: any) => {
+    const value = noteText && noteText.trim();
+    if (event.key === "Enter" && value) {
+      addNote(newNote);
+      setNoteText("");
+      setIncludeWords([]);
+    }
+    if (event.key === "Tab") {
+      // add use case
+    }
+  };
 
   const handleAddIncludeWords = useCallback((words: WordOption[]) => {
     setIncludeWords(words);
   }, []);
 
-  const handleAddClick = () => {
+  const handleAdd = useCallback(() => {
     addNote(newNote);
     setNoteText("");
     setIncludeWords([]);
-  };
+  }, [addNote, newNote]);
 
   return (
     <Wrapper>
@@ -62,14 +57,14 @@ export const AddNote = () => {
       />
       <AddIncludeWords
         noteText={noteText}
-        addNote={handleAddClick}
+        addNote={handleAdd}
         words={includeWords}
         setWords={handleAddIncludeWords}
         word={wordValue}
         setWord={setWordValue}
       />
 
-      <Button onClick={handleAddClick} variant="contained" color="primary">
+      <Button onClick={handleAdd} variant="contained" color="primary">
         Add
       </Button>
     </Wrapper>
