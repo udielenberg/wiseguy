@@ -15,11 +15,8 @@ interface Props {
 
 export const AddIncludeWords = (props: Props) => {
   const { words, word, setWord, setWords, addNote, noteText } = props;
-  const handleChange = (options: any) => {
-    setWords(options);
-  };
 
-  const handleInputChange = (input: any) => {
+  const handleInputChange = (input: string) => {
     setWord(input);
   };
   const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
@@ -39,7 +36,6 @@ export const AddIncludeWords = (props: Props) => {
     <Wrapper>
       <CreatableSelect
         isMulti
-        onChange={handleChange}
         onInputChange={handleInputChange}
         onKeyDown={handleKeyDown}
         options={colourOptions}
