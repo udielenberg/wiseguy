@@ -8,7 +8,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Note } from "models/Note";
 import { CenteredLayout } from "layouts";
-import { Cell } from "./cells";
+import { CellType } from "./cells";
 import styled from "styled-components";
 import { NotesContext } from "context/Notes/";
 
@@ -19,7 +19,6 @@ interface BaseHeaders {
 export const baseHeaders: BaseHeaders[] = [
   { field: "search", title: "search" },
   { field: "includeWords", title: "Include words" },
-  { field: "xxx", title: "xxx" },
   { field: "created", title: "created" },
   { field: "remove", title: "" },
 ];
@@ -56,7 +55,7 @@ export const NotesTable = (props: Props) => {
                 >
                   {baseHeaders.map(({ field }) => (
                     <TableCell key={field}>
-                      <Cell field={field} data={note} />
+                      <CellType field={field} data={note} />
                     </TableCell>
                   ))}
                 </StyledRow>

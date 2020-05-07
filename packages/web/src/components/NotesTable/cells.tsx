@@ -42,7 +42,7 @@ interface Props {
   data: any;
 }
 
-export const Cell: React.FC<Props> = (props) => {
+export const CellType: React.FC<Props> = (props) => {
   const { field, data } = props;
 
   if (field === "search") {
@@ -50,9 +50,6 @@ export const Cell: React.FC<Props> = (props) => {
   }
   if (field === "includeWords") {
     return <IncludeWords data={data.includeWords} />;
-  }
-  if (field === "xxx") {
-    return null;
   }
   if (field === "remove") {
     return (
