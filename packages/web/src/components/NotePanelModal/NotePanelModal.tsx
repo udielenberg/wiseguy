@@ -1,21 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import Modal from "shared/Modal";
-import { Note } from "models/Note";
 import { NoteMetadata } from "components/NoteMetadata";
 import styled from "styled-components";
+import { NotesContext } from "context/Notes.context";
 
-interface Props {
-  note: Note | undefined;
-  isOpen: boolean;
-  toggle(mode: boolean): void;
-}
+export const NotePanelModal = () => {
+  const [{ showNoteModal, selectedNote }, { toggleModal }] = useContext(
+    NotesContext
+  );
 
-export const NotePanelModal = ({ isOpen, toggle, note }: Props) => {
-  if (note) {
+  if (selectedNote) {
     return (
-      <Modal open={isOpen} {...{ toggle, note }}>
+      <Modal
+        open={showNoteModal}
+        {...{ toggle: toggleModal, note: selectedNote }}
+      >
         <Wrapper>
-          <NoteMetadata note={note} />
+          <NoteMetadata />
         </Wrapper>
       </Modal>
     );

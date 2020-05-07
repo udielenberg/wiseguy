@@ -1,14 +1,11 @@
-import React from "react";
-import { Note } from "models/Note";
+import React, { useContext } from "react";
+import { Resource } from "models/Note";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import AppBar from "@material-ui/core/AppBar";
-
 import { TabManager } from "./TabManager";
 import styled from "styled-components";
-interface Props {
-  note: Note;
-}
+import { NotesContext } from "context/Notes.context";
 
 export const tabs = [
   { type: "fresh", title: "Main" },
@@ -16,36 +13,39 @@ export const tabs = [
   { type: "rejected", title: "Rejected" },
 ];
 
-export const NoteMetadata: React.FC<Props> = ({ note }) => {
+export const NoteMetadata = () => {
+  const [state] = useContext(NotesContext);
   const [currentTab, setTab] = React.useState(0);
-  const { resources } = note;
-  const handleChange = (_: React.ChangeEvent<{}>, newValue: number) => {
+  const handleChange = (_: any, newValue: number) => {
     setTab(newValue);
   };
 
-  return (
-    <Wrapper>
-      <AppBar position="static" color="default">
-        <Tabs
-          value={currentTab}
-          indicatorColor="primary"
-          textColor="primary"
-          onChange={handleChange}
-          aria-label="disabled tabs example"
-          variant="fullWidth"
-        >
-          {tabs.map(({ type, title }) => {
-            const total = resources.filter(
-              (resource) => resource.state === type
-            ).length;
-            return <Tab key={title} label={`${title} (${total})`} />;
-          })}
-        </Tabs>
-      </AppBar>
+  if (state.selectedNote) {
+    const { resources } = state.selectedNote;
+    return (
+      <Wrapper>
+        <AppBar position="static" color="default">
+          <Tabs
+            value={currentTab}
+            indicatorColor="primary"
+            textColor="primary"
+            onChange={handleChange}
+            aria-label="disabled tabs example"
+            variant="fullWidth"
+          >
+            {tabs.map(({ type, title }) => {
+              const total = resources.filter(
+                (resource: Resource) => resource.state === type
+              ).length;
+              return <Tab key={title} label={`${title} (${total})`} />;
+            })}
+          </Tabs>
+        </AppBar>
 
-      <TabManager {...{ currentTab, resources }} />
-    </Wrapper>
-  );
+        <TabManager {...{ currentTab, resources }} />
+      </Wrapper>
+    );
+  } else return null;
 };
 
 const Wrapper = styled.div`

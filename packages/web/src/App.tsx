@@ -38,15 +38,11 @@ function App() {
   }, []);
 
   return (
-    <NotesProvider>
-      <NotePanelModal
-        note={selectedNote}
-        toggle={toggleNotePanel}
-        isOpen={isModalOpen}
-      />
-      <AddNote add={addNote} />
+    <>
+      <NotePanelModal />
+      <AddNote />
       <NotesTable />
-    </NotesProvider>
+    </>
   );
 }
 export default App;
