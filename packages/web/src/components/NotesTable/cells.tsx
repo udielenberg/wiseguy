@@ -1,25 +1,16 @@
 import React from "react";
-import Chip from "@material-ui/core/Chip";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
-
-const useStyles = makeStyles({
-  word: {
-    margin: "0 5px",
-  },
-});
+import { StyledChip } from "shared/Styled";
 
 const IncludeWords: React.FC<any> = ({ data }) => {
-  const classes = useStyles();
   return (
     <>
       {data.map((word: string, index: number) => {
         return (
-          <Chip
+          <StyledChip
             variant="outlined"
-            className={classes.word}
             key={index}
             size="small"
             label={word}
@@ -42,7 +33,7 @@ interface Props {
   data: any;
 }
 
-export const Cell: React.FC<Props> = (props) => {
+export const CellType: React.FC<Props> = (props) => {
   const { field, data } = props;
 
   if (field === "search") {
@@ -50,9 +41,6 @@ export const Cell: React.FC<Props> = (props) => {
   }
   if (field === "includeWords") {
     return <IncludeWords data={data.includeWords} />;
-  }
-  if (field === "xxx") {
-    return null;
   }
   if (field === "remove") {
     return (

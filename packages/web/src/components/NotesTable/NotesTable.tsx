@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -9,7 +8,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Note } from "models/Note";
 import { CenteredLayout } from "layouts";
-import { Cell } from "./cells";
+import { CellType } from "./cells";
 import styled from "styled-components";
 import { NotesContext } from "context/Notes/";
 
@@ -20,7 +19,6 @@ interface BaseHeaders {
 export const baseHeaders: BaseHeaders[] = [
   { field: "search", title: "search" },
   { field: "includeWords", title: "Include words" },
-  { field: "xxx", title: "xxx" },
   { field: "created", title: "created" },
   { field: "remove", title: "" },
 ];
@@ -31,23 +29,14 @@ interface NoteWithFn extends Note {
 }
 interface Props {}
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-  },
-  selectedRow: {
-    background: "rgba(177,255,212,0.4)",
-  },
-});
-
 export const NotesTable = (props: Props) => {
   const { state } = useContext(NotesContext);
   const { notes } = state;
-  const classes = useStyles();
+
   return (
     <CenteredLayout>
       <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
+        <StyledTable aria-label="simple table">
           <StyledTableHeader>
             <TableRow>
               {baseHeaders.map(({ field, title }) => (
@@ -62,26 +51,32 @@ export const NotesTable = (props: Props) => {
                   // @ts-ignore
                   onClick={note.open}
                   key={note.id}
-                  className={!note.watched ? classes.selectedRow : ""}
+                  watched={note.watched}
                 >
                   {baseHeaders.map(({ field }) => (
                     <TableCell key={field}>
-                      <Cell field={field} data={note} />
+                      <CellType field={field} data={note} />
                     </TableCell>
                   ))}
                 </StyledRow>
               ))}
           </TableBody>
-        </Table>
+        </StyledTable>
       </TableContainer>
     </CenteredLayout>
   );
 };
 
-const StyledRow = styled(TableRow)`
+const StyledTable = styled(Table)`
+  min-width: 650px;
+`;
+
+const StyledRow = styled(TableRow)<{ watched: boolean }>`
   cursor: pointer;
   transition: all 200ms ease;
-  background: transparent;
+  background: ${({ watched }) =>
+    watched ? "transparent" : "rgba(177,255,212,0.4)"};
+
   &:hover {
     background: rgba(211, 211, 211, 0.5);
   }
