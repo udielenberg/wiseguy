@@ -3,15 +3,15 @@ import styled from "styled-components";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
 import { AddIncludeWords } from "components/AddIncludeWords";
-import { NotesContext } from "context/Notes.context";
+import { NotesContext } from "context/Notes/";
 export interface WordOption {
   label: string;
   value: string;
 }
 
 export const AddNote = () => {
-  const [, { addNote }] = useContext(NotesContext);
-
+  const { actions } = useContext(NotesContext);
+  const { addNote } = actions;
   const [noteText, setNoteText] = useState<string>();
   const [includeWords, setIncludeWords] = useState<any[]>([]);
   const [wordValue, setWordValue] = useState("");
@@ -44,6 +44,7 @@ export const AddNote = () => {
         setIncludeWords([]);
       }
       if (event.key === "Tab") {
+        // add use case
       }
     },
     [addNote, newNote, noteText]

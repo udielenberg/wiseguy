@@ -5,7 +5,7 @@ import Tab from "@material-ui/core/Tab";
 import AppBar from "@material-ui/core/AppBar";
 import { TabManager } from "./TabManager";
 import styled from "styled-components";
-import { NotesContext } from "context/Notes.context";
+import { NotesContext } from "context/Notes/";
 
 export const tabs = [
   { type: "fresh", title: "Main" },
@@ -14,14 +14,15 @@ export const tabs = [
 ];
 
 export const NoteMetadata = () => {
-  const [state] = useContext(NotesContext);
+  const { state } = useContext(NotesContext);
+  const { selectedNote } = state;
   const [currentTab, setTab] = React.useState(0);
   const handleChange = (_: any, newValue: number) => {
     setTab(newValue);
   };
 
-  if (state.selectedNote) {
-    const { resources } = state.selectedNote;
+  if (selectedNote) {
+    const { resources } = selectedNote;
     return (
       <Wrapper>
         <AppBar position="static" color="default">

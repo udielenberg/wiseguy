@@ -11,7 +11,7 @@ import { Note } from "models/Note";
 import { CenteredLayout } from "layouts";
 import { Cell } from "./cells";
 import styled from "styled-components";
-import { NotesContext } from "context/Notes.context";
+import { NotesContext } from "context/Notes/";
 
 interface BaseHeaders {
   field: string;
@@ -41,7 +41,8 @@ const useStyles = makeStyles({
 });
 
 export const NotesTable = (props: Props) => {
-  const [{ notes }, actions] = useContext(NotesContext);
+  const { state } = useContext(NotesContext);
+  const { notes } = state;
   const classes = useStyles();
   return (
     <CenteredLayout>

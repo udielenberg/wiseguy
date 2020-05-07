@@ -1,6 +1,5 @@
-import React, { useReducer, useEffect, useCallback } from "react";
-import { createContext } from "react";
 import { Note } from "models/Note";
+
 import { createNote } from "utils/noteUtils";
 
 interface NotesState {
@@ -30,8 +29,6 @@ export const notesInitialState: NotesState = {
   selectedNote: null,
   showNoteModal: false,
 };
-
-export const NotesContext = createContext<any>(notesInitialState);
 
 export const notesReducer = (
   state: NotesState,
@@ -82,54 +79,26 @@ export const notesReducer = (
   }
 };
 
-function useStore() {
-  const [state, dispatch] = useReducer(notesReducer, notesInitialState);
+export const notesActions = (dispatch: any) => {
+  const removeNote = (id: string) => dispatch({ type: C.REMOVE, payload: id });
+  const openNote = (id: string) => dispatch({ type: C.OPEN, payload: id });
+  const addNote = (note: Note) => {
+    const newNote = enhanceNote(createNote(note));
+    dispatch({ type: C.ADD, payload: newNote });
+  };
+  const updateAll = (notes: Note[]) => {
+    const updatedNotes = notes.map((note) => enhanceNote(note));
+    dispatch({ type: C.UPDATE_ALL, payload: updatedNotes });
+  };
+  const toggleModal = (payload: boolean) =>
+    dispatch({ type: C.TOGGLE_MODAL, payload });
 
-  const removeNote = useCallback(
-    (id: string) => dispatch({ type: C.REMOVE, payload: id }),
-    []
-  );
-
-  const openNote = useCallback(
-    (id: string) => dispatch({ type: C.OPEN, payload: id }),
-    []
-  );
-
-  const enhanceNote = useCallback(
-    (note: Note) => ({
+  function enhanceNote(note: Note) {
+    return {
       ...note,
       remove: () => removeNote(note.id),
       open: () => openNote(note.id),
-    }),
-    [openNote, removeNote]
-  );
-
-  const addNote = useCallback(
-    (note: Note) =>
-      dispatch({ type: C.ADD, payload: enhanceNote(createNote(note)) }),
-    [enhanceNote]
-  );
-
-  const updateAll = useCallback(
-    (notes: Note[]) => {
-      const updatedNotes = notes.map((note) => enhanceNote(note));
-      dispatch({ type: C.UPDATE_ALL, payload: updatedNotes });
-    },
-    [enhanceNote]
-  );
-
-  const toggleModal = useCallback(
-    (payload: boolean) => dispatch({ type: C.TOGGLE_MODAL, payload }),
-    []
-  );
-
-  return [state, { addNote, removeNote, openNote, toggleModal, updateAll }];
-}
-
-export const NotesProvider: React.FC = ({ children }) => {
-  const noteStore = useStore();
-
-  return (
-    <NotesContext.Provider value={noteStore}>{children}</NotesContext.Provider>
-  );
+    };
+  }
+  return { removeNote, openNote, addNote, updateAll, toggleModal };
 };

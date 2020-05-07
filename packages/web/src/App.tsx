@@ -3,15 +3,15 @@ import "./App.css";
 import { AddNote } from "components/AddNote";
 import { NotesTable } from "components/NotesTable/index";
 import { NotePanelModal } from "components/NotePanelModal";
-import { NotesContext } from "context/Notes.context";
+import { NotesContext } from "context/Notes/";
 import { dummyNotes } from "dummydata/notes";
 
 function App() {
-  const [, { updateAll }] = useContext(NotesContext);
+  const { actions } = useContext(NotesContext);
 
   useEffect(() => {
-    updateAll(dummyNotes);
-  }, [updateAll]);
+    actions.updateAll(dummyNotes);
+  }, [actions]);
 
   return (
     <>

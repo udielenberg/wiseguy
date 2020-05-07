@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-import { NotesProvider } from "context/Notes.context";
+import { NotesProvider } from "context/Notes/";
 
 ReactDOM.render(
   <React.StrictMode>

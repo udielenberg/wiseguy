@@ -2,12 +2,12 @@ import React, { useContext } from "react";
 import Modal from "shared/Modal";
 import { NoteMetadata } from "components/NoteMetadata";
 import styled from "styled-components";
-import { NotesContext } from "context/Notes.context";
+import { NotesContext } from "context/Notes/";
 
 export const NotePanelModal = () => {
-  const [{ showNoteModal, selectedNote }, { toggleModal }] = useContext(
-    NotesContext
-  );
+  const { state, actions } = useContext(NotesContext);
+  const { showNoteModal, selectedNote } = state;
+  const { toggleModal } = actions;
 
   if (selectedNote) {
     return (
