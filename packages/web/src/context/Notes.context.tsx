@@ -1,10 +1,12 @@
-import React, { useReducer, useState, useEffect } from "react";
+import React, { useReducer, useEffect, useCallback } from "react";
 import { createContext } from "react";
 import { Note } from "models/Note";
-import { dummyNotes } from "dummydata/notes";
+import { createNote } from "utils/noteUtils";
 
 interface NotesState {
   notes: Note[];
+  selectedNote: Note | null;
+  showNoteModal: boolean;
 }
 
 interface NotesPayload {
@@ -13,24 +15,32 @@ interface NotesPayload {
 }
 
 export const C = {
-  ADD: "add note",
-  REMOVE: "remove note",
-  UPDATE: "update note",
-  MOVE_RESOURCE: "move resource",
-  OPEN: "open note",
-  UPDATE_ALL: "update all",
+  ADD: "note/add",
+  REMOVE: "note/remove",
+  UPDATE: "note/update",
+  SELECT_NOTE: "note/select",
+  MOVE_RESOURCE: "note/move resource",
+  OPEN: "note/open",
+  UPDATE_ALL: "notes/update all",
+  TOGGLE_MODAL: "note/toggle modal",
 };
 
-const notesInitialState: NotesState = {
+export const notesInitialState: NotesState = {
   notes: [],
+  selectedNote: null,
+  showNoteModal: false,
 };
 
 export const NotesContext = createContext<any>(notesInitialState);
 
-const notesReducer = (state: NotesState, { type, payload }: NotesPayload) => {
+export const notesReducer = (
+  state: NotesState,
+  { type, payload }: NotesPayload
+) => {
   switch (type) {
     case C.ADD: {
-      return { ...state };
+      const notes = [payload, ...state.notes];
+      return { ...state, notes };
     }
     case C.REMOVE: {
       const updatedNotes = state.notes.filter((note) => note.id !== payload);
@@ -42,12 +52,31 @@ const notesReducer = (state: NotesState, { type, payload }: NotesPayload) => {
     case C.MOVE_RESOURCE: {
       return { ...state };
     }
+    case C.SELECT_NOTE: {
+      return { ...state, selectedNote: payload };
+    }
     case C.OPEN: {
-      return { ...state };
+      const clonedNotes = [...state.notes];
+      const noteIndex = clonedNotes.findIndex((note) => note.id === payload);
+      clonedNotes.splice(noteIndex, 1, {
+        ...state.notes[noteIndex],
+        watched: true,
+      });
+
+      return {
+        ...state,
+        notes: clonedNotes,
+        selectedNote: clonedNotes[noteIndex],
+        showNoteModal: true,
+      };
     }
     case C.UPDATE_ALL: {
       return { ...state, notes: payload };
     }
+    case C.TOGGLE_MODAL: {
+      return { ...state, showNoteModal: payload };
+    }
+
     default:
       return state;
   }
@@ -56,24 +85,45 @@ const notesReducer = (state: NotesState, { type, payload }: NotesPayload) => {
 function useStore() {
   const [state, dispatch] = useReducer(notesReducer, notesInitialState);
 
-  const addNote = (payload: any) => dispatch({ type: C.ADD, payload });
-  const removeNote = (payload: any) => dispatch({ type: C.REMOVE, payload });
-  const openNote = (payload: any) => dispatch;
-  const updateAll = (payload: any) => {
-    dispatch({ type: C.UPDATE_ALL, payload });
-  };
+  const removeNote = useCallback(
+    (id: string) => dispatch({ type: C.REMOVE, payload: id }),
+    []
+  );
 
-  useEffect(() => {
-    const updatedNotes = dummyNotes.map((note) => ({
+  const openNote = useCallback(
+    (id: string) => dispatch({ type: C.OPEN, payload: id }),
+    []
+  );
+
+  const enhanceNote = useCallback(
+    (note: Note) => ({
       ...note,
       remove: () => removeNote(note.id),
       open: () => openNote(note.id),
-    }));
+    }),
+    [openNote, removeNote]
+  );
 
-    updateAll(updatedNotes);
-  }, [state.notes.length]);
+  const addNote = useCallback(
+    (note: Note) =>
+      dispatch({ type: C.ADD, payload: enhanceNote(createNote(note)) }),
+    [enhanceNote]
+  );
 
-  return [state, { addNote, removeNote, openNote }];
+  const updateAll = useCallback(
+    (notes: Note[]) => {
+      const updatedNotes = notes.map((note) => enhanceNote(note));
+      dispatch({ type: C.UPDATE_ALL, payload: updatedNotes });
+    },
+    [enhanceNote]
+  );
+
+  const toggleModal = useCallback(
+    (payload: boolean) => dispatch({ type: C.TOGGLE_MODAL, payload }),
+    []
+  );
+
+  return [state, { addNote, removeNote, openNote, toggleModal, updateAll }];
 }
 
 export const NotesProvider: React.FC = ({ children }) => {
