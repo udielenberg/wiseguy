@@ -11,7 +11,8 @@ function App() {
 
   useEffect(() => {
     actions.updateAll(dummyNotes);
-  }, [actions]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
