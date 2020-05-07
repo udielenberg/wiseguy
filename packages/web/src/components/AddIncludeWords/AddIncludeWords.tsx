@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import CreatableSelect from "react-select/creatable";
-import { WordOption } from "components/AddNote";
+import { WordOption } from "models/Note";
 const colourOptions: any = [];
 
 interface Props {

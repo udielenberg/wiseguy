@@ -4,10 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
 import { AddIncludeWords } from "components/AddIncludeWords";
 import { NotesContext } from "context/Notes/";
-export interface WordOption {
-  label: string;
-  value: string;
-}
+import { WordOption } from "models/Note";
 
 export const AddNote = () => {
   const { actions } = useContext(NotesContext);

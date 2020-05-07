@@ -48,3 +48,9 @@ export const baseResource: Resource = {
     readingTime: 0,
     writtenBy: undefined
 }
+
+
+export interface WordOption {
+    label: string;
+    value: string;
+}

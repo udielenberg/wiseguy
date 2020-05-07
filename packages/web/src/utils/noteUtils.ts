@@ -1,4 +1,4 @@
-import { Note, NoteSearchAndWords } from "models/Note";
+import { Note, NoteSearchAndWords, WordOption } from "models/Note";
 import { baseNote } from "models/Note";
 import faker from "faker";
 
