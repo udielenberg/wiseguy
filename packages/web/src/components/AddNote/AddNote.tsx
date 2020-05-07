@@ -13,16 +13,9 @@ export const AddNote = () => {
   const [includeWords, setIncludeWords] = useState<any[]>([]);
   const [wordValue, setWordValue] = useState("");
 
-  const cleanedWordsList = includeWords.reduce((agg, option: WordOption) => {
-    if (option.label) {
-      return [...agg, option.label];
-    }
-    return agg;
-  }, [] as string[]);
-
   const newNote = {
     search: noteText,
-    includeWords: cleanedWordsList,
+    includeWords: cleanedWordsList(includeWords),
   };
 
   const handleChange = useCallback(

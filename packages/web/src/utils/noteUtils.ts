@@ -7,3 +7,10 @@ export const createNote = (note: NoteSearchAndWords): Note => ({
     ...note,
     id: faker.random.uuid(),
 });
+
+export const cleanedWordsList = (words: WordOption[]) => words.reduce((agg, option: WordOption) => {
+    if (option.label) {
+        return [...agg, option.label];
+    }
+    return agg;
+}, [] as string[]);
