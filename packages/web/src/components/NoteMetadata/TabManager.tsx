@@ -6,8 +6,9 @@ import { Resource } from "models/Note";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import isEmpty from "lodash/isEmpty";
-import Chip from "@material-ui/core/Chip";
 import styled from "styled-components";
+import { StyledChip } from "shared/Styled";
+
 interface TabPanelProps {
   children?: React.ReactNode;
   index: any;
@@ -169,10 +170,6 @@ const ActionWrapper = styled.div`
   justify-content: space-between;
   flex-basis: 50px;
   margin-top: 30px;
-`;
-
-const StyledChip = styled(Chip)`
-  margin: 0 5px;
 `;
 
 const CenteredMessageWrapper = styled(Wrapper)`
