@@ -45,12 +45,6 @@ const TabPanel: React.FC<{
       resourceState: "fresh",
     });
   };
-  const handleUndecided = (currentResource: CurrentResource) => {
-    actions.moveResource({
-      ...currentResource,
-      resourceState: "undecided",
-    });
-  };
 
   if (isEmpty(resources)) {
     return (
@@ -61,7 +55,7 @@ const TabPanel: React.FC<{
   }
 
   const setView = () => {
-    if (type === "fresh" || type === "undecided") {
+    if (type === "fresh") {
       return (
         <ClassicView
           resources={resources}
@@ -75,12 +69,19 @@ const TabPanel: React.FC<{
         <RejectedList
           resources={resources}
           setApprove={handleApprove}
-          setUndecided={handleUndecided}
           setUnread={handleUnread}
         />
       );
     } else {
-      return <div>not yet.</div>;
+      return (
+        <div>
+          Due to CORONA TIMES we are obliged to give a f*ck about this tab,
+          <br />
+          Sincerly yours,
+          <br />
+          the admin.
+        </div>
+      );
     }
   };
   return <Wrapper>{setView()}</Wrapper>;

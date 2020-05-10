@@ -1,5 +1,5 @@
 
-export type ResourceState = "fresh" | "undecided" | "approved" | "rejected"
+export type ResourceState = "fresh" | "approved" | "rejected"
 export interface Resource {
     id: string;
     noteId: string;
@@ -23,7 +23,7 @@ export interface Note {
 
 }
 
-export const resourceStates: ResourceState[] = ["fresh", "undecided", "approved", "rejected"];
+export const resourceStates: ResourceState[] = ["fresh", "approved", "rejected"];
 export type NoteSearchAndWords = Pick<Note, "search" | "includeWords">;
 
 export const baseNote: Note = {
