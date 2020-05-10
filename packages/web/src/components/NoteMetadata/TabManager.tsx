@@ -1,61 +1,54 @@
-import React, { useState, useContext } from "react";
-import CheckIcon from "@material-ui/icons/Check";
-import ClearIcon from "@material-ui/icons/Clear";
-import { Button } from "@material-ui/core";
+import React, { useContext } from "react";
 import { Resource } from "models/Note";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import isEmpty from "lodash/isEmpty";
 import styled from "styled-components";
-import { StyledChip } from "shared/Styled";
 import { sortResources } from "./tabManagerUtil";
 import { NotesContext } from "context/Notes";
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: any;
-  value: any;
-}
-
+import { ResourceState } from "models/Note";
+import { ClassicView, RejectedList } from "./views";
+import { tabs } from "./NoteMetadata";
 interface TabManagerProps {
   resources?: Resource[];
   children?: React.ReactNode;
   currentTab: number;
 }
 
+export interface CurrentResource {
+  noteId: string;
+  resourceId: string;
+}
+
 const TabPanel: React.FC<{
   resources: any[];
+  type: ResourceState;
 }> = (props) => {
   const { actions } = useContext(NotesContext);
-  const { resources } = props;
-  const [current, setCurrent] = useState<number>(0);
+  const { resources, type } = props;
 
-  const currentResource = {
-    noteId: resources[current]?.noteId,
-    resourceId: resources[current]?.id,
-  };
-
-  const handleBack = () => {
-    if (current > 0) {
-      setCurrent((prevState) => prevState - 1);
-    }
-  };
-  const handleForward = () => {
-    if (current < resources.length - 1) {
-      setCurrent((prevState) => prevState + 1);
-    }
-  };
-
-  const handleApprove = () => {
+  const handleApprove = (currentResource: CurrentResource) => {
+    console.log("handle approve:", currentResource);
     actions.moveResource({
       ...currentResource,
       resourceState: "approved",
     });
   };
-  const handleReject = () => {
+  const handleReject = (currentResource: CurrentResource) => {
     actions.moveResource({
       ...currentResource,
       resourceState: "rejected",
+    });
+  };
+
+  const handleUnread = (currentResource: CurrentResource) => {
+    actions.moveResource({
+      ...currentResource,
+      resourceState: "fresh",
+    });
+  };
+  const handleUndecided = (currentResource: CurrentResource) => {
+    actions.moveResource({
+      ...currentResource,
+      resourceState: "undecided",
     });
   };
 
@@ -66,82 +59,40 @@ const TabPanel: React.FC<{
       </CenteredMessageWrapper>
     );
   }
-  return (
-    <Wrapper>
-      <CarouselWrapper>
-        <Button color="primary" variant="contained" onClick={handleBack}>
-          <ArrowBackIosIcon />
-        </Button>
-        <ContentWrapper>
-          <StyledInfo>
-            <MarginedText>
-              ({current + 1}/{resources.length})
-            </MarginedText>
-          </StyledInfo>
-          <StyledInfo>
-            <MarginedText>description:</MarginedText>{" "}
-            <BoldText>{resources[current].description}</BoldText>
-          </StyledInfo>
 
-          <StyledInfo>
-            <MarginedText>created at: </MarginedText>
-            <BoldText>{resources[current].createdAt.toDateString()}</BoldText>
-          </StyledInfo>
-
-          <StyledInfo>
-            <MarginedText>rating:</MarginedText>{" "}
-            <BoldText>{resources[current].rating}</BoldText>
-          </StyledInfo>
-
-          <StyledInfo>
-            <MarginedText>article:</MarginedText>
-            <a href={resources[current].link}>link</a>
-          </StyledInfo>
-
-          <ImageContainer>
-            {resources[current].images.map((img: string) => (
-              <img key={img} src={img} alt="blabla" />
-            ))}
-          </ImageContainer>
-
-          <StyledInfo>
-            written by: <BoldText>{resources[current].writtenBy}</BoldText>
-          </StyledInfo>
-        </ContentWrapper>
-
-        <Button color="primary" variant="contained" onClick={handleForward}>
-          <ArrowForwardIosIcon />
-        </Button>
-      </CarouselWrapper>
-      <ActionWrapper>
-        <Button
-          onClick={handleApprove}
-          variant="contained"
-          color="primary"
-          startIcon={<CheckIcon />}
-        >
-          Approve
-        </Button>
-        <Button
-          onClick={handleReject}
-          variant="contained"
-          color="secondary"
-          startIcon={<ClearIcon />}
-        >
-          Reject
-        </Button>
-      </ActionWrapper>
-    </Wrapper>
-  );
+  const setView = () => {
+    if (type === "fresh") {
+      return (
+        <ClassicView
+          resources={resources}
+          approve={handleApprove}
+          reject={handleReject}
+        />
+      );
+    }
+    if (type === "rejected") {
+      return (
+        <RejectedList
+          resources={resources}
+          setApprove={handleApprove}
+          setUndecided={handleUndecided}
+          setUnread={handleUnread}
+        />
+      );
+    } else {
+      return <div>not yet.</div>;
+    }
+  };
+  return <Wrapper>{setView()}</Wrapper>;
 };
 
 export const TabManager: React.FC<TabManagerProps> = (props) => {
   const { currentTab, resources } = props;
-  const tabs = ["fresh", "approved", "rejected"];
   const sortedResources = sortResources(resources);
-  const relevantResource = sortedResources[tabs[currentTab]] || [];
+  const currentTabType = tabs[currentTab].type;
+  const relevantResource = sortedResources[currentTabType] || [];
 
-  return <TabPanel resources={relevantResource} />;
+  return <TabPanel type={currentTabType} resources={relevantResource} />;
 };
 
 const Wrapper = styled.div`
@@ -151,50 +102,9 @@ const Wrapper = styled.div`
   margin-top: 40px;
 `;
 
-const StyledInfo = styled.div`
-  padding: 5px;
-`;
-
-const BoldText = styled.span`
-  font-weight: bold;
-`;
-
-const MarginedText = styled.span`
-  margin-right: 5px;
-`;
-
-const ImageContainer = styled.div`
-  padding: 10px;
-  background: lightgray;
-  border-radius: 5px;
-
-  img {
-    margin-right: 10px;
-    width: 100px;
-    height: 100px;
-  }
-`;
-
-const ActionWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-basis: 50px;
-  margin-top: 30px;
-`;
-
 const CenteredMessageWrapper = styled(Wrapper)`
   justify-content: center;
   align-items: center;
   height: 80vh;
   color: lightgray;
-`;
-
-const ContentWrapper = styled.div`
-  flex: 1;
-  padding: 20px;
-`;
-
-const CarouselWrapper = styled.div`
-  display: flex;
-  flex: 1;
 `;
