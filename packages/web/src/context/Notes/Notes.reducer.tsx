@@ -47,7 +47,35 @@ export const notesReducer = (
       return { ...state };
     }
     case C.MOVE_RESOURCE: {
-      return { ...state };
+      console.log("MOVE_RESOURCE...");
+      const { noteId, resourceId, resourceState } = payload;
+
+      const noteIndex = state.notes.findIndex((note) => note.id === noteId);
+      const resourceIndex = state.notes[noteIndex].resources.findIndex(
+        (resource) => resource.id === resourceId
+      );
+
+      const newResourceState = { state: resourceState };
+
+      const currentResource = {
+        ...state.notes[noteIndex].resources[resourceIndex],
+      };
+
+      const updateResources = [...state.notes[noteIndex].resources];
+      updateResources.splice(resourceIndex, 1, {
+        ...currentResource,
+        ...newResourceState,
+      });
+      const currentNote = { ...state.notes[noteIndex] };
+      const updateNotes = [...state.notes];
+      updateNotes.splice(noteIndex, 1, {
+        ...currentNote,
+        resources: updateResources,
+      });
+
+      console.log("updateNotes:", updateNotes);
+      // debugger;
+      return { ...state, notes: updateNotes };
     }
     case C.SELECT_NOTE: {
       return { ...state, selectedNote: payload };
@@ -73,7 +101,6 @@ export const notesReducer = (
     case C.TOGGLE_MODAL: {
       return { ...state, showNoteModal: payload };
     }
-
     default:
       return state;
   }
@@ -93,6 +120,10 @@ export const notesActions = (dispatch: any) => {
   const toggleModal = (payload: boolean) =>
     dispatch({ type: C.TOGGLE_MODAL, payload });
 
+  const moveResource = (payload: any) => {
+    dispatch({ type: C.MOVE_RESOURCE, payload });
+  };
+
   function enhanceNote(note: Note) {
     return {
       ...note,
@@ -100,5 +131,12 @@ export const notesActions = (dispatch: any) => {
       open: () => openNote(note.id),
     };
   }
-  return { removeNote, openNote, addNote, updateAll, toggleModal };
+  return {
+    removeNote,
+    openNote,
+    addNote,
+    updateAll,
+    toggleModal,
+    moveResource,
+  };
 };
