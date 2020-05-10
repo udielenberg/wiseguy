@@ -31,73 +31,79 @@ export const ClassicView = (props: Props) => {
       setCurrent((prevState) => prevState + 1);
     }
   };
-  return (
-    <>
-      <CarouselWrapper>
-        <Button color="primary" variant="contained" onClick={handleBack}>
-          <ArrowBackIosIcon />
-        </Button>
-        <ContentWrapper>
-          <StyledInfo>
-            <MarginedText>
-              ({current + 1}/{resources.length})
-            </MarginedText>
-          </StyledInfo>
-          <StyledInfo>
-            <MarginedText>description:</MarginedText>{" "}
-            <BoldText>{resources[current].description}</BoldText>
-          </StyledInfo>
 
-          <StyledInfo>
-            <MarginedText>created at: </MarginedText>
-            <BoldText>{resources[current].createdAt.toDateString()}</BoldText>
-          </StyledInfo>
+  if (resources.length) {
+    return (
+      <>
+        <CarouselWrapper>
+          <Button color="primary" variant="contained" onClick={handleBack}>
+            <ArrowBackIosIcon />
+          </Button>
+          <ContentWrapper>
+            <StyledInfo>
+              <MarginedText>
+                ({current + 1}/{resources.length})
+              </MarginedText>
+            </StyledInfo>
+            <StyledInfo>
+              <MarginedText>description:</MarginedText>{" "}
+              <BoldText>{resources[current]?.description}</BoldText>
+            </StyledInfo>
 
-          <StyledInfo>
-            <MarginedText>rating:</MarginedText>{" "}
-            <BoldText>{resources[current].rating}</BoldText>
-          </StyledInfo>
+            <StyledInfo>
+              <MarginedText>created at: </MarginedText>
+              <BoldText>
+                {resources[current]?.createdAt.toDateString()}
+              </BoldText>
+            </StyledInfo>
 
-          <StyledInfo>
-            <MarginedText>article:</MarginedText>
-            <a href={resources[current].link}>link</a>
-          </StyledInfo>
+            <StyledInfo>
+              <MarginedText>rating:</MarginedText>{" "}
+              <BoldText>{resources[current]?.rating}</BoldText>
+            </StyledInfo>
 
-          <ImageContainer>
-            {resources[current].images.map((img: string) => (
-              <img key={img} src={img} alt="blabla" />
-            ))}
-          </ImageContainer>
+            <StyledInfo>
+              <MarginedText>article:</MarginedText>
+              <a href={resources[current]?.link}>link</a>
+            </StyledInfo>
 
-          <StyledInfo>
-            written by: <BoldText>{resources[current].writtenBy}</BoldText>
-          </StyledInfo>
-        </ContentWrapper>
+            <ImageContainer>
+              {resources[current]?.images.map((img: string) => (
+                <img key={img} src={img} alt="blabla" />
+              ))}
+            </ImageContainer>
 
-        <Button color="primary" variant="contained" onClick={handleForward}>
-          <ArrowForwardIosIcon />
-        </Button>
-      </CarouselWrapper>
-      <ActionWrapper>
-        <Button
-          onClick={() => approve(currentResource)}
-          variant="contained"
-          color="primary"
-          startIcon={<CheckIcon />}
-        >
-          Approve
-        </Button>
-        <Button
-          onClick={() => reject(currentResource)}
-          variant="contained"
-          color="secondary"
-          startIcon={<ClearIcon />}
-        >
-          Reject
-        </Button>
-      </ActionWrapper>
-    </>
-  );
+            <StyledInfo>
+              written by: <BoldText>{resources[current]?.writtenBy}</BoldText>
+            </StyledInfo>
+          </ContentWrapper>
+
+          <Button color="primary" variant="contained" onClick={handleForward}>
+            <ArrowForwardIosIcon />
+          </Button>
+        </CarouselWrapper>
+        <ActionWrapper>
+          <Button
+            onClick={() => approve(currentResource)}
+            variant="contained"
+            color="primary"
+            startIcon={<CheckIcon />}
+          >
+            Approve
+          </Button>
+          <Button
+            onClick={() => reject(currentResource)}
+            variant="contained"
+            color="secondary"
+            startIcon={<ClearIcon />}
+          >
+            Reject
+          </Button>
+        </ActionWrapper>
+      </>
+    );
+  }
+  return <div>empty</div>;
 };
 
 const StyledInfo = styled.div`
