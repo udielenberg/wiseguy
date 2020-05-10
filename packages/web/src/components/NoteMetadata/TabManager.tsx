@@ -107,11 +107,21 @@ const TabPanel: React.FC<{
         </Button>
       </CarouselWrapper>
       <ActionWrapper>
-        <Button variant="contained" color="primary" startIcon={<CheckIcon />}>
-          (Left arrow)
+        <Button
+          onClick={handleApprove}
+          variant="contained"
+          color="primary"
+          startIcon={<CheckIcon />}
+        >
+          Approve
         </Button>
-        <Button variant="contained" color="secondary" startIcon={<ClearIcon />}>
-          (Right arrow)
+        <Button
+          onClick={handleReject}
+          variant="contained"
+          color="secondary"
+          startIcon={<ClearIcon />}
+        >
+          Reject
         </Button>
       </ActionWrapper>
     </Wrapper>
