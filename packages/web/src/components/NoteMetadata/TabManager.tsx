@@ -8,6 +8,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import isEmpty from "lodash/isEmpty";
 import styled from "styled-components";
 import { StyledChip } from "shared/Styled";
+import { sortResources } from "./tabManagerUtil";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -120,16 +121,7 @@ const TabPanel: React.FC<{
 export const TabManager: React.FC<TabManagerProps> = (props) => {
   const { currentTab, resources } = props;
   const tabs = ["fresh", "approved", "rejected"];
-  const sortedResources = resources?.reduce((all: any, resource: Resource) => {
-    if (all[resource.state]) {
-      all[resource.state].push(resource);
-    } else {
-      all[resource.state] = [];
-      all[resource.state].push(resource);
-    }
-    return all;
-  }, {});
-
+  const sortedResources = sortResources(resources);
   const relevantResource = sortedResources[tabs[currentTab]] || [];
   return <TabPanel resources={relevantResource} />;
 };
