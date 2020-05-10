@@ -47,7 +47,6 @@ export const notesReducer = (
       return { ...state };
     }
     case C.MOVE_RESOURCE: {
-      console.log("MOVE_RESOURCE...");
       const { noteId, resourceId, resourceState } = payload;
 
       const noteIndex = state.notes.findIndex((note) => note.id === noteId);
@@ -68,14 +67,17 @@ export const notesReducer = (
       });
       const currentNote = { ...state.notes[noteIndex] };
       const updateNotes = [...state.notes];
-      updateNotes.splice(noteIndex, 1, {
+      const updatedSelectedNote = {
         ...currentNote,
         resources: updateResources,
-      });
+      };
+      updateNotes.splice(noteIndex, 1, updatedSelectedNote);
 
-      console.log("updateNotes:", updateNotes);
-      // debugger;
-      return { ...state, notes: updateNotes };
+      return {
+        ...state,
+        notes: updateNotes,
+        selectedNote: updatedSelectedNote,
+      };
     }
     case C.SELECT_NOTE: {
       return { ...state, selectedNote: payload };

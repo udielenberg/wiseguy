@@ -154,6 +154,7 @@ export const TabManager: React.FC<TabManagerProps> = (props) => {
   const tabs = ["fresh", "approved", "rejected"];
   const sortedResources = sortResources(resources);
   const relevantResource = sortedResources[tabs[currentTab]] || [];
+
   return <TabPanel resources={relevantResource} />;
 };
 
