@@ -7,9 +7,10 @@ const setIncludeWords = () => range(faker.random.number({ min: 0, max: 3 })).map
 
 const randomArrayOfImages = () => range(faker.random.number({ min: 0, max: 5 })).map(_ => faker.image.avatar())
 
-const createDummyResource = (): Resource => ({
+const createDummyResource = (noteId: string): Resource => ({
   ...baseResource,
   id: faker.random.uuid(),
+  noteId,
   state: faker.random.arrayElement(resourceStates),
   includeWords: undefined,
   link: 'http://www.walla.co.il',
@@ -21,14 +22,17 @@ const createDummyResource = (): Resource => ({
 });
 
 
-const setResources = () => range(10).map(_ => createDummyResource())
+const setResources = (noteId: string) => range(10).map(_ => createDummyResource(noteId))
 
-const createDummyNote = (): Note => ({
-  ...baseNote,
-  id: faker.random.uuid(),
-  includeWords: setIncludeWords(),
-  search: faker.lorem.words(),
-  resources: setResources(),
-});
+const createDummyNote = (): Note => {
+  const id = faker.random.uuid();
+  return {
+    ...baseNote,
+    id,
+    includeWords: setIncludeWords(),
+    search: faker.lorem.words(),
+    resources: setResources(id),
+  }
+};
 
 export const dummyNotes: Note[] = range(10).map((_) => createDummyNote());

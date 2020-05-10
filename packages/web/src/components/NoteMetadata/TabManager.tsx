@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import CheckIcon from "@material-ui/icons/Check";
 import ClearIcon from "@material-ui/icons/Clear";
 import { Button } from "@material-ui/core";
@@ -8,6 +8,8 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import isEmpty from "lodash/isEmpty";
 import styled from "styled-components";
 import { StyledChip } from "shared/Styled";
+import { sortResources } from "./tabManagerUtil";
+import { NotesContext } from "context/Notes";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -24,8 +26,15 @@ interface TabManagerProps {
 const TabPanel: React.FC<{
   resources: any[];
 }> = (props) => {
+  const { actions } = useContext(NotesContext);
   const { resources } = props;
   const [current, setCurrent] = useState<number>(0);
+
+  const currentResource = {
+    noteId: resources[current]?.noteId,
+    resourceId: resources[current]?.id,
+  };
+
   const handleBack = () => {
     if (current > 0) {
       setCurrent((prevState) => prevState - 1);
@@ -35,6 +44,19 @@ const TabPanel: React.FC<{
     if (current < resources.length - 1) {
       setCurrent((prevState) => prevState + 1);
     }
+  };
+
+  const handleApprove = () => {
+    actions.moveResource({
+      ...currentResource,
+      resourceState: "approved",
+    });
+  };
+  const handleReject = () => {
+    actions.moveResource({
+      ...currentResource,
+      resourceState: "rejected",
+    });
   };
 
   if (isEmpty(resources)) {
@@ -106,11 +128,21 @@ const TabPanel: React.FC<{
         </Button>
       </CarouselWrapper>
       <ActionWrapper>
-        <Button variant="contained" color="primary" startIcon={<CheckIcon />}>
-          (Left arrow)
+        <Button
+          onClick={handleApprove}
+          variant="contained"
+          color="primary"
+          startIcon={<CheckIcon />}
+        >
+          Approve
         </Button>
-        <Button variant="contained" color="secondary" startIcon={<ClearIcon />}>
-          (Right arrow)
+        <Button
+          onClick={handleReject}
+          variant="contained"
+          color="secondary"
+          startIcon={<ClearIcon />}
+        >
+          Reject
         </Button>
       </ActionWrapper>
     </Wrapper>
@@ -120,17 +152,9 @@ const TabPanel: React.FC<{
 export const TabManager: React.FC<TabManagerProps> = (props) => {
   const { currentTab, resources } = props;
   const tabs = ["fresh", "approved", "rejected"];
-  const sortedResources = resources?.reduce((all: any, resource: Resource) => {
-    if (all[resource.state]) {
-      all[resource.state].push(resource);
-    } else {
-      all[resource.state] = [];
-      all[resource.state].push(resource);
-    }
-    return all;
-  }, {});
-
+  const sortedResources = sortResources(resources);
   const relevantResource = sortedResources[tabs[currentTab]] || [];
+
   return <TabPanel resources={relevantResource} />;
 };
 

@@ -23,13 +23,7 @@ export const baseHeaders: BaseHeaders[] = [
   { field: "remove", title: "" },
 ];
 
-interface NoteWithFn extends Note {
-  open(id: string): void;
-  remove(id: string): void;
-}
-interface Props {}
-
-export const NotesTable = (props: Props) => {
+export const NotesTable = () => {
   const { state } = useContext(NotesContext);
   const { notes } = state;
 
