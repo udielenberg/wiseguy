@@ -15,7 +15,6 @@ interface Props {
   resources: Resource[];
   setApprove(resource: any): void;
   setUnread(resource: any): void;
-  setUndecided(resource: any): void;
 }
 
 const securedNewWindow = {
@@ -24,7 +23,7 @@ const securedNewWindow = {
 };
 
 export const RejectedList = (props: Props) => {
-  const { resources, setApprove, setUnread, setUndecided } = props;
+  const { resources, setApprove, setUnread } = props;
   const handleClickApprove = (
     e: React.MouseEvent<HTMLElement>,
     resource: CurrentResource
@@ -32,15 +31,6 @@ export const RejectedList = (props: Props) => {
     e.preventDefault();
     e.stopPropagation();
     setApprove(resource);
-  };
-
-  const handleClickUndecided = (
-    e: React.MouseEvent<HTMLElement>,
-    resource: CurrentResource
-  ) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setUndecided(resource);
   };
 
   const handleClickUnread = (
@@ -88,12 +78,6 @@ export const RejectedList = (props: Props) => {
                   onClick={(e) => handleClickUnread(e, ids)}
                 >
                   unread
-                </StyledButton>
-                <StyledButton
-                  variant="contained"
-                  onClick={(e) => handleClickUndecided(e, ids)}
-                >
-                  undecided
                 </StyledButton>
                 <StyledButton
                   variant="contained"

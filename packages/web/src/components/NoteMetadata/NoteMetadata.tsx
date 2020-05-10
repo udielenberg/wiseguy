@@ -17,7 +17,6 @@ export const tabs: Tab[] = [
   { type: "fresh", title: "Main" },
   { type: "approved", title: "Approved" },
   { type: "rejected", title: "Rejected" },
-  { type: "undecided", title: "Undecided" },
 ];
 
 export const NoteMetadata = () => {
