@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Resource } from "models/Note";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -23,7 +23,7 @@ export const tabs: Tab[] = [
 export const NoteMetadata = () => {
   const { state } = useContext(NotesContext);
   const { selectedNote } = state;
-  const [currentTab, setTab] = React.useState(0);
+  const [currentTab, setTab] = useState(0);
 
   const handleChange = (_: any, newValue: number) => {
     setTab(newValue);
