@@ -12,7 +12,6 @@ const createDummyResource = (noteId: string): Resource => ({
   id: faker.random.uuid(),
   noteId,
   state: faker.random.arrayElement(resourceStates),
-  includeWords: undefined,
   link: 'http://www.walla.co.il',
   rating: faker.random.number({ min: 1, max: 1000 }),
   description: faker.random.words(),
