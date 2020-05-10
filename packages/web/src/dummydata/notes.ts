@@ -22,7 +22,7 @@ const createDummyResource = (noteId: string): Resource => ({
 });
 
 
-const setResources = (noteId: string) => range(10).map(_ => createDummyResource(noteId))
+export const setResources = (noteId: string) => range(10).map(_ => createDummyResource(noteId))
 
 const createDummyNote = (): Note => {
   const id = faker.random.uuid();
