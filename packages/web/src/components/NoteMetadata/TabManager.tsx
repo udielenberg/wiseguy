@@ -98,7 +98,7 @@ export const TabManager: React.FC<TabManagerProps> = (props) => {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 80vh;
+  height: 70vh;
   margin-top: 40px;
 `;
 
