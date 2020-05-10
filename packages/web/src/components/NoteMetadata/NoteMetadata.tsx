@@ -7,17 +7,24 @@ import { TabManager } from "./TabManager";
 import styled from "styled-components";
 import { NotesContext } from "context/Notes/";
 import { Typography } from "@material-ui/core";
+import { ResourceState } from "models/Note";
 
-export const tabs = [
+interface Tab {
+  type: ResourceState;
+  title: string;
+}
+export const tabs: Tab[] = [
   { type: "fresh", title: "Main" },
   { type: "approved", title: "Approved" },
   { type: "rejected", title: "Rejected" },
+  { type: "undecided", title: "Undecided" },
 ];
 
 export const NoteMetadata = () => {
   const { state } = useContext(NotesContext);
   const { selectedNote } = state;
   const [currentTab, setTab] = React.useState(0);
+
   const handleChange = (_: any, newValue: number) => {
     setTab(newValue);
   };
@@ -40,6 +47,7 @@ export const NoteMetadata = () => {
               const total = resources.filter(
                 (resource: Resource) => resource.state === type
               ).length;
+
               return <Tab key={title} label={`${title} (${total})`} />;
             })}
           </Tabs>
