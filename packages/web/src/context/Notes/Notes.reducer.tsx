@@ -1,6 +1,7 @@
 import { Note } from "models/Note";
 
 import { createNote } from "utils/noteUtils";
+import { setResources } from "dummydata/notes";
 
 interface NotesState {
   notes: Note[];
@@ -113,7 +114,10 @@ export const notesActions = (dispatch: any) => {
   const openNote = (id: string) => dispatch({ type: C.OPEN, payload: id });
   const addNote = (note: Note) => {
     const newNote = enhanceNote(createNote(note));
-    dispatch({ type: C.ADD, payload: newNote });
+    dispatch({
+      type: C.ADD,
+      payload: { ...newNote, resources: setResources(newNote.id) },
+    });
   };
   const updateAll = (notes: Note[]) => {
     const updatedNotes = notes.map((note) => enhanceNote(note));
