@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import CheckIcon from "@material-ui/icons/Check";
 import ClearIcon from "@material-ui/icons/Clear";
 import { Button } from "@material-ui/core";
@@ -9,6 +9,7 @@ import isEmpty from "lodash/isEmpty";
 import styled from "styled-components";
 import { StyledChip } from "shared/Styled";
 import { sortResources } from "./tabManagerUtil";
+import { NotesContext } from "context/Notes";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -25,8 +26,15 @@ interface TabManagerProps {
 const TabPanel: React.FC<{
   resources: any[];
 }> = (props) => {
+  const { actions } = useContext(NotesContext);
   const { resources } = props;
   const [current, setCurrent] = useState<number>(0);
+
+  const currentResource = {
+    noteId: resources[current]?.noteId,
+    resourceId: resources[current]?.id,
+  };
+
   const handleBack = () => {
     if (current > 0) {
       setCurrent((prevState) => prevState - 1);
@@ -36,6 +44,19 @@ const TabPanel: React.FC<{
     if (current < resources.length - 1) {
       setCurrent((prevState) => prevState + 1);
     }
+  };
+
+  const handleApprove = () => {
+    actions.moveResource({
+      ...currentResource,
+      resourceState: "approved",
+    });
+  };
+  const handleReject = () => {
+    actions.moveResource({
+      ...currentResource,
+      resourceState: "rejected",
+    });
   };
 
   if (isEmpty(resources)) {
