@@ -94,20 +94,6 @@ const TabPanel: React.FC<{
           </StyledInfo>
 
           <StyledInfo>
-            <MarginedText>include words: </MarginedText>
-            {resources[current].includeWords?.map(
-              (word: string, index: number) => (
-                <StyledChip
-                  variant="outlined"
-                  key={index}
-                  size="small"
-                  label={word}
-                />
-              )
-            )}
-          </StyledInfo>
-
-          <StyledInfo>
             <MarginedText>article:</MarginedText>
             <a href={resources[current].link}>link</a>
           </StyledInfo>

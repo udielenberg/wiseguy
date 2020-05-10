@@ -4,7 +4,6 @@ export interface Resource {
     id: string;
     noteId: string;
     state: ResourceState;
-    includeWords: string[] | undefined;
     rating: number;
     link: string | undefined;
     description: string | undefined;
@@ -27,7 +26,6 @@ export interface Note {
 export const resourceStates: ResourceState[] = ["fresh", "undecided", "approved", "rejected"];
 export type NoteSearchAndWords = Pick<Note, "search" | "includeWords">;
 
-
 export const baseNote: Note = {
     id: '',
     created: new Date(),
@@ -41,7 +39,6 @@ export const baseResource: Resource = {
     id: '',
     noteId: '',
     state: "fresh",
-    includeWords: [],
     link: undefined,
     rating: 0,
     description: undefined,
