@@ -1,7 +1,7 @@
 import { Note } from "models/Note";
 
 import { createNote } from "utils/noteUtils";
-import { setResources } from "dummydata/notes";
+import { setResources } from "dummydata/_notes";
 
 interface NotesState {
   notes: Note[];
