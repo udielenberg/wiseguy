@@ -41,9 +41,11 @@ export const ClassicView = (props: Props) => {
           </Button>
           <ContentWrapper>
             <StyledInfo>
-              <MarginedText>
-                ({current + 1}/{resources.length})
-              </MarginedText>
+              <CenteredText>
+                <BoldText>
+                  ({current + 1}/{resources.length})
+                </BoldText>
+              </CenteredText>
             </StyledInfo>
             <StyledInfo>
               <MarginedText>description:</MarginedText>{" "}
@@ -116,6 +118,11 @@ const BoldText = styled.span`
 
 const MarginedText = styled.span`
   margin-right: 5px;
+`;
+
+const CenteredText = styled.div`
+  text-align: center;
+  margin-bottom: 20px;
 `;
 
 const ImageContainer = styled.div`
