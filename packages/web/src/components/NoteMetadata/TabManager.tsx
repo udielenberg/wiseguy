@@ -55,7 +55,7 @@ const TabPanel: React.FC<{
   }
 
   const setView = () => {
-    if (type === "fresh") {
+    if (type === "fresh" || type === "approved") {
       return (
         <ClassicView
           resources={resources}
