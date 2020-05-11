@@ -3,7 +3,7 @@ export const realDummyNotes: Note[] = [
     {
         id: 'aaaaaaaaaaaaaaaaa',
         created: new Date(),
-        includeWords: ['graphQL', 'Hasura', 'postgres'],
+        includeWords: ['GraphQL', 'Hasura', 'Postgres'],
         search: 'GraphQL APIs for Postgres applications',
         watched: false,
         resources: [
@@ -21,12 +21,12 @@ export const realDummyNotes: Note[] = [
                 domain: "Wikipedia",
                 images: [],
                 relevantParagraphs: {
-                    'hasura,graphql, postgres': [
+                    'hasura,graphql,postgres': [
                         "Hasura is a privately held software technology company that builds developer tooling products, including open source tools, backend as a service (BaaS) and platform as a service (PaaS) products.[1][2][3] The Hasura GraphQL Engine provides GraphQL APIs over new or existing Postgres databases.[4][5] The Hasura Kubernetes Platform is a managed platform for building, deploying, and managing applications on Kubernetes.[6][7] The company was founded on 2017, and has its headquarters in San Francisco, and has offices in Bangalore.[8]",
                         "In July 2018, the company announced the open source release of the Hasura GraphQL Engine to enable developers to set up GraphQL endpoints on their existing postgres applications.[19] In September 2018, the company introduced an open source event trigger system on Postgres for building serverless apps.",
                         "The Hasura GraphQL Engine provides developers with GraphQL APIs for Postgres applications.[23][24][25] The engine can be deployed on Heroku."
                     ],
-                    Hasura: [
+                    hasura: [
                         "Prior to founding Hasura, founders Tanmai Gopal and Rajoshi Ghosh started an online food delivery platform. While building the platform, they realised that there were questions of what stack and which programmes to use. They found that they were solving some core issues like getting a C library to communicate with a Python library and integrate the best that is available, while checking app performance. This is how their startup gradually transitioned from a food delivery platform, to building tools for developers.",
                         "Hasura became a certified vendor of the Certified Kubernetes Conformance Program, which was created by The Cloud Native Computing Foundation 2018.",
                         "Hasura provides developers with a data layer, API gateway with authentication middleware, and GitOps automation for rapid deployment.[26] It also provisions Kubernetes clusters on different cloud-vendors and simplifies migration of an application from one cloud-vendor to another."
