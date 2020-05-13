@@ -48,7 +48,7 @@ export const realDummyNotes: Note[] = [
                 state: 'fresh',
                 rating: 50,
                 link: 'https://hasura.io/blog/tagged/postgres/',
-                description: "",
+                description: "Hasura is a wonderful bonderful thunderful service",
                 createdAt: new Date("15 Sept 2018"),
                 updatedAt: new Date("5 Nov 2020"),
                 writtenBy: "David Gerard",
