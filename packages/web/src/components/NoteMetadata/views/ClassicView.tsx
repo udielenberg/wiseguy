@@ -35,6 +35,15 @@ export const ClassicView = (props: Props) => {
   };
 
   if (resources.length) {
+    const {
+      description,
+      createdAt,
+      rating,
+      link,
+      images,
+      relevantParagraphs,
+      writtenBy,
+    } = resources[current];
     return (
       <>
         <CarouselWrapper>
@@ -42,50 +51,54 @@ export const ClassicView = (props: Props) => {
             <ArrowBackIosIcon />
           </Button>
           <ContentWrapper>
-            <StyledInfo>
+            <StyledInfo style={{ marginTop: "-15px" }}>
               <CenteredText>
                 <BoldText>
                   ({current + 1}/{resources.length})
                 </BoldText>
               </CenteredText>
             </StyledInfo>
-            <StyledInfo>
-              <TextMarginRight>description:</TextMarginRight>{" "}
-              <BoldText>{resources[current]?.description}</BoldText>
-            </StyledInfo>
-
-            <StyledInfo>
-              <TextMarginRight>created at: </TextMarginRight>
-              <BoldText>
-                {resources[current]?.createdAt.toDateString()}
-              </BoldText>
-            </StyledInfo>
-
-            <StyledInfo>
-              <TextMarginRight>rating:</TextMarginRight>{" "}
-              <BoldText>{resources[current]?.rating}</BoldText>
-            </StyledInfo>
-
-            <StyledInfo>
-              <TextMarginRight>article:</TextMarginRight>
-              <a href={resources[current]?.link}>link</a>
-            </StyledInfo>
-
-            <ImageContainer>
-              {resources[current]?.images.map((img: string) => (
-                <img key={img} src={img} alt="blabla" />
-              ))}
-            </ImageContainer>
 
             <StyledInfo>
               <ParagraphViewer
-                combinations={resources[current]?.relevantParagraphs}
+                combinations={relevantParagraphs}
                 currentNote={current}
               />
             </StyledInfo>
 
             <StyledInfo>
-              written by: <BoldText>{resources[current]?.writtenBy}</BoldText>
+              <TextMarginRight>description:</TextMarginRight>{" "}
+              <BoldText>{description}</BoldText>
+            </StyledInfo>
+
+            <StyledInfo>
+              <TextMarginRight>created at: </TextMarginRight>
+              <BoldText>{createdAt.toDateString()}</BoldText>
+            </StyledInfo>
+
+            <StyledInfo>
+              <TextMarginRight>rating:</TextMarginRight>{" "}
+              <BoldText>{rating}</BoldText>
+            </StyledInfo>
+
+            <StyledInfo>
+              <TextMarginRight>article:</TextMarginRight>
+              <a href={link}>link</a>
+            </StyledInfo>
+
+            {images.length ? (
+              <StyledInfo>
+                <TextMarginRight>images:</TextMarginRight>{" "}
+                <ImageContainer>
+                  {images.map((img: string) => (
+                    <img key={img} src={img} alt="blabla" />
+                  ))}
+                </ImageContainer>
+              </StyledInfo>
+            ) : null}
+
+            <StyledInfo>
+              written by: <BoldText>{writtenBy}</BoldText>
             </StyledInfo>
           </ContentWrapper>
 
