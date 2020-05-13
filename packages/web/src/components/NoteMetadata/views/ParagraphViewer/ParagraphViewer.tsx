@@ -89,7 +89,12 @@ export const ParagraphViewer = (props: Props) => {
     } else {
       setParagraphIndex(paragraphIndex + 1);
     }
-  }, [combinationIndex, paragraphIndex, paragraphs.length]);
+  }, [
+    combinationIndex,
+    combinations.length,
+    paragraphIndex,
+    paragraphs.length,
+  ]);
 
   const prevParagraph = useCallback(() => {
     if (paragraphIndex === 0) {
@@ -115,7 +120,7 @@ export const ParagraphViewer = (props: Props) => {
     } else {
       setParagraphIndex(paragraphIndex - 1);
     }
-  }, [combinationIndex, paragraphIndex]);
+  }, [combinationIndex, combinations, paragraphIndex]);
 
   useEffect(() => {
     const handleKeypressDown = (e: KeyboardEvent) => {
