@@ -2,72 +2,91 @@ import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { BoldText, TextMarginLeft } from "shared/Styled";
 import Button from "@material-ui/core/Button";
-
+import findLastIndex from "lodash/findLastIndex";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 interface Props {
   paragraphs: string[];
 }
 
-export const ParagraphViewer = (props: Props) => {
-  const [currentCombination, setCurrentCombination] = useState(0);
-  const [currentParagraph, setCurrentParagraph] = useState(1);
+const combinations = [
+  {
+    "udi,guy": ["udi guy 0", "udi guy 1", "udi guy 2"],
+  },
+  {
+    "rafi,oz": ["rafi oz 0", "rafi oz 1", "rafi oz 2", "rafi oz 3"],
+  },
+  {
+    "bumpy,aba": ["bumpy aba 0", "bumpy aba 1"],
+  },
+];
 
-  const { paragraphs } = props;
+export const ParagraphViewer = (props: Props) => {
+  const [combinationIndex, setCombinationIndex] = useState(0);
+  const [paragraphIndex, setParagraphIndex] = useState(0);
+
+  const arr = Object.entries(combinations[combinationIndex])[0];
+  const [joinedWords, paragraphs = []] = arr;
+  const words = joinedWords.split(",");
+  const currentParagraph = paragraphs[paragraphIndex];
 
   // export to utils
-  const raw = Object.entries(paragraphs);
-  const combinations = raw.map((r) => r[0]);
-  const combinationsArray = combinations.map((comb) => comb.split(","));
-  const rawParagraph = raw[currentCombination][1];
-  const regexHeighlight = combinationsArray.map((arr) => arr.join("|"));
-  const shouldHighlight = regexHeighlight[currentCombination];
-  const regex = new RegExp(shouldHighlight, "gi");
-  const totalParagraphs = rawParagraph.length - 1;
-  debugger;
-  const totalCombinations = combinationsArray.length - 1;
-  console.log("failing one:", rawParagraph[currentParagraph]);
-  console.log("currentParagraph:", currentParagraph);
-  console.log("rawParagraph:", rawParagraph);
-  const paragraph = rawParagraph[currentParagraph].replace(regex, (s) => {
-    return `<span class="highlight">${s}</span>`;
-  });
-
-  const prevParagraph = useCallback(() => {
-    if (currentParagraph > 0) {
-      setCurrentParagraph(currentParagraph - 1);
-    } else {
-      const x =
-        (raw[currentCombination - 1] &&
-          raw[currentCombination - 1][1].length - 1) ||
-        0;
-      setCurrentParagraph(x);
-      if (currentCombination > 0) {
-        setCurrentCombination(currentCombination - 1);
-      } else {
-        const i = raw.length - 1;
-        setCurrentCombination(i);
-      }
+  const highlightParagraph = (paragraph: string, wordsArray: string[]) => {
+    try {
+      const wordsRegEx = wordsArray.join("|");
+      const regex = new RegExp(wordsRegEx, "gi");
+      //@ts-ignore
+      return paragraph.replace(
+        regex,
+        (str: string) => `<span class="highlight">${str}</span>`
+      );
+    } catch (err) {
+      console.log(err);
+      return "problematic string";
     }
-  }, [currentCombination, currentParagraph, raw]);
+  };
+
+  const wordsToPresent = joinedWords.split(",");
 
   const nextParagraph = useCallback(() => {
-    if (currentParagraph < totalParagraphs) {
-      setCurrentParagraph((prevState) => prevState + 1);
-    } else {
-      if (currentCombination < totalCombinations) {
-        setCurrentParagraph(0);
-        setCurrentCombination((prevState) => prevState + 1);
+    if (paragraphIndex === paragraphs.length - 1) {
+      if (combinationIndex === combinations.length - 1) {
+        setParagraphIndex(0);
+        setCombinationIndex(0);
       } else {
-        setCurrentCombination(0);
+        setParagraphIndex(0);
+        setCombinationIndex(combinationIndex + 1);
       }
+    } else {
+      setParagraphIndex(paragraphIndex + 1);
     }
-  }, [
-    currentCombination,
-    currentParagraph,
-    totalCombinations,
-    totalParagraphs,
-  ]);
+  }, [combinationIndex, paragraphIndex, paragraphs.length]);
+
+  const prevParagraph = useCallback(() => {
+    if (paragraphIndex === 0) {
+      if (combinationIndex === 0) {
+        const combinationLastIndex = findLastIndex(combinations);
+        setCombinationIndex(combinationLastIndex);
+
+        const lastCombination = combinations[combinationLastIndex];
+        const lastCombinationParagraphs = Object.values(lastCombination)[0];
+        const lastCombinationLastParagraphIndex = findLastIndex(
+          lastCombinationParagraphs
+        );
+
+        setParagraphIndex(lastCombinationLastParagraphIndex);
+      } else {
+        const previousCombination = combinations[combinationIndex - 1];
+        const previousParagraphs = Object.values(previousCombination)[0];
+        const totalPreviousParagraphs = findLastIndex(previousParagraphs);
+
+        setCombinationIndex(combinationIndex - 1);
+        setParagraphIndex(totalPreviousParagraphs);
+      }
+    } else {
+      setParagraphIndex(paragraphIndex - 1);
+    }
+  }, [combinationIndex, paragraphIndex]);
 
   useEffect(() => {
     const handleKeypressDown = (e: KeyboardEvent) => {
@@ -92,10 +111,9 @@ export const ParagraphViewer = (props: Props) => {
   }, [nextParagraph, prevParagraph]);
 
   /**
-   * 1. add up and down button to move between paragraphs
    * 2. add indicator on the side
+   *    flat all paras arrays into 1 and calculate length
    * 3. add animations to the paragraph change
-   * 4. add up|down arrow shortcuts to navigate between paragraphs
    */
 
   // ADD THE WRAPPING CAROUSEL
@@ -108,16 +126,27 @@ export const ParagraphViewer = (props: Props) => {
           <KeyboardArrowUpIcon />
         </HorizontalNavButton>
         <Wrapper>
-          combination<TempStyle>[{currentCombination}]</TempStyle>
-          <TempStyle>[paragraph {currentParagraph}]</TempStyle>
-          {/* <div>
-            <BoldText>Includes:</BoldText>{" "}
-            <TextMarginLeft>{combinationsArray.join(", ")}</TextMarginLeft>
+          <div
+            style={{
+              background: "orange",
+              padding: 15,
+              marginBottom: "20px",
+            }}
+          >
+            combination<TempStyle>[{combinationIndex}]</TempStyle>
+            <TempStyle>[paragraph {paragraphIndex}]</TempStyle>
+          </div>
+
+          <div>
+            <BoldText>Includes:</BoldText>
+            <TextMarginLeft>{wordsToPresent.join(", ")}</TextMarginLeft>
           </div>
           <p
             className="paragraph"
-            dangerouslySetInnerHTML={{ __html: paragraph }}
-          /> */}
+            dangerouslySetInnerHTML={{
+              __html: highlightParagraph(currentParagraph, words),
+            }}
+          />
         </Wrapper>
         <HorizontalNavButton onClick={nextParagraph}>
           <KeyboardArrowDownIcon />
