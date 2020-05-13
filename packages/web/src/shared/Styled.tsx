@@ -22,5 +22,5 @@ export const CenteredText = styled.div`
 
 export const ScrollableContainer = styled.div`
   position: relative;
-  overflow: scroll'
+  overflow: scroll;
 `;
