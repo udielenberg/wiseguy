@@ -5,8 +5,9 @@ import Button from "@material-ui/core/Button";
 import findLastIndex from "lodash/findLastIndex";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+
 interface Props {
-  paragraphs: string[];
+  combinations: any[];
 }
 
 const combinations = [
@@ -22,6 +23,7 @@ const combinations = [
 ];
 
 export const ParagraphViewer = (props: Props) => {
+  const { combinations } = props;
   const [combinationIndex, setCombinationIndex] = useState(0);
   const [paragraphIndex, setParagraphIndex] = useState(0);
 

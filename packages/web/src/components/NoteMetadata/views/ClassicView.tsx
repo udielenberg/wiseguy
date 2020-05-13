@@ -79,7 +79,7 @@ export const ClassicView = (props: Props) => {
 
             <StyledInfo>
               <ParagraphViewer
-                paragraphs={resources[current]?.relevantParagraphs}
+                combinations={resources[current]?.relevantParagraphs}
               />
             </StyledInfo>
 
