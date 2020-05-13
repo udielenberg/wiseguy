@@ -160,7 +160,7 @@ const Wrapper = styled.div`
   background: #ccc;
   padding: 20px;
   border-radius: 5px;
-  height: 330px;
+  height: 200px;
   position: relative;
   overflow: scroll;
 
