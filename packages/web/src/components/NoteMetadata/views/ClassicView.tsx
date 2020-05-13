@@ -46,7 +46,6 @@ export const ClassicView = (props: Props) => {
       relevantParagraphs,
       writtenBy,
     } = resources[current];
-    console.log("rating:", rating);
     return (
       <>
         <MainWrapper>

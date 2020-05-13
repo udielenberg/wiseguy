@@ -9,7 +9,7 @@ import { WordOption } from "models/Note";
 import Tooltip from "@material-ui/core/Tooltip";
 import HelpIcon from "@material-ui/icons/Help";
 
-const whatIsAllThisText = "Add a note and I will do the research for you!";
+const whatItsAllAbout = "Add a note and I will do the research for you!";
 
 export const AddNote = () => {
   const { actions } = useContext(NotesContext);
@@ -69,7 +69,7 @@ export const AddNote = () => {
         <StyledTooltip
           title={
             <div style={{ padding: 15, fontSize: "1.2rem", lineHeight: 2 }}>
-              {whatIsAllThisText}
+              {whatItsAllAbout}
             </div>
           }
           placement="right-start"
