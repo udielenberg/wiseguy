@@ -146,13 +146,6 @@ export const ParagraphViewer = (props: Props) => {
     };
   }, [nextParagraph, prevParagraph]);
 
-  /**
-   * @TODO:
-   * 1. add left|right arrow keys to move between resources
-   * 2. add animations to the paragraph change
-   * 3. export engine into a custom hook (optional)
-   */
-
   return (
     <div>
       Paragraphs:
