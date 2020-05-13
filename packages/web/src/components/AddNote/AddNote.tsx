@@ -6,6 +6,10 @@ import { AddIncludeWords } from "components/AddIncludeWords";
 import { NotesContext } from "context/Notes/";
 import { cleanedWordsList } from "utils/noteUtils";
 import { WordOption } from "models/Note";
+import Tooltip from "@material-ui/core/Tooltip";
+import HelpIcon from "@material-ui/icons/Help";
+
+const whatIsAllThisText = "Add a note and I will do the research for you!";
 
 export const AddNote = () => {
   const { actions } = useContext(NotesContext);
@@ -47,14 +51,25 @@ export const AddNote = () => {
 
   return (
     <Wrapper>
-      <TextField
-        value={noteText}
-        label="add note..."
-        variant="outlined"
-        autoFocus
-        onKeyDown={handleEnter}
-        onChange={handleChange}
-      />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <TextField
+          value={noteText}
+          label="add note..."
+          variant="outlined"
+          autoFocus
+          onKeyDown={handleEnter}
+          onChange={handleChange}
+        />
+        <StyledTooltip title={whatIsAllThisText} placement="right-start">
+          <HelpIcon />
+        </StyledTooltip>
+      </div>
       <AddIncludeWords
         noteText={noteText}
         addNote={handleAdd}
@@ -74,4 +89,8 @@ export const AddNote = () => {
 const Wrapper = styled.div`
   text-align: center;
   padding-top: 50px;
+`;
+
+const StyledTooltip = styled(Tooltip)`
+  margin-left: 15px;
 `;
