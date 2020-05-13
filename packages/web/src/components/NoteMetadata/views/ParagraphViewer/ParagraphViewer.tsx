@@ -1,3 +1,5 @@
+// Clean and Beautify please!
+
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import {
@@ -10,6 +12,10 @@ import Button from "@material-ui/core/Button";
 import findLastIndex from "lodash/findLastIndex";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import {
+  highlightParagraph,
+  paragraphCurrrentAndTotal,
+} from "./paragraphViewerUtils";
 
 interface Props {
   combinations: any[];
@@ -18,7 +24,6 @@ interface Props {
 
 export const ParagraphViewer = (props: Props) => {
   const { combinations } = props;
-
   const [combinationIndex, setCombinationIndex] = useState(0);
   const [paragraphIndex, setParagraphIndex] = useState(0);
 
@@ -27,58 +32,21 @@ export const ParagraphViewer = (props: Props) => {
     setParagraphIndex(0);
   }, [props.currentNote]);
 
-  const arr = combinations[combinationIndex]
+  const [joinedWords = "", paragraphs = [] as any] = combinations[
+    combinationIndex
+  ]
     ? Object.entries(combinations[combinationIndex])[0]
     : [];
 
-  const [joinedWords = "", paragraphs = [] as any] = arr;
   const words = joinedWords.split(",");
   const currentParagraph = paragraphs[paragraphIndex];
 
-  const totalParagraphs = combinations.flatMap(
-    (combination) => Object.values(combination)[0]
-  ).length;
-
-  const totals = combinations.reduce((total, combination) => {
-    const totalCombination = Object.values(combination)[0] as any[];
-    const t =
-      totalCombination && totalCombination.length ? totalCombination.length : 0;
-    total = [...total, t];
-    return total;
-  }, [] as number[]);
-
-  const getN_Paragraph = (
-    totals: number[],
-    combinationIndex: number,
-    paragraphIndex: number
-  ): number => {
-    const sum = totals.slice(0, combinationIndex).reduce((a, b) => a + b, 0);
-    return sum + paragraphIndex + 1;
-  };
-
-  const nParagraphOutOfTotal = getN_Paragraph(
-    totals,
+  const wordsToPresent = joinedWords.split(",");
+  const paragraphLocation = paragraphCurrrentAndTotal(
+    combinations,
     combinationIndex,
     paragraphIndex
   );
-
-  // export to utils
-  const highlightParagraph = (paragraph: string, wordsArray: string[]) => {
-    try {
-      const wordsRegEx = wordsArray.join("|");
-      const regex = new RegExp(wordsRegEx, "gi");
-      //@ts-ignore
-      return paragraph.replace(
-        regex,
-        (str: string) => `<span class="highlight">${str}</span>`
-      );
-    } catch (err) {
-      console.log(err);
-      return "problematic string";
-    }
-  };
-
-  const wordsToPresent = joinedWords.split(",");
 
   const nextParagraph = useCallback(() => {
     if (paragraphIndex === paragraphs.length - 1) {
@@ -161,7 +129,7 @@ export const ParagraphViewer = (props: Props) => {
         <Wrapper>
           <CenteredText>
             <BoldText>
-              {nParagraphOutOfTotal} / {totalParagraphs}
+              {paragraphLocation.current} / {paragraphLocation.total}
             </BoldText>
           </CenteredText>
 
@@ -192,6 +160,9 @@ const Wrapper = styled.div`
   background: #ccc;
   padding: 20px;
   border-radius: 5px;
+  height: 330px;
+  position: relative;
+  overflow: scroll;
 
   .paragraph {
     line-height: 200%;
