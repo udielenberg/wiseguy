@@ -10,18 +10,6 @@ interface Props {
   combinations: any[];
 }
 
-const combinations = [
-  {
-    "udi,guy": ["udi guy 0", "udi guy 1", "udi guy 2"],
-  },
-  {
-    "rafi,oz": ["rafi oz 0", "rafi oz 1", "rafi oz 2", "rafi oz 3"],
-  },
-  {
-    "bumpy,aba": ["bumpy aba 0", "bumpy aba 1"],
-  },
-];
-
 export const ParagraphViewer = (props: Props) => {
   const { combinations } = props;
   const [combinationIndex, setCombinationIndex] = useState(0);
@@ -145,11 +133,10 @@ export const ParagraphViewer = (props: Props) => {
   }, [nextParagraph, prevParagraph]);
 
   /**
+   * @TODO:
    * 3. add animations to the paragraph change
    * 4. export engine into a custom hook (optional)
    */
-
-  // ADD THE WRAPPING CAROUSEL
 
   return (
     <div>
