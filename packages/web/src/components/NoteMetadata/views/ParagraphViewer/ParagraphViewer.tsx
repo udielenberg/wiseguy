@@ -10,15 +10,19 @@ import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 
 interface Props {
   combinations: any[];
+  currentNote: number;
 }
 
 export const ParagraphViewer = (props: Props) => {
   const { combinations } = props;
+
   const [combinationIndex, setCombinationIndex] = useState(0);
   const [paragraphIndex, setParagraphIndex] = useState(0);
 
-  const arr = Object.entries(combinations[combinationIndex])[0];
-  const [joinedWords, paragraphs = []] = arr;
+  useEffect(() => {
+    setCombinationIndex(0);
+    setParagraphIndex(0);
+  }, [props.currentNote]);
   const words = joinedWords.split(",");
   const currentParagraph = paragraphs[paragraphIndex];
 

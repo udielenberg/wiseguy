@@ -80,6 +80,7 @@ export const ClassicView = (props: Props) => {
             <StyledInfo>
               <ParagraphViewer
                 combinations={resources[current]?.relevantParagraphs}
+                currentNote={current}
               />
             </StyledInfo>
 
