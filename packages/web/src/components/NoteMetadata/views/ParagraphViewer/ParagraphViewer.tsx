@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
-import { BoldText, TextMarginLeft } from "shared/Styled";
+import { BoldText, TextMarginLeft, CenteredText } from "shared/Styled";
 import Button from "@material-ui/core/Button";
 import findLastIndex from "lodash/findLastIndex";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
@@ -29,6 +29,33 @@ export const ParagraphViewer = (props: Props) => {
   const [joinedWords, paragraphs = []] = arr;
   const words = joinedWords.split(",");
   const currentParagraph = paragraphs[paragraphIndex];
+
+  const totalParagraphs = combinations.flatMap(
+    (combination) => Object.values(combination)[0]
+  ).length;
+
+  const totals = combinations.reduce((total, combination) => {
+    const totalCombination = Object.values(combination)[0];
+    const t =
+      totalCombination && totalCombination.length ? totalCombination.length : 0;
+    total = [...total, t];
+    return total;
+  }, [] as number[]);
+
+  const getN_Paragraph = (
+    totals: number[],
+    combinationIndex: number,
+    paragraphIndex: number
+  ): number => {
+    const sum = totals.slice(0, combinationIndex).reduce((a, b) => a + b, 0);
+    return sum + paragraphIndex + 1;
+  };
+
+  const nParagraphOutOfTotal = getN_Paragraph(
+    totals,
+    combinationIndex,
+    paragraphIndex
+  );
 
   // export to utils
   const highlightParagraph = (paragraph: string, wordsArray: string[]) => {
@@ -111,9 +138,8 @@ export const ParagraphViewer = (props: Props) => {
   }, [nextParagraph, prevParagraph]);
 
   /**
-   * 2. add indicator on the side
-   *    flat all paras arrays into 1 and calculate length
    * 3. add animations to the paragraph change
+   * 4. export engine into a custom hook (optional)
    */
 
   // ADD THE WRAPPING CAROUSEL
@@ -126,16 +152,11 @@ export const ParagraphViewer = (props: Props) => {
           <KeyboardArrowUpIcon />
         </HorizontalNavButton>
         <Wrapper>
-          <div
-            style={{
-              background: "orange",
-              padding: 15,
-              marginBottom: "20px",
-            }}
-          >
-            combination<TempStyle>[{combinationIndex}]</TempStyle>
-            <TempStyle>[paragraph {paragraphIndex}]</TempStyle>
-          </div>
+          <CenteredText>
+            <BoldText>
+              {nParagraphOutOfTotal} / {totalParagraphs}
+            </BoldText>
+          </CenteredText>
 
           <div>
             <BoldText>Includes:</BoldText>
@@ -178,9 +199,4 @@ const HorizontalNavButton = styled(Button).attrs({
   variant: "contained",
 })`
   text-align: center;
-`;
-
-const TempStyle = styled.span`
-  font-weight: bold;
-  font-size: 1.2rem;
 `;
