@@ -35,6 +35,7 @@ export const AddIncludeWords = (props: Props) => {
   return (
     <Wrapper>
       <CreatableSelect
+        placeholder="Add words that should be included in the article"
         isMulti
         onInputChange={handleInputChange}
         onKeyDown={handleKeyDown}
