@@ -14,3 +14,8 @@ export const TextMarginRight = styled.span`
 export const TextMarginLeft = styled.span`
   margin-left: 5px;
 `;
+
+export const CenteredText = styled.div`
+  text-align: center;
+  margin-bottom: 20px;
+`;

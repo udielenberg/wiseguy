@@ -6,7 +6,7 @@ import { Button } from "@material-ui/core";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { ParagraphViewer } from "./ParagraphViewer";
-import { BoldText, TextMarginRight } from "shared/Styled";
+import { BoldText, TextMarginRight, CenteredText } from "shared/Styled";
 
 interface Props {
   approve(resource: any): void;
@@ -118,11 +118,6 @@ export const ClassicView = (props: Props) => {
 
 const StyledInfo = styled.div`
   padding: 5px;
-`;
-
-const CenteredText = styled.div`
-  text-align: center;
-  margin-bottom: 20px;
 `;
 
 const ImageContainer = styled.div`
