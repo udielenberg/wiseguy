@@ -6,7 +6,7 @@ import { Button } from "@material-ui/core";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { ParagraphViewer } from "./ParagraphViewer";
-import { BoldText, TextMarginRight, CenteredText } from "shared/Styled";
+import { BoldText, TextMarginRight, ScrollableContainer } from "shared/Styled";
 
 interface Props {
   approve(resource: any): void;
@@ -72,7 +72,7 @@ export const ClassicView = (props: Props) => {
           <Button color="primary" variant="contained" onClick={handleBack}>
             <ArrowBackIosIcon />
           </Button>
-          <div style={{ position: "relative", overflow: "scroll" }}>
+          <ScrollableContainer>
             <CarouselWrapper>
               <ContentWrapper>
                 <StyledInfo>
@@ -100,7 +100,7 @@ export const ClassicView = (props: Props) => {
                 <Info title="written by" content={writtenBy} />
               </ContentWrapper>
             </CarouselWrapper>
-          </div>
+          </ScrollableContainer>
           <Button color="primary" variant="contained" onClick={handleForward}>
             <ArrowForwardIosIcon />
           </Button>
