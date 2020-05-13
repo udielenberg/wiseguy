@@ -6,30 +6,14 @@ import { Button } from "@material-ui/core";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { ParagraphViewer } from "./ParagraphViewer";
-import { BoldText, TextMarginRight, ScrollableContainer } from "shared/Styled";
+import { ScrollableContainer } from "shared/Styled";
+import Info from "shared/Info";
 
 interface Props {
   approve(resource: any): void;
   reject(resource: any): void;
   resources: any[];
 }
-
-interface InfoProps {
-  title: string;
-  content: string | React.ReactNode;
-}
-
-const Info = (props: InfoProps) => {
-  const { title, content } = props;
-  const contentToRender =
-    typeof content === "string" ? <BoldText>{content}</BoldText> : content;
-  return (
-    <StyledInfo>
-      <TextMarginRight>{title}:</TextMarginRight>
-      {contentToRender}
-    </StyledInfo>
-  );
-};
 
 export const ClassicView = (props: Props) => {
   const { approve, reject, resources } = props;
@@ -61,26 +45,20 @@ export const ClassicView = (props: Props) => {
       relevantParagraphs,
       writtenBy,
     } = resources[current];
+    console.log("rating:", rating);
     return (
       <>
-        <div
-          style={{
-            display: "flex",
-            height: "60vh",
-          }}
-        >
+        <MainWrapper>
           <Button color="primary" variant="contained" onClick={handleBack}>
             <ArrowBackIosIcon />
           </Button>
           <ScrollableContainer>
             <CarouselWrapper>
               <ContentWrapper>
-                <StyledInfo>
-                  <ParagraphViewer
-                    combinations={relevantParagraphs}
-                    currentNote={current}
-                  />
-                </StyledInfo>
+                <ParagraphViewer
+                  combinations={relevantParagraphs}
+                  currentNote={current}
+                />
                 <Info title="description" content={description} />
                 <Info title="created at" content={createdAt.toDateString()} />
                 <Info title="rating" content={rating} />
@@ -104,7 +82,7 @@ export const ClassicView = (props: Props) => {
           <Button color="primary" variant="contained" onClick={handleForward}>
             <ArrowForwardIosIcon />
           </Button>
-        </div>
+        </MainWrapper>
         <ActionWrapper>
           <Button
             onClick={() => approve(currentResource)}
@@ -129,8 +107,9 @@ export const ClassicView = (props: Props) => {
   return <div>empty</div>;
 };
 
-const StyledInfo = styled.div`
-  padding: 5px;
+const MainWrapper = styled.div`
+  display: flex;
+  height: 60vh;
 `;
 
 const ImageContainer = styled.div`
