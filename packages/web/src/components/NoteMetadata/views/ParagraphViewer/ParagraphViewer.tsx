@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
-import { BoldText, TextMarginLeft, CenteredText } from "shared/Styled";
+import {
+  BoldText,
+  TextMarginLeft,
+  CenteredText,
+  StyledChip,
+} from "shared/Styled";
 import Button from "@material-ui/core/Button";
 import findLastIndex from "lodash/findLastIndex";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
@@ -162,7 +167,11 @@ export const ParagraphViewer = (props: Props) => {
 
           <div>
             <BoldText>Includes:</BoldText>
-            <TextMarginLeft>{wordsToPresent.join(", ")}</TextMarginLeft>
+            <TextMarginLeft>
+              {wordsToPresent.map((word) => (
+                <StyledChip color="secondary" key={word} label={word} />
+              ))}
+            </TextMarginLeft>
           </div>
           <p
             className="paragraph"
