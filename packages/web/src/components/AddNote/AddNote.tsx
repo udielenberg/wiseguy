@@ -66,7 +66,14 @@ export const AddNote = () => {
           onKeyDown={handleEnter}
           onChange={handleChange}
         />
-        <StyledTooltip title={whatIsAllThisText} placement="right-start">
+        <StyledTooltip
+          title={
+            <div style={{ padding: 15, fontSize: "1.2rem", lineHeight: 2 }}>
+              {whatIsAllThisText}
+            </div>
+          }
+          placement="right-start"
+        >
           <HelpIcon />
         </StyledTooltip>
       </div>
