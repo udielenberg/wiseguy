@@ -8,6 +8,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { ParagraphViewer } from "./ParagraphViewer";
 import { ScrollableContainer } from "shared/Styled";
 import Info from "shared/Info";
+import { securedNewWindow } from "utils/settings";
 
 interface Props {
   approve(resource: any): void;
@@ -62,7 +63,14 @@ export const ClassicView = (props: Props) => {
                 <Info title="description" content={description} />
                 <Info title="created at" content={createdAt.toDateString()} />
                 <Info title="rating" content={rating} />
-                <Info title="article" content={<a href={link}>link</a>} />
+                <Info
+                  title="article"
+                  content={
+                    <a {...securedNewWindow} href={link}>
+                      link
+                    </a>
+                  }
+                />
                 {images.length ? (
                   <Info
                     title="article"
