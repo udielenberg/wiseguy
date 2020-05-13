@@ -23,6 +23,7 @@ export const CenteredText = styled.div`
 export const ScrollableContainer = styled.div`
   position: relative;
   overflow: scroll;
+  flex: 1;
 `;
 
 export const HorizontalCenterContainer = styled.div`
