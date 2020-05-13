@@ -5,8 +5,9 @@ import styled from "styled-components";
 import {
   BoldText,
   TextMarginLeft,
-  CenteredText,
   StyledChip,
+  HorizontalCenterContainer,
+  FullCenterContainer,
 } from "shared/Styled";
 import Button from "@material-ui/core/Button";
 import findLastIndex from "lodash/findLastIndex";
@@ -122,29 +123,23 @@ export const ParagraphViewer = (props: Props) => {
   return (
     <div>
       Paragraphs:
-      <div style={{ marginTop: "10px" }}>
+      <InnerWrapper>
         <HorizontalNavButton onClick={prevParagraph}>
           <KeyboardArrowUpIcon />
         </HorizontalNavButton>
-        <Wrapper>
+        <ViewerWrapper>
           <div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center", flex: 1 }}>
+            <FullCenterContainer>
+              <HorizontalCenterContainer>
                 <BoldText>Includes:</BoldText>
                 <TextMarginLeft style={{ display: "flex" }}>
                   {wordsToPresent.map((word) => (
                     <StyledChip color="secondary" key={word} label={word} />
                   ))}
                 </TextMarginLeft>
-              </div>
+              </HorizontalCenterContainer>
               {paragraphLocation.current} / {paragraphLocation.total}
-            </div>
+            </FullCenterContainer>
           </div>
           <p
             className="paragraph"
@@ -152,16 +147,16 @@ export const ParagraphViewer = (props: Props) => {
               __html: highlightParagraph(currentParagraph, words),
             }}
           />
-        </Wrapper>
+        </ViewerWrapper>
         <HorizontalNavButton onClick={nextParagraph}>
           <KeyboardArrowDownIcon />
         </HorizontalNavButton>
-      </div>
+      </InnerWrapper>
     </div>
   );
 };
 
-const Wrapper = styled.div`
+const ViewerWrapper = styled.div`
   background: #ccc;
   padding: 20px;
   border-radius: 5px;
@@ -185,4 +180,8 @@ const HorizontalNavButton = styled(Button).attrs({
   variant: "contained",
 })`
   text-align: center;
+`;
+
+const InnerWrapper = styled.div`
+  margin: 10px 0 20px;
 `;

@@ -24,3 +24,15 @@ export const ScrollableContainer = styled.div`
   position: relative;
   overflow: scroll;
 `;
+
+export const HorizontalCenterContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex: 1;
+`;
+
+export const FullCenterContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
