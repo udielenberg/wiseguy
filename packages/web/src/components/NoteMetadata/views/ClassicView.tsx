@@ -14,6 +14,23 @@ interface Props {
   resources: any[];
 }
 
+interface InfoProps {
+  title: string;
+  content: string | React.ReactNode;
+}
+
+const Info = (props: InfoProps) => {
+  const { title, content } = props;
+  const contentToRender =
+    typeof content === "string" ? <BoldText>{content}</BoldText> : content;
+  return (
+    <StyledInfo>
+      <TextMarginRight>{title}:</TextMarginRight>
+      {contentToRender}
+    </StyledInfo>
+  );
+};
+
 export const ClassicView = (props: Props) => {
   const { approve, reject, resources } = props;
   const [current, setCurrent] = useState<number>(0);
@@ -46,66 +63,48 @@ export const ClassicView = (props: Props) => {
     } = resources[current];
     return (
       <>
-        <CarouselWrapper>
+        <div
+          style={{
+            display: "flex",
+            height: "60vh",
+          }}
+        >
           <Button color="primary" variant="contained" onClick={handleBack}>
             <ArrowBackIosIcon />
           </Button>
-          <ContentWrapper>
-            <StyledInfo style={{ marginTop: "-15px" }}>
-              <CenteredText>
-                <BoldText>
-                  ({current + 1}/{resources.length})
-                </BoldText>
-              </CenteredText>
-            </StyledInfo>
-
-            <StyledInfo>
-              <ParagraphViewer
-                combinations={relevantParagraphs}
-                currentNote={current}
-              />
-            </StyledInfo>
-
-            <StyledInfo>
-              <TextMarginRight>description:</TextMarginRight>{" "}
-              <BoldText>{description}</BoldText>
-            </StyledInfo>
-
-            <StyledInfo>
-              <TextMarginRight>created at: </TextMarginRight>
-              <BoldText>{createdAt.toDateString()}</BoldText>
-            </StyledInfo>
-
-            <StyledInfo>
-              <TextMarginRight>rating:</TextMarginRight>{" "}
-              <BoldText>{rating}</BoldText>
-            </StyledInfo>
-
-            <StyledInfo>
-              <TextMarginRight>article:</TextMarginRight>
-              <a href={link}>link</a>
-            </StyledInfo>
-
-            {images.length ? (
-              <StyledInfo>
-                <TextMarginRight>images:</TextMarginRight>{" "}
-                <ImageContainer>
-                  {images.map((img: string) => (
-                    <img key={img} src={img} alt="blabla" />
-                  ))}
-                </ImageContainer>
-              </StyledInfo>
-            ) : null}
-
-            <StyledInfo>
-              written by: <BoldText>{writtenBy}</BoldText>
-            </StyledInfo>
-          </ContentWrapper>
-
+          <div style={{ position: "relative", overflow: "scroll" }}>
+            <CarouselWrapper>
+              <ContentWrapper>
+                <StyledInfo>
+                  <ParagraphViewer
+                    combinations={relevantParagraphs}
+                    currentNote={current}
+                  />
+                </StyledInfo>
+                <Info title="description" content={description} />
+                <Info title="created at" content={createdAt.toDateString()} />
+                <Info title="rating" content={rating} />
+                <Info title="article" content={<a href={link}>link</a>} />
+                {images.length ? (
+                  <Info
+                    title="article"
+                    content={
+                      <ImageContainer>
+                        {images.map((img: string) => (
+                          <img key={img} src={img} alt="blabla" />
+                        ))}
+                      </ImageContainer>
+                    }
+                  />
+                ) : null}
+                <Info title="written by" content={writtenBy} />
+              </ContentWrapper>
+            </CarouselWrapper>
+          </div>
           <Button color="primary" variant="contained" onClick={handleForward}>
             <ArrowForwardIosIcon />
           </Button>
-        </CarouselWrapper>
+        </div>
         <ActionWrapper>
           <Button
             onClick={() => approve(currentResource)}
@@ -135,6 +134,7 @@ const StyledInfo = styled.div`
 `;
 
 const ImageContainer = styled.div`
+  margin-top: 10px;
   padding: 10px;
   background: lightgray;
   border-radius: 5px;
@@ -161,4 +161,5 @@ const ContentWrapper = styled.div`
 const CarouselWrapper = styled.div`
   display: flex;
   flex: 1;
+  flex-basis: 100%;
 `;

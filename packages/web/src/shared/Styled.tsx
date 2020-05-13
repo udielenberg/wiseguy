@@ -19,3 +19,8 @@ export const CenteredText = styled.div`
   text-align: center;
   margin-bottom: 20px;
 `;
+
+export const ScrollableContainer = styled.div`
+  position: relative;
+  overflow: scroll;
+`;

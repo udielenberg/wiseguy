@@ -26,7 +26,6 @@ const TabPanel: React.FC<{
   const { resources, type } = props;
 
   const handleApprove = (currentResource: CurrentResource) => {
-    console.log("handle approve:", currentResource);
     actions.moveResource({
       ...currentResource,
       resourceState: "approved",
@@ -73,15 +72,7 @@ const TabPanel: React.FC<{
         />
       );
     } else {
-      return (
-        <div>
-          Due to CORONA TIMES we are obliged to give a f*ck about this tab,
-          <br />
-          Sincerly yours,
-          <br />
-          the admin.
-        </div>
-      );
+      return null;
     }
   };
   return <Wrapper>{setView()}</Wrapper>;
@@ -99,8 +90,6 @@ export const TabManager: React.FC<TabManagerProps> = (props) => {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 70vh;
-  margin-top: 40px;
 `;
 
 const CenteredMessageWrapper = styled(Wrapper)`

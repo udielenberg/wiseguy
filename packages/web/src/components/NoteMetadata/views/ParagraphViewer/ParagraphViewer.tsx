@@ -127,19 +127,24 @@ export const ParagraphViewer = (props: Props) => {
           <KeyboardArrowUpIcon />
         </HorizontalNavButton>
         <Wrapper>
-          <CenteredText>
-            <BoldText>
-              {paragraphLocation.current} / {paragraphLocation.total}
-            </BoldText>
-          </CenteredText>
-
           <div>
-            <BoldText>Includes:</BoldText>
-            <TextMarginLeft>
-              {wordsToPresent.map((word) => (
-                <StyledChip color="secondary" key={word} label={word} />
-              ))}
-            </TextMarginLeft>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", flex: 1 }}>
+                <BoldText>Includes:</BoldText>
+                <TextMarginLeft style={{ display: "flex" }}>
+                  {wordsToPresent.map((word) => (
+                    <StyledChip color="secondary" key={word} label={word} />
+                  ))}
+                </TextMarginLeft>
+              </div>
+              {paragraphLocation.current} / {paragraphLocation.total}
+            </div>
           </div>
           <p
             className="paragraph"
@@ -160,8 +165,7 @@ const Wrapper = styled.div`
   background: #ccc;
   padding: 20px;
   border-radius: 5px;
-  height: 330px;
-  position: relative;
+  height: 200px;
   overflow: scroll;
 
   .paragraph {
