@@ -143,10 +143,7 @@ export const ParagraphViewer = (props: Props) => {
                   ))}
                 </TextMarginLeft>
               </div>
-
-              <BoldText>
-                {paragraphLocation.current} / {paragraphLocation.total}
-              </BoldText>
+              {paragraphLocation.current} / {paragraphLocation.total}
             </div>
           </div>
           <p
