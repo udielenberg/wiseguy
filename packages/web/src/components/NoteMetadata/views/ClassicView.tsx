@@ -45,7 +45,7 @@ export const ClassicView = (props: Props) => {
       writtenBy,
     } = resources[current];
     return (
-      <div>
+      <>
         <CarouselWrapper>
           <Button color="primary" variant="contained" onClick={handleBack}>
             <ArrowBackIosIcon />
@@ -124,7 +124,7 @@ export const ClassicView = (props: Props) => {
             Reject
           </Button>
         </ActionWrapper>
-      </div>
+      </>
     );
   }
   return <div>empty</div>;
@@ -161,5 +161,8 @@ const ContentWrapper = styled.div`
 const CarouselWrapper = styled.div`
   display: flex;
   flex: 1;
-  flex-basis: auto;
+  flex-basis: 100%;
+  margin-bottom: 50px;
+  position: relative;
+  overflow: scroll;
 `;
