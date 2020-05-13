@@ -37,7 +37,7 @@ export const realDummyNotes: Note[] = [
                     },
                     {
                         'postgres,graphql': [
-                            "In July 2018, the company announced the open source release to enable developers to set up GraphQL endpoints on their existing applications. In September 2018, the company introduced an open source event for building serverless apps.",
+                            "In July 2018, the company announced the open source release to enable developers to set up GraphQL endpoints on their existing Postgres applications. In September 2018, the company introduced an open source event for building serverless apps.",
                         ]
                     }
                 ]
