@@ -1,8 +1,11 @@
 
 export type ResourceState = "fresh" | "approved" | "rejected"
-export interface RelevantParagraph {
+export interface Paragraph {
     [key: string]: string[]
 }
+
+export type RelevantParagraph = Paragraph[];
+
 export interface Resource {
     id: string;
     noteId: string;
@@ -52,7 +55,7 @@ export const baseResource: Resource = {
     createdAt: new Date(),
     readingTime: 0,
     writtenBy: undefined,
-    relevantParagraphs: {}
+    relevantParagraphs: []
 }
 
 

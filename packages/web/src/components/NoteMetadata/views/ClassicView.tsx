@@ -5,6 +5,8 @@ import ClearIcon from "@material-ui/icons/Clear";
 import { Button } from "@material-ui/core";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import { ParagraphViewer } from "./ParagraphViewer";
+import { BoldText, TextMarginRight, CenteredText } from "shared/Styled";
 
 interface Props {
   approve(resource: any): void;
@@ -48,24 +50,24 @@ export const ClassicView = (props: Props) => {
               </CenteredText>
             </StyledInfo>
             <StyledInfo>
-              <MarginedText>description:</MarginedText>{" "}
+              <TextMarginRight>description:</TextMarginRight>{" "}
               <BoldText>{resources[current]?.description}</BoldText>
             </StyledInfo>
 
             <StyledInfo>
-              <MarginedText>created at: </MarginedText>
+              <TextMarginRight>created at: </TextMarginRight>
               <BoldText>
                 {resources[current]?.createdAt.toDateString()}
               </BoldText>
             </StyledInfo>
 
             <StyledInfo>
-              <MarginedText>rating:</MarginedText>{" "}
+              <TextMarginRight>rating:</TextMarginRight>{" "}
               <BoldText>{resources[current]?.rating}</BoldText>
             </StyledInfo>
 
             <StyledInfo>
-              <MarginedText>article:</MarginedText>
+              <TextMarginRight>article:</TextMarginRight>
               <a href={resources[current]?.link}>link</a>
             </StyledInfo>
 
@@ -74,6 +76,13 @@ export const ClassicView = (props: Props) => {
                 <img key={img} src={img} alt="blabla" />
               ))}
             </ImageContainer>
+
+            <StyledInfo>
+              <ParagraphViewer
+                combinations={resources[current]?.relevantParagraphs}
+                currentNote={current}
+              />
+            </StyledInfo>
 
             <StyledInfo>
               written by: <BoldText>{resources[current]?.writtenBy}</BoldText>
@@ -110,19 +119,6 @@ export const ClassicView = (props: Props) => {
 
 const StyledInfo = styled.div`
   padding: 5px;
-`;
-
-const BoldText = styled.span`
-  font-weight: bold;
-`;
-
-const MarginedText = styled.span`
-  margin-right: 5px;
-`;
-
-const CenteredText = styled.div`
-  text-align: center;
-  margin-bottom: 20px;
 `;
 
 const ImageContainer = styled.div`
