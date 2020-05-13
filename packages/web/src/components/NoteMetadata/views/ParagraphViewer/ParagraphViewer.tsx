@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { BoldText, TextMarginLeft, CenteredText } from "shared/Styled";
@@ -23,6 +21,12 @@ export const ParagraphViewer = (props: Props) => {
     setCombinationIndex(0);
     setParagraphIndex(0);
   }, [props.currentNote]);
+
+  const arr = combinations[combinationIndex]
+    ? Object.entries(combinations[combinationIndex])[0]
+    : [];
+
+  const [joinedWords = "", paragraphs = [] as any] = arr;
   const words = joinedWords.split(",");
   const currentParagraph = paragraphs[paragraphIndex];
 
@@ -31,7 +35,7 @@ export const ParagraphViewer = (props: Props) => {
   ).length;
 
   const totals = combinations.reduce((total, combination) => {
-    const totalCombination = Object.values(combination)[0];
+    const totalCombination = Object.values(combination)[0] as any[];
     const t =
       totalCombination && totalCombination.length ? totalCombination.length : 0;
     total = [...total, t];
@@ -97,7 +101,9 @@ export const ParagraphViewer = (props: Props) => {
         setCombinationIndex(combinationLastIndex);
 
         const lastCombination = combinations[combinationLastIndex];
-        const lastCombinationParagraphs = Object.values(lastCombination)[0];
+        const lastCombinationParagraphs = Object.values(
+          lastCombination
+        )[0] as any[];
         const lastCombinationLastParagraphIndex = findLastIndex(
           lastCombinationParagraphs
         );
@@ -105,7 +111,9 @@ export const ParagraphViewer = (props: Props) => {
         setParagraphIndex(lastCombinationLastParagraphIndex);
       } else {
         const previousCombination = combinations[combinationIndex - 1];
-        const previousParagraphs = Object.values(previousCombination)[0];
+        const previousParagraphs = Object.values(
+          previousCombination
+        )[0] as any[];
         const totalPreviousParagraphs = findLastIndex(previousParagraphs);
 
         setCombinationIndex(combinationIndex - 1);
@@ -140,8 +148,9 @@ export const ParagraphViewer = (props: Props) => {
 
   /**
    * @TODO:
-   * 3. add animations to the paragraph change
-   * 4. export engine into a custom hook (optional)
+   * 1. add left|right arrow keys to move between resources
+   * 2. add animations to the paragraph change
+   * 3. export engine into a custom hook (optional)
    */
 
   return (
