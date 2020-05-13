@@ -10,17 +10,12 @@ import { Resource } from "models/Note";
 import styled from "styled-components";
 import { CurrentResource } from "../TabManager";
 import Button from "@material-ui/core/Button";
-
+import { securedNewWindow } from "utils/settings";
 interface Props {
   resources: Resource[];
   setApprove(resource: any): void;
   setUnread(resource: any): void;
 }
-
-const securedNewWindow = {
-  target: "_blank",
-  rel: "noopener",
-};
 
 export const RejectedList = (props: Props) => {
   const { resources, setApprove, setUnread } = props;
