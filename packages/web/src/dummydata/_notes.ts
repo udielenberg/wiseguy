@@ -2,10 +2,10 @@ import { Resource } from 'models/Note';
 import faker from 'faker';
 import range from 'lodash/range';
 import { resourceStates, baseResource, Paragraph } from 'models/Note'
-
+import psl from 'psl'
+import get from 'lodash/get'
 const randomRange = faker.random.number({ min: 0, max: 5 })
 const randomArrayOfImages = () => range(randomRange).map(_ => faker.image.avatar())
-
 
 const createDummyParagraphWithWord = (word: string) => {
   function injectWord() {
@@ -20,19 +20,25 @@ const createDummyRelevantParagraphs = (includedWords: string[]): Paragraph[] =>
   includedWords.map(word => ({ [word]: createDummyParagraphWithWord(word) }))
 
 
-const createDummyResource = (noteId: string, includedWords: string[]): Resource => ({
-  ...baseResource,
-  id: faker.random.uuid(),
-  noteId,
-  state: faker.random.arrayElement(resourceStates),
-  link: 'http://www.walla.co.il',
-  rating: faker.random.number({ min: 1, max: 1000 }),
-  description: faker.random.words(),
-  images: randomArrayOfImages(),
-  readingTime: faker.random.number({ min: 60, max: 5000 }),
-  writtenBy: faker.name.findName(),
-  relevantParagraphs: createDummyRelevantParagraphs(includedWords)
-});
+const createDummyResource = (noteId: string, includedWords: string[]): Resource => {
+  const link = faker.internet.domainName();
+  const domain = get(psl.parse(link), 'domain', link);
+
+  return {
+    ...baseResource,
+    id: faker.random.uuid(),
+    noteId,
+    state: faker.random.arrayElement(resourceStates),
+    link,
+    domain,
+    rating: faker.random.number({ min: 1, max: 1000 }),
+    description: faker.random.words(),
+    images: randomArrayOfImages(),
+    readingTime: faker.random.number({ min: 60, max: 5000 }),
+    writtenBy: faker.name.findName(),
+    relevantParagraphs: createDummyRelevantParagraphs(includedWords)
+  }
+};
 
 
 export const setDummyResources = (noteId: string, includedWords: string[]) => range(10).map(_ => createDummyResource(noteId, includedWords))
