@@ -66,7 +66,7 @@ export const ClassicView = (props: Props) => {
                 />
                 {images.length ? (
                   <Info
-                    title="article"
+                    title="images"
                     content={
                       <ImageContainer>
                         {images.map((img: string) => (
