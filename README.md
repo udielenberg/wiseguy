@@ -18,7 +18,7 @@ This app is meant to make your life easier then they already are!
 
 # Instructions
 
-1. `git clone git@github.com:udielenberg/wiseguy.git`
+1. `git clone`
 1. to install the app: `yarn`
 1. go to /web folder: `cd packages/web`
 1. run it: `yarn start`
