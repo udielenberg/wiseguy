@@ -94,9 +94,14 @@ export const ClassicView = (props: Props) => {
                 <Info
                   title="article"
                   content={
-                    <a {...securedNewWindow} href={link}>
-                      link
-                    </a>
+                    <Button
+                      {...securedNewWindow}
+                      color="primary"
+                      size="small"
+                      href={link}
+                    >
+                      Open
+                    </Button>
                   }
                 />
                 {images.length ? (
