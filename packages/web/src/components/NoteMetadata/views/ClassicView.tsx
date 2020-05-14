@@ -6,7 +6,7 @@ import { Button } from "@material-ui/core";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { ParagraphViewer } from "./ParagraphViewer";
-import { ScrollableContainer } from "shared/Styled";
+import { ScrollableContainer, CenteredText, Italic } from "shared/Styled";
 import Info from "shared/Info";
 import { securedNewWindow } from "utils/settings";
 
@@ -54,6 +54,11 @@ export const ClassicView = (props: Props) => {
             <ArrowBackIosIcon />
           </Button>
           <ScrollableContainer>
+            <CenteredText>
+              <Italic>
+                ({current + 1} / {resources.length})
+              </Italic>
+            </CenteredText>
             <CarouselWrapper>
               <ContentWrapper>
                 <ParagraphViewer
