@@ -6,7 +6,12 @@ import { Button } from "@material-ui/core";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { ParagraphViewer } from "./ParagraphViewer";
-import { ScrollableContainer, CenteredText, Italic } from "shared/Styled";
+import {
+  ScrollableContainer,
+  CenteredText,
+  Italic,
+  StyledChip,
+} from "shared/Styled";
 import Info from "shared/Info";
 import { securedNewWindow } from "utils/settings";
 import { useRightLeftKeys } from "hooks/keyboard";
@@ -34,6 +39,7 @@ export const ClassicView = (props: Props) => {
       images,
       relevantParagraphs,
       writtenBy,
+      domain,
     } = resources[current];
     return (
       <>
@@ -56,6 +62,12 @@ export const ClassicView = (props: Props) => {
                 <Info title="description" content={description} />
                 <Info title="created at" content={createdAt.toDateString()} />
                 <Info title="rating" content={rating} />
+                <Info
+                  title="domain"
+                  content={
+                    <StyledChip color="primary" label={domain}></StyledChip>
+                  }
+                />
                 <Info
                   title="article"
                   content={
