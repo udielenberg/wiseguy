@@ -1,5 +1,5 @@
 import React from "react";
-import { BoldText, TextMarginRight } from "./Styled";
+import { Bold, TextMarginRight } from "./Styled";
 import styled from "styled-components";
 interface InfoProps {
   title: string;
@@ -10,7 +10,7 @@ const Info = (props: InfoProps) => {
   const { title, content } = props;
   const contentToRender =
     typeof content === "string" || typeof content === "number" ? (
-      <BoldText>{content}</BoldText>
+      <Bold>{content}</Bold>
     ) : (
       content
     );
