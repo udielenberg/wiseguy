@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import {
-  Bold,
   TextMarginLeft,
   StyledChip,
   HorizontalCenterContainer,
@@ -132,7 +131,7 @@ export const ParagraphViewer = (props: Props) => {
               <HorizontalCenterContainer>
                 {words.length ? (
                   <>
-                    <Bold>Includes:</Bold>
+                    <Typography variant="overline">Includes:</Typography>
                     <TextMarginLeft style={{ display: "flex" }}>
                       {words.map((word) => (
                         <StyledChip color="secondary" key={word} label={word} />

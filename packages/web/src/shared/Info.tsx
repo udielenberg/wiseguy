@@ -1,5 +1,5 @@
 import React from "react";
-import { Bold, TextMarginRight } from "./Styled";
+import { TextMarginRight } from "./Styled";
 import styled from "styled-components";
 import { Typography } from "@material-ui/core";
 interface InfoProps {
@@ -11,7 +11,7 @@ const Info = (props: InfoProps) => {
   const { title, content } = props;
   const contentToRender =
     typeof content === "string" || typeof content === "number" ? (
-      <Bold>{content}</Bold>
+      <Typography>{content}</Typography>
     ) : (
       content
     );

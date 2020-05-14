@@ -5,10 +5,6 @@ export const StyledChip = styled(Chip)`
   margin: 0 5px;
 `;
 
-export const Bold = styled.span`
-  font-weight: bold;
-`;
-
 export const Italic = styled.span`
   font-style: italic;
 `;
