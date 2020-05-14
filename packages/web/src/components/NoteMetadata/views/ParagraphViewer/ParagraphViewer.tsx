@@ -39,10 +39,9 @@ export const ParagraphViewer = (props: Props) => {
     ? Object.entries(combinations[combinationIndex])[0]
     : [];
 
-  const words = joinedWords.split(",");
+  const words = joinedWords.split(",").filter(Boolean);
   const currentParagraph = paragraphs[paragraphIndex];
 
-  const wordsToPresent = joinedWords.split(",");
   const paragraphLocation = paragraphCurrrentAndTotal(
     combinations,
     combinationIndex,
@@ -119,7 +118,6 @@ export const ParagraphViewer = (props: Props) => {
       window.removeEventListener("keydown", handleKeypressDown);
     };
   }, [nextParagraph, prevParagraph]);
-
   return (
     <div>
       Paragraphs:
@@ -131,12 +129,16 @@ export const ParagraphViewer = (props: Props) => {
           <div>
             <FullCenterContainer>
               <HorizontalCenterContainer>
-                <Bold>Includes:</Bold>
-                <TextMarginLeft style={{ display: "flex" }}>
-                  {wordsToPresent.map((word) => (
-                    <StyledChip color="secondary" key={word} label={word} />
-                  ))}
-                </TextMarginLeft>
+                {words.length ? (
+                  <>
+                    <Bold>Includes:</Bold>
+                    <TextMarginLeft style={{ display: "flex" }}>
+                      {words.map((word) => (
+                        <StyledChip color="secondary" key={word} label={word} />
+                      ))}
+                    </TextMarginLeft>
+                  </>
+                ) : null}
               </HorizontalCenterContainer>
               {paragraphLocation.current} / {paragraphLocation.total}
             </FullCenterContainer>

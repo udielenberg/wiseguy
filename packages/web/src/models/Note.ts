@@ -4,7 +4,6 @@ export interface Paragraph {
     [key: string]: string[]
 }
 
-export type RelevantParagraph = Paragraph[];
 
 export interface Resource {
     id: string;
@@ -19,7 +18,7 @@ export interface Resource {
     writtenBy: string | undefined;
     readingTime: number;
     domain: string;
-    relevantParagraphs: RelevantParagraph
+    relevantParagraphs: Paragraph[]
 }
 export interface Note {
     id: string;

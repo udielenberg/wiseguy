@@ -1,13 +1,26 @@
 import { Resource } from 'models/Note';
 import faker from 'faker';
 import range from 'lodash/range';
-import { baseNote, Note, resourceStates, baseResource } from 'models/Note'
+import { resourceStates, baseResource, Paragraph } from 'models/Note'
 
-const setIncludeWords = () => range(faker.random.number({ min: 0, max: 3 })).map(_ => faker.commerce.product())
+const randomRange = faker.random.number({ min: 0, max: 5 })
+const randomArrayOfImages = () => range(randomRange).map(_ => faker.image.avatar())
 
-const randomArrayOfImages = () => range(faker.random.number({ min: 0, max: 5 })).map(_ => faker.image.avatar())
 
-const createDummyResource = (noteId: string): Resource => ({
+const createDummyParagraphWithWord = (word: string) => {
+  function injectWord() {
+    const para = faker.lorem.paragraph();
+    const injectedParagraph = `${para.slice(3, 8)} ${word}  ${para.slice(8, para.length - 1)}`;
+    return injectedParagraph
+  }
+
+  return range(randomRange).map(_ => injectWord())
+}
+const createDummyRelevantParagraphs = (includedWords: string[]): Paragraph[] =>
+  includedWords.map(word => ({ [word]: createDummyParagraphWithWord(word) }))
+
+
+const createDummyResource = (noteId: string, includedWords: string[]): Resource => ({
   ...baseResource,
   id: faker.random.uuid(),
   noteId,
@@ -17,21 +30,9 @@ const createDummyResource = (noteId: string): Resource => ({
   description: faker.random.words(),
   images: randomArrayOfImages(),
   readingTime: faker.random.number({ min: 60, max: 5000 }),
-  writtenBy: faker.name.findName()
+  writtenBy: faker.name.findName(),
+  relevantParagraphs: createDummyRelevantParagraphs(includedWords)
 });
 
 
-export const setResources = (noteId: string) => range(10).map(_ => createDummyResource(noteId))
-
-const createDummyNote = (): Note => {
-  const id = faker.random.uuid();
-  return {
-    ...baseNote,
-    id,
-    includeWords: setIncludeWords(),
-    search: faker.lorem.words(),
-    resources: setResources(id),
-  }
-};
-
-export const dummyNotes: Note[] = range(10).map((_) => createDummyNote());
+export const setDummyResources = (noteId: string, includedWords: string[]) => range(10).map(_ => createDummyResource(noteId, includedWords))
