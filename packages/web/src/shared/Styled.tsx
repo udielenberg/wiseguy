@@ -5,7 +5,7 @@ export const StyledChip = styled(Chip)`
   margin: 0 5px;
 `;
 
-export const BoldText = styled.span`
+export const Bold = styled.span`
   font-weight: bold;
 `;
 
