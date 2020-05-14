@@ -15,7 +15,9 @@ import {
 import Info from "shared/Info";
 import { securedNewWindow } from "utils/settings";
 import { useRightLeftKeys } from "hooks/keyboard";
-
+import star from "assets/star.svg";
+import { Typography } from "@material-ui/core";
+import { formattedDate } from "utils/date";
 interface Props {
   approve(resource: any): void;
   reject(resource: any): void;
@@ -59,9 +61,30 @@ export const ClassicView = (props: Props) => {
                   combinations={relevantParagraphs}
                   currentNote={current}
                 />
-                <Info title="description" content={description} />
-                <Info title="created at" content={createdAt.toDateString()} />
-                <Info title="rating" content={rating} />
+                <Info
+                  title="description"
+                  content={
+                    <Typography variant="body2">{description}</Typography>
+                  }
+                />
+                <Info
+                  title="created at"
+                  content={
+                    <Typography variant="overline">
+                      {formattedDate(createdAt)}
+                    </Typography>
+                  }
+                />
+                <Info
+                  title="rating"
+                  content={
+                    <span>
+                      <img src={star} alt="star" />
+                      {rating}
+                      <img src={star} alt="star" />
+                    </span>
+                  }
+                />
                 <Info
                   title="domain"
                   content={
@@ -71,9 +94,14 @@ export const ClassicView = (props: Props) => {
                 <Info
                   title="article"
                   content={
-                    <a {...securedNewWindow} href={link}>
-                      link
-                    </a>
+                    <Button
+                      {...securedNewWindow}
+                      color="primary"
+                      size="small"
+                      href={link}
+                    >
+                      Open
+                    </Button>
                   }
                 />
                 {images.length ? (
@@ -88,7 +116,12 @@ export const ClassicView = (props: Props) => {
                     }
                   />
                 ) : null}
-                <Info title="written by" content={writtenBy} />
+                <Info
+                  title="written by"
+                  content={
+                    <Typography variant="subtitle1">{writtenBy}</Typography>
+                  }
+                />
               </ContentWrapper>
             </CarouselWrapper>
           </ScrollableContainer>

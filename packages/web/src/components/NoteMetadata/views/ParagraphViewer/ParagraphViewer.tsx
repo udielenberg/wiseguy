@@ -1,7 +1,6 @@
 // Clean and Beautify please!
 
 import React, { useState, useEffect, useCallback } from "react";
-import styled from "styled-components";
 import {
   Bold,
   TextMarginLeft,
@@ -9,6 +8,7 @@ import {
   HorizontalCenterContainer,
   FullCenterContainer,
 } from "shared/Styled";
+import styled from "styled-components";
 import Button from "@material-ui/core/Button";
 import findLastIndex from "lodash/findLastIndex";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
@@ -17,6 +17,7 @@ import {
   highlightParagraph,
   paragraphCurrrentAndTotal,
 } from "./paragraphViewerUtils";
+import { Typography } from "@material-ui/core";
 
 interface Props {
   combinations: any[];
@@ -120,7 +121,7 @@ export const ParagraphViewer = (props: Props) => {
   }, [nextParagraph, prevParagraph]);
   return (
     <div>
-      Paragraphs:
+      <Typography variant="overline">Paragraphs:</Typography>
       <InnerWrapper>
         <HorizontalNavButton onClick={prevParagraph}>
           <KeyboardArrowUpIcon />
@@ -143,12 +144,14 @@ export const ParagraphViewer = (props: Props) => {
               {paragraphLocation.current} / {paragraphLocation.total}
             </FullCenterContainer>
           </div>
-          <p
-            className="paragraph"
-            dangerouslySetInnerHTML={{
-              __html: highlightParagraph(currentParagraph, words),
-            }}
-          />
+          <Typography variant="body1">
+            <p
+              className="paragraph"
+              dangerouslySetInnerHTML={{
+                __html: highlightParagraph(currentParagraph, words),
+              }}
+            />
+          </Typography>
         </ViewerWrapper>
         <HorizontalNavButton onClick={nextParagraph}>
           <KeyboardArrowDownIcon />
