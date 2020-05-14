@@ -1,5 +1,3 @@
-// Clean and Beautify please!
-
 import React, { useState, useEffect, useCallback } from "react";
 import {
   TextMarginLeft,
