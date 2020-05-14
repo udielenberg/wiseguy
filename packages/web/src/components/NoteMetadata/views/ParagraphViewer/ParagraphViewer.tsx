@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import {
-  BoldText,
+  Bold,
   TextMarginLeft,
   StyledChip,
   HorizontalCenterContainer,
@@ -131,7 +131,7 @@ export const ParagraphViewer = (props: Props) => {
           <div>
             <FullCenterContainer>
               <HorizontalCenterContainer>
-                <BoldText>Includes:</BoldText>
+                <Bold>Includes:</Bold>
                 <TextMarginLeft style={{ display: "flex" }}>
                   {wordsToPresent.map((word) => (
                     <StyledChip color="secondary" key={word} label={word} />

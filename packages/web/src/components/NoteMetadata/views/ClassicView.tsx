@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import CheckIcon from "@material-ui/icons/Check";
 import ClearIcon from "@material-ui/icons/Clear";
@@ -6,9 +6,10 @@ import { Button } from "@material-ui/core";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { ParagraphViewer } from "./ParagraphViewer";
-import { ScrollableContainer } from "shared/Styled";
+import { ScrollableContainer, CenteredText, Italic } from "shared/Styled";
 import Info from "shared/Info";
 import { securedNewWindow } from "utils/settings";
+import { useRightLeftKeys } from "hooks/keyboard";
 
 interface Props {
   approve(resource: any): void;
@@ -18,24 +19,12 @@ interface Props {
 
 export const ClassicView = (props: Props) => {
   const { approve, reject, resources } = props;
-  const [current, setCurrent] = useState<number>(0);
+  const { left, right, current } = useRightLeftKeys(resources);
 
   const currentResource = {
     noteId: resources[current]?.noteId,
     resourceId: resources[current]?.id,
   };
-
-  const handleBack = () => {
-    if (current > 0) {
-      setCurrent((prevState) => prevState - 1);
-    }
-  };
-  const handleForward = () => {
-    if (current < resources.length - 1) {
-      setCurrent((prevState) => prevState + 1);
-    }
-  };
-
   if (resources.length) {
     const {
       description,
@@ -46,14 +35,18 @@ export const ClassicView = (props: Props) => {
       relevantParagraphs,
       writtenBy,
     } = resources[current];
-    console.log("rating:", rating);
     return (
       <>
         <MainWrapper>
-          <Button color="primary" variant="contained" onClick={handleBack}>
+          <Button color="primary" variant="contained" onClick={left}>
             <ArrowBackIosIcon />
           </Button>
           <ScrollableContainer>
+            <CenteredText>
+              <Italic>
+                ({current + 1} / {resources.length})
+              </Italic>
+            </CenteredText>
             <CarouselWrapper>
               <ContentWrapper>
                 <ParagraphViewer
@@ -87,7 +80,7 @@ export const ClassicView = (props: Props) => {
               </ContentWrapper>
             </CarouselWrapper>
           </ScrollableContainer>
-          <Button color="primary" variant="contained" onClick={handleForward}>
+          <Button color="primary" variant="contained" onClick={right}>
             <ArrowForwardIosIcon />
           </Button>
         </MainWrapper>

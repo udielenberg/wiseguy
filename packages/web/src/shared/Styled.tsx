@@ -5,9 +5,14 @@ export const StyledChip = styled(Chip)`
   margin: 0 5px;
 `;
 
-export const BoldText = styled.span`
+export const Bold = styled.span`
   font-weight: bold;
 `;
+
+export const Italic = styled.span`
+  font-style: italic;
+`;
+
 export const TextMarginRight = styled.span`
   margin-right: 5px;
 `;
@@ -17,7 +22,7 @@ export const TextMarginLeft = styled.span`
 
 export const CenteredText = styled.div`
   text-align: center;
-  margin-bottom: 20px;
+  margin: 20px 0;
 `;
 
 export const ScrollableContainer = styled.div`
