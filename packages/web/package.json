@@ -14,6 +14,7 @@
     "@types/react-dom": "^16.9.0",
     "faker": "^4.1.0",
     "lodash": "^4.17.15",
+    "psl": "^1.8.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
@@ -47,6 +48,7 @@
     "@testing-library/jest-dom": "^5.5.0",
     "@types/faker": "^4.1.11",
     "@types/lodash": "^4.14.150",
+    "@types/psl": "^1.1.0",
     "@types/react-select": "^3.0.12",
     "@types/styled-components": "^5.1.0",
     "jest-environment-jsdom-sixteen": "^1.0.3"
