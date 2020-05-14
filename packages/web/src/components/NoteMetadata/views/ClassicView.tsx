@@ -15,6 +15,7 @@ import {
 import Info from "shared/Info";
 import { securedNewWindow } from "utils/settings";
 import { useRightLeftKeys } from "hooks/keyboard";
+import star from "assets/star.svg";
 
 interface Props {
   approve(resource: any): void;
@@ -61,7 +62,16 @@ export const ClassicView = (props: Props) => {
                 />
                 <Info title="description" content={description} />
                 <Info title="created at" content={createdAt.toDateString()} />
-                <Info title="rating" content={rating} />
+                <Info
+                  title="rating"
+                  content={
+                    <span>
+                      <img src={star} alt="star" />
+                      {rating}
+                      <img src={star} alt="star" />
+                    </span>
+                  }
+                />
                 <Info
                   title="domain"
                   content={
