@@ -61,7 +61,12 @@ export const ClassicView = (props: Props) => {
                   combinations={relevantParagraphs}
                   currentNote={current}
                 />
-                <Info title="description" content={description} />
+                <Info
+                  title="description"
+                  content={
+                    <Typography variant="body2">{description}</Typography>
+                  }
+                />
                 <Info
                   title="created at"
                   content={
@@ -106,7 +111,12 @@ export const ClassicView = (props: Props) => {
                     }
                   />
                 ) : null}
-                <Info title="written by" content={writtenBy} />
+                <Info
+                  title="written by"
+                  content={
+                    <Typography variant="subtitle1">{writtenBy}</Typography>
+                  }
+                />
               </ContentWrapper>
             </CarouselWrapper>
           </ScrollableContainer>
