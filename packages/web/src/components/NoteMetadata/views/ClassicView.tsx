@@ -16,7 +16,8 @@ import Info from "shared/Info";
 import { securedNewWindow } from "utils/settings";
 import { useRightLeftKeys } from "hooks/keyboard";
 import star from "assets/star.svg";
-
+import { Typography } from "@material-ui/core";
+import { formattedDate } from "utils/date";
 interface Props {
   approve(resource: any): void;
   reject(resource: any): void;
@@ -61,7 +62,14 @@ export const ClassicView = (props: Props) => {
                   currentNote={current}
                 />
                 <Info title="description" content={description} />
-                <Info title="created at" content={createdAt.toDateString()} />
+                <Info
+                  title="created at"
+                  content={
+                    <Typography variant="overline">
+                      {formattedDate(createdAt)}
+                    </Typography>
+                  }
+                />
                 <Info
                   title="rating"
                   content={
