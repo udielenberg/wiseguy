@@ -144,12 +144,14 @@ export const ParagraphViewer = (props: Props) => {
               {paragraphLocation.current} / {paragraphLocation.total}
             </FullCenterContainer>
           </div>
-          <p
-            className="paragraph"
-            dangerouslySetInnerHTML={{
-              __html: highlightParagraph(currentParagraph, words),
-            }}
-          />
+          <Typography variant="body1">
+            <p
+              className="paragraph"
+              dangerouslySetInnerHTML={{
+                __html: highlightParagraph(currentParagraph, words),
+              }}
+            />
+          </Typography>
         </ViewerWrapper>
         <HorizontalNavButton onClick={nextParagraph}>
           <KeyboardArrowDownIcon />
