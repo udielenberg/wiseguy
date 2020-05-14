@@ -9,5 +9,5 @@
   "scripts": {
     "build": "lerna run build"
   },
-  "name": "todolist"
+  "name": "wiseguy"
 }
