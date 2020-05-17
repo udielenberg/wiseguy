@@ -1,7 +1,7 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
 
-const theme = {
+export const theme = {
   colors: {
     primary: "#006489",
     secondary: "#0A2239",
@@ -9,6 +9,7 @@ const theme = {
     complementaryYellow: "#FFA630",
     dark: "#30363A",
     light: "#B3D2EF",
+    superLight: "#DFF6FC",
     error: "#931621",
     success: "#06A77D",
     white: "white",
