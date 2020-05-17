@@ -5,12 +5,15 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
 import { NotesProvider } from "context/Notes/";
+import Theme from "theme/theme";
 
 ReactDOM.render(
   <React.StrictMode>
-    <NotesProvider>
-      <App />
-    </NotesProvider>
+    <Theme>
+      <NotesProvider>
+        <App />
+      </NotesProvider>
+    </Theme>
   </React.StrictMode>,
 
   document.getElementById("root")
