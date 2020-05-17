@@ -18,6 +18,8 @@ import { useRightLeftKeys } from "hooks/keyboard";
 import star from "assets/star.svg";
 import { Typography } from "@material-ui/core";
 import { formattedDate } from "utils/date";
+import { ApproveButton, RejectButton } from "shared/buttons";
+
 interface Props {
   approve(resource: any): void;
   reject(resource: any): void;
@@ -130,22 +132,18 @@ export const ClassicView = (props: Props) => {
           </Button>
         </MainWrapper>
         <ActionWrapper>
-          <Button
+          <ApproveButton
             onClick={() => approve(currentResource)}
-            variant="contained"
-            color="primary"
             startIcon={<CheckIcon />}
           >
             Approve
-          </Button>
-          <Button
+          </ApproveButton>
+          <RejectButton
             onClick={() => reject(currentResource)}
-            variant="contained"
-            color="secondary"
             startIcon={<ClearIcon />}
           >
             Reject
-          </Button>
+          </RejectButton>
         </ActionWrapper>
       </>
     );
