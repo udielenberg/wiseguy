@@ -51,7 +51,5 @@ export const AddIncludeWords = (props: Props) => {
 };
 
 const Wrapper = styled.div`
-  margin: 20px;
-  padding: 10px;
-  text-align: center;
+  margin: 20px 0;
 `;

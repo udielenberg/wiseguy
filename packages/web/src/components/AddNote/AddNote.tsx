@@ -51,13 +51,7 @@ export const AddNote = () => {
 
   return (
     <Wrapper>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <div style={{ display: "flex" }}>
         <TextField
           value={noteText}
           label="add note..."
@@ -65,6 +59,7 @@ export const AddNote = () => {
           autoFocus
           onKeyDown={handleEnter}
           onChange={handleChange}
+          fullWidth
         />
         <StyledTooltip
           title={
@@ -94,7 +89,8 @@ export const AddNote = () => {
 };
 
 const Wrapper = styled.div`
-  text-align: center;
+  display: flex;
+  flex-direction: column;
   padding-top: 50px;
 `;
 

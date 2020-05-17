@@ -7,7 +7,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Note } from "models/Note";
-import { CenteredLayout } from "layouts";
 import { CellType } from "./cells";
 import styled from "styled-components";
 import { NotesContext } from "context/Notes/";
@@ -28,7 +27,7 @@ export const NotesTable = () => {
   const { notes } = state;
 
   return (
-    <CenteredLayout>
+    <Wrapper>
       <TableContainer component={Paper}>
         <StyledTable aria-label="simple table">
           <StyledTableHeader>
@@ -57,7 +56,7 @@ export const NotesTable = () => {
           </TableBody>
         </StyledTable>
       </TableContainer>
-    </CenteredLayout>
+    </Wrapper>
   );
 };
 
@@ -74,6 +73,11 @@ const StyledRow = styled(TableRow)<{ watched: boolean }>`
   &:hover {
     background: rgba(211, 211, 211, 0.5);
   }
+`;
+
+const Wrapper = styled.div`
+  margin-top: 50px;
+  width: 100%;
 `;
 
 const StyledTableHeader = styled(TableHead)`

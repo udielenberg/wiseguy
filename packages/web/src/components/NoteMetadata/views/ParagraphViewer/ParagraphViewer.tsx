@@ -180,9 +180,7 @@ const HorizontalNavButton = styled(Button).attrs({
   fullWidth: true,
   color: "primary",
   variant: "contained",
-})`
-  text-align: center;
-`;
+})``;
 
 const InnerWrapper = styled.div`
   margin: 10px 0 20px;

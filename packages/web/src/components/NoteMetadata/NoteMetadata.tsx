@@ -68,5 +68,4 @@ const Wrapper = styled.div`
 
 const SearchTitle = styled(Typography).attrs({ variant: "h5" })`
   padding: 20px 0;
-  text-align: center;
 `;

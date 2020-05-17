@@ -40,7 +40,6 @@ const AppContent = styled.div`
   padding: 0 20px 20px 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   flex: 1 1 auto;
   position: relative;
 `;
