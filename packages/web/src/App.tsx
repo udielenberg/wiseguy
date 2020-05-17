@@ -6,7 +6,9 @@ import { NotePanelModal } from "components/NotePanelModal";
 import { NotesContext } from "context/Notes/";
 import { realDummyNotes } from "dummydata/notes";
 import { Sidebar } from "components/Sidebar";
+import { Breadcrumbs } from "components/Breadcrumbs";
 import styled from "styled-components";
+
 function App() {
   const { actions } = useContext(NotesContext);
 
@@ -18,6 +20,12 @@ function App() {
   return (
     <AppMain>
       <Sidebar />
+      <AppContent>
+        <Breadcrumbs />
+        <NotePanelModal />
+        <AddNote />
+        <NotesTable />
+      </AppContent>
     </AppMain>
   );
 }
@@ -28,3 +36,11 @@ const AppMain = styled.div`
   height: 100vh;
 `;
 
+const AppContent = styled.div`
+  padding: 0 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 1 auto;
+  position: relative;
+`;
