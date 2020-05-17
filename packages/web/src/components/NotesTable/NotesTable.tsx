@@ -67,11 +67,11 @@ const StyledTable = styled(Table)`
 const StyledRow = styled(TableRow)<{ watched: boolean }>`
   cursor: pointer;
   transition: all 200ms ease;
-  background: ${({ watched }) =>
-    watched ? "transparent" : "rgba(177,255,212,0.4)"};
+  background: ${({ theme, watched }) =>
+    watched ? "transparent" : theme.colors.superLight};
 
   &:hover {
-    background: rgba(211, 211, 211, 0.5);
+    background: ${({ theme }) => theme.colors.light};
   }
 `;
 
@@ -81,5 +81,5 @@ const Wrapper = styled.div`
 `;
 
 const StyledTableHeader = styled(TableHead)`
-  background: rgba(0, 0, 0, 0.1);
+  background: ${({ theme }) => theme.colors.complementary};
 `;
