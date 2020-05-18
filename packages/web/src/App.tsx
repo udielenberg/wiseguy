@@ -1,14 +1,16 @@
 import React, { useEffect, useContext } from "react";
 import "./App.css";
-import { AddNote } from "components/AddNote";
-import { NotesTable } from "components/NotesTable/index";
-import { NotePanelModal } from "components/NotePanelModal";
 import { NotesContext } from "context/Notes/";
 import { realDummyNotes } from "dummydata/notes";
 import { Sidebar } from "components/Sidebar";
 import { Breadcrumbs } from "components/Breadcrumbs";
 import styled from "styled-components";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
+import { createBrowserHistory } from "history";
+import { MainPage } from "pages/Main";
+import { NotePage } from "pages/NotePage";
+const history = createBrowserHistory();
 function App() {
   const { actions } = useContext(NotesContext);
 
@@ -19,13 +21,16 @@ function App() {
 
   return (
     <AppMain>
-      <Sidebar />
-      <AppContent>
-        <Breadcrumbs />
-        <NotePanelModal />
-        <AddNote />
-        <NotesTable />
-      </AppContent>
+      <BrowserRouter {...{ history }}>
+        <Sidebar />
+        <AppContent>
+          <Breadcrumbs />
+          <Switch>
+            <Route exact path="/" component={MainPage} />
+            <Route exact path="/note/:id" component={NotePage} />
+          </Switch>
+        </AppContent>
+      </BrowserRouter>
     </AppMain>
   );
 }
