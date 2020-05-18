@@ -1,18 +1,7 @@
 import 'styled-components'
 
 interface ColorsTheme {
-    primary: string;
-    secondary: string;
-    complementary: string;
-    complementaryYellow: string;
-    dark: string;
-    light: string;
-    superLight: string;
-    error2: string;
-    error: string;
-    success: string;
-    white: string;
-    black: string;
+    [key: string]: string;
 }
 
 interface FontSizeTheme {
