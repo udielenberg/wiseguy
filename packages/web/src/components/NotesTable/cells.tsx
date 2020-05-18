@@ -1,8 +1,8 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { StyledChip } from "shared/Styled";
+import { DeleteIconButton } from "shared/buttons";
 
 const IncludeWords: React.FC<any> = ({ data }) => {
   return (
@@ -44,17 +44,16 @@ export const CellType: React.FC<Props> = (props) => {
   }
   if (field === "remove") {
     return (
-      <IconButton
+      <DeleteIconButton
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
           data.remove();
         }}
-        color="secondary"
         aria-label="add an alarm"
       >
         <DeleteIcon />
-      </IconButton>
+      </DeleteIconButton>
     );
   }
   if (field === "created") {
