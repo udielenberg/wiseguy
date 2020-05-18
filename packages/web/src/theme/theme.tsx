@@ -10,12 +10,13 @@ export const theme = {
     dark: "#30363A",
     light: "#B3D2EF",
     superLight: "#DFF6FC",
-    error: "#931621",
+    error2: "#931621",
+    error: "#DB2B39",
     success: "#06A77D",
     white: "white",
     black: "black",
   },
-  fontSizes: {
+  fontSize: {
     s: "1em",
     m: "2em",
     l: "3em",
