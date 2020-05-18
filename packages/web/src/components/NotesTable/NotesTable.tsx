@@ -7,7 +7,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Note } from "models/Note";
-import { CenteredLayout } from "layouts";
 import { CellType } from "./cells";
 import styled from "styled-components";
 import { NotesContext } from "context/Notes/";
@@ -28,13 +27,13 @@ export const NotesTable = () => {
   const { notes } = state;
 
   return (
-    <CenteredLayout>
+    <Wrapper>
       <TableContainer component={Paper}>
         <StyledTable aria-label="simple table">
           <StyledTableHeader>
             <TableRow>
               {baseHeaders.map(({ field, title }) => (
-                <TableCell key={field}>{title}</TableCell>
+                <StyledHeaderCell key={field}>{title}</StyledHeaderCell>
               ))}
             </TableRow>
           </StyledTableHeader>
@@ -57,7 +56,7 @@ export const NotesTable = () => {
           </TableBody>
         </StyledTable>
       </TableContainer>
-    </CenteredLayout>
+    </Wrapper>
   );
 };
 
@@ -68,14 +67,25 @@ const StyledTable = styled(Table)`
 const StyledRow = styled(TableRow)<{ watched: boolean }>`
   cursor: pointer;
   transition: all 200ms ease;
-  background: ${({ watched }) =>
-    watched ? "transparent" : "rgba(177,255,212,0.4)"};
+  background: ${({ theme, watched }) =>
+    watched ? "transparent" : theme.colors.superLight};
 
   &:hover {
-    background: rgba(211, 211, 211, 0.5);
+    background: ${({ theme }) => theme.colors.light};
   }
 `;
 
+const Wrapper = styled.div`
+  margin-top: 50px;
+  width: 100%;
+`;
+
 const StyledTableHeader = styled(TableHead)`
-  background: rgba(0, 0, 0, 0.1);
+  background: ${({ theme }) => theme.colors.complementary};
+`;
+
+const StyledHeaderCell = styled(TableCell)`
+  && {
+    color: white;
+  }
 `;

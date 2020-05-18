@@ -5,12 +5,18 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
 import { NotesProvider } from "context/Notes/";
+import Theme from "theme/theme";
+import MuiThemeProvider from "theme/MuiTheme";
 
 ReactDOM.render(
   <React.StrictMode>
-    <NotesProvider>
-      <App />
-    </NotesProvider>
+    <MuiThemeProvider>
+      <Theme>
+        <NotesProvider>
+          <App />
+        </NotesProvider>
+      </Theme>
+    </MuiThemeProvider>
   </React.StrictMode>,
 
   document.getElementById("root")
