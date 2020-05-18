@@ -10,7 +10,7 @@ import { Note } from "models/Note";
 import { CellType } from "./cells";
 import styled from "styled-components";
 import { NotesContext } from "context/Notes/";
-
+import { useHistory } from "react-router-dom";
 interface BaseHeaders {
   field: string;
   title: string;
@@ -25,7 +25,7 @@ export const baseHeaders: BaseHeaders[] = [
 export const NotesTable = () => {
   const { state } = useContext(NotesContext);
   const { notes } = state;
-
+  const history = useHistory();
   return (
     <Wrapper>
       <TableContainer component={Paper}>
@@ -41,8 +41,11 @@ export const NotesTable = () => {
             {notes.length &&
               notes.map((note: Note) => (
                 <StyledRow
-                  // @ts-ignore
-                  onClick={note.open}
+                  onClick={() => {
+                    // @ts-ignore
+                    note.open();
+                    history.push(`/note/${note.id}`);
+                  }}
                   key={note.id}
                   watched={note.watched}
                 >
