@@ -2,6 +2,12 @@ import styled from "styled-components";
 import Chip from "@material-ui/core/Chip";
 
 export const StyledChip = styled(Chip)`
+  && {
+    background: ${({ theme }) => theme.colors.complementary};
+    color: white;
+    border: 0;
+  }
+
   min-width: 50px;
   margin: 0 5px;
 `;
