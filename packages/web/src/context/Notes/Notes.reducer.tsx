@@ -6,7 +6,6 @@ import { setDummyResources } from "dummydata/_notes";
 interface NotesState {
   notes: Note[];
   selectedNote: Note | null;
-  showNoteModal: boolean;
 }
 
 interface NotesPayload {
@@ -22,13 +21,11 @@ export const C = {
   MOVE_RESOURCE: "note/move resource",
   OPEN: "note/open",
   UPDATE_ALL: "notes/update all",
-  TOGGLE_MODAL: "note/toggle modal",
 };
 
 export const notesInitialState: NotesState = {
   notes: [],
   selectedNote: null,
-  showNoteModal: false,
 };
 
 export const notesReducer = (
@@ -90,20 +87,18 @@ export const notesReducer = (
         ...state.notes[noteIndex],
         watched: true,
       });
-
-      return {
+      const nextState = {
         ...state,
         notes: clonedNotes,
         selectedNote: clonedNotes[noteIndex],
-        showNoteModal: true,
       };
+      console.log("nextState:", nextState);
+      return nextState;
     }
     case C.UPDATE_ALL: {
       return { ...state, notes: payload };
     }
-    case C.TOGGLE_MODAL: {
-      return { ...state, showNoteModal: payload };
-    }
+
     default:
       return state;
   }
@@ -126,8 +121,6 @@ export const notesActions = (dispatch: any) => {
     const updatedNotes = notes.map((note) => enhanceNote(note));
     dispatch({ type: C.UPDATE_ALL, payload: updatedNotes });
   };
-  const toggleModal = (payload: boolean) =>
-    dispatch({ type: C.TOGGLE_MODAL, payload });
 
   const moveResource = (payload: any) => {
     dispatch({ type: C.MOVE_RESOURCE, payload });
@@ -145,7 +138,6 @@ export const notesActions = (dispatch: any) => {
     openNote,
     addNote,
     updateAll,
-    toggleModal,
     moveResource,
   };
 };
