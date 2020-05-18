@@ -16,5 +16,6 @@ export const RejectButton = styled(Button).attrs({
 })`
   &&& {
     background: ${({ theme }) => theme.colors.error};
+    color: white;
   }
 `;
