@@ -33,7 +33,7 @@ export const NotesTable = () => {
           <StyledTableHeader>
             <TableRow>
               {baseHeaders.map(({ field, title }) => (
-                <TableCell key={field}>{title}</TableCell>
+                <StyledHeaderCell key={field}>{title}</StyledHeaderCell>
               ))}
             </TableRow>
           </StyledTableHeader>
@@ -82,4 +82,10 @@ const Wrapper = styled.div`
 
 const StyledTableHeader = styled(TableHead)`
   background: ${({ theme }) => theme.colors.complementary};
+`;
+
+const StyledHeaderCell = styled(TableCell)`
+  && {
+    color: white;
+  }
 `;
