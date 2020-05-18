@@ -171,7 +171,7 @@ const ViewerWrapper = styled.div`
   }
 
   span.highlight {
-    background: yellow;
+    background: ${({ theme }) => theme.colors.highlight};
     padding: 0 2px;
   }
 `;

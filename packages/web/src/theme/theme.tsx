@@ -15,6 +15,7 @@ export const theme = {
     success: "#06A77D",
     white: "white",
     black: "black",
+    highlight: "#F1D302",
   },
   fontSize: {
     s: "1em",
