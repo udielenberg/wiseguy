@@ -2,6 +2,8 @@ import React from "react";
 import { TextMarginRight } from "./Styled";
 import styled from "styled-components";
 import { Typography } from "@material-ui/core";
+import isString from "lodash/isString";
+import isNumber from "lodash/isNumber";
 interface InfoProps {
   title: string;
   content: string | React.ReactNode;
@@ -10,7 +12,7 @@ interface InfoProps {
 const Info = (props: InfoProps) => {
   const { title, content } = props;
   const contentToRender =
-    typeof content === "string" || typeof content === "number" ? (
+    isString(content) || isNumber(content) ? (
       <Typography>{content}</Typography>
     ) : (
       content
@@ -22,7 +24,7 @@ const Info = (props: InfoProps) => {
           <Typography variant="overline">{title}:</Typography>
         </TextMarginRight>
       </div>
-      <div style={{ display: "inline-block" }}>{contentToRender}</div>
+      <div>{contentToRender}</div>
     </Wrapper>
   );
 };
