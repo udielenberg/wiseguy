@@ -1,9 +1,18 @@
 import styled from "styled-components";
 import { Button } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
+import Fab from "@material-ui/core/Fab";
 
-export const ApproveButton = styled(Button).attrs({
+const BaseContainedButton = styled(Button).attrs({
   variant: "contained",
+})`
+  display: flex;
+  justify-content: space-between;
+  flex-basis: 50px;
+  margin-top: 30px;
+`;
+
+export const ApproveButton = styled(BaseContainedButton).attrs({
   color: "primary",
 })`
   &&& {
@@ -11,8 +20,7 @@ export const ApproveButton = styled(Button).attrs({
   }
 `;
 
-export const RejectButton = styled(Button).attrs({
-  variant: "contained",
+export const RejectButton = styled(BaseContainedButton).attrs({
   color: "secondary",
 })`
   &&& {
@@ -28,3 +36,5 @@ export const DeleteIconButton = styled(IconButton).attrs({
     color: ${({ theme }) => theme.colors.error};
   }
 `;
+
+export const StyledFab = styled(Fab)``;
