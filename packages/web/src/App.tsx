@@ -10,6 +10,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { MainPage } from "pages/Main";
 import { NotePage } from "pages/NotePage";
+
 const history = createBrowserHistory();
 function App() {
   const { actions } = useContext(NotesContext);
