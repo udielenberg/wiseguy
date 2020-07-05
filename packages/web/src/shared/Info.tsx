@@ -7,6 +7,7 @@ import isNumber from "lodash/isNumber";
 interface InfoProps {
   title: string;
   content: string | React.ReactNode;
+  oneLine?: boolean;
 }
 
 const Info = (props: InfoProps) => {
@@ -24,7 +25,7 @@ const Info = (props: InfoProps) => {
           <Typography variant="overline">{title}:</Typography>
         </TextMarginRight>
       </div>
-      <div>{contentToRender}</div>
+      <Content {...{ oneLine }}>{contentToRender}</Content>
     </Wrapper>
   );
 };
@@ -32,4 +33,8 @@ export default Info;
 
 const Wrapper = styled.div`
   padding: 5px;
+`;
+
+const Content = styled.div<{ oneLine: boolean }>`
+  display: ${({ oneLine }) => (oneLine ? "inline-block" : "block")};
 `;
