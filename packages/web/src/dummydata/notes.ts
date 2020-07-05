@@ -13,7 +13,7 @@ export const realDummyNotes: Note[] = [
                 state: 'fresh',
                 rating: 100,
                 link: 'https://en.wikipedia.org/wiki/Hasura',
-                description: "he Hasura GraphQL Engine provides GraphQL APIs over new or existing Postgres databases. The Hasura Kubernetes",
+                description: "The Hasura GraphQL Engine provides GraphQL APIs over new or existing Postgres databases. The Hasura Kubernetes",
                 createdAt: new Date("18 Sept 2018"),
                 updatedAt: new Date("1 Nov 2019"),
                 writtenBy: "David Gerard",
@@ -23,9 +23,9 @@ export const realDummyNotes: Note[] = [
                 relevantParagraphs: [
                     {
                         'hasura,graphql,postgres': [
-                            "Hasura is a privately held software technology company that builds developer tooling products, including open source tools, backend as a service (BaaS) and platform as a service (PaaS) products.[1][2][3] The Hasura GraphQL Engine provides GraphQL APIs over new or existing Postgres databases.[4][5] The Hasura Kubernetes Platform is a managed platform for building, deploying, and managing applications on Kubernetes.[6][7] The company was founded on 2017, and has its headquarters in San Francisco, and has offices in Bangalore.[8]",
-                            "In July 2018, the company announced the open source release of the Hasura GraphQL Engine to enable developers to set up GraphQL endpoints on their existing postgres applications.[19] In September 2018, the company introduced an open source event trigger system on Postgres for building serverless apps.",
-                            "The Hasura GraphQL Engine provides developers with GraphQL APIs for Postgres applications.[23][24][25] The engine can be deployed on Heroku."
+                            "Hasura is a privately held software technology company that builds developer tooling products, including open source tools, backend as a service (BaaS) and platform as a service (PaaS) products.The Hasura GraphQL Engine provides GraphQL APIs over new or existing Postgres databases.The Hasura Kubernetes Platform is a managed platform for building, deploying, and managing applications on Kubernetes. The company was founded on 2017, and has its headquarters in San Francisco, and has offices in Bangalore.",
+                            "In July 2018, the company announced the open source release of the Hasura GraphQL Engine to enable developers to set up GraphQL endpoints on their existing postgres applications. In September 2018, the company introduced an open source event trigger system on Postgres for building serverless apps.",
+                            "The Hasura GraphQL Engine provides developers with GraphQL APIs for Postgres applications.The engine can be deployed on Heroku."
                         ]
                     },
                     {

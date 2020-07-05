@@ -23,7 +23,6 @@ interface Props {
 
 export const ParagraphViewer = (props: Props) => {
   const { combinations } = props;
-  console.log("combinations:", combinations);
   const [combinationIndex, setCombinationIndex] = useState(0);
   const [paragraphIndex, setParagraphIndex] = useState(0);
 
