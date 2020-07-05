@@ -8,7 +8,6 @@ import ImageIcon from "@material-ui/icons/Image";
 import { Link } from "@material-ui/core";
 import { Resource } from "models/Note";
 import styled from "styled-components";
-import { CurrentResource } from "../TabManager";
 import Button from "@material-ui/core/Button";
 import { securedNewWindow } from "utils/settings";
 interface Props {
@@ -21,7 +20,7 @@ export const RejectedList = (props: Props) => {
   const { resources, setApprove, setUnread } = props;
   const handleClickApprove = (
     e: React.MouseEvent<HTMLElement>,
-    resource: CurrentResource
+    resource: any
   ) => {
     e.preventDefault();
     e.stopPropagation();
@@ -30,7 +29,7 @@ export const RejectedList = (props: Props) => {
 
   const handleClickUnread = (
     e: React.MouseEvent<HTMLElement>,
-    resource: CurrentResource
+    resource: any
   ) => {
     e.preventDefault();
     e.stopPropagation();

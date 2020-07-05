@@ -92,7 +92,6 @@ export const notesReducer = (
         notes: clonedNotes,
         selectedNote: clonedNotes[noteIndex],
       };
-      console.log("nextState:", nextState);
       return nextState;
     }
     case C.UPDATE_ALL: {
