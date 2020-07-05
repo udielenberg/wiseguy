@@ -21,8 +21,8 @@ function App() {
   }, []);
 
   return (
-    <AppMain>
-      <BrowserRouter {...{ history }}>
+    <BrowserRouter {...{ history }}>
+      <AppMain>
         <Sidebar />
         <AppContent>
           <Breadcrumbs />
@@ -31,8 +31,8 @@ function App() {
             <Route exact path="/note/:id" component={NotePage} />
           </Switch>
         </AppContent>
-      </BrowserRouter>
-    </AppMain>
+      </AppMain>
+    </BrowserRouter>
   );
 }
 export default App;
@@ -46,6 +46,6 @@ const AppContent = styled.div`
   padding: 0 20px 20px 20px;
   display: flex;
   flex-direction: column;
-  flex: 1 1 auto;
+  flex: 1 1 85%;
   position: relative;
 `;

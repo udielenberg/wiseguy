@@ -70,12 +70,12 @@ export const notesReducer = (
         resources: updateResources,
       };
       updateNotes.splice(noteIndex, 1, updatedSelectedNote);
-
-      return {
+      const newState = {
         ...state,
         notes: updateNotes,
         selectedNote: updatedSelectedNote,
       };
+      return newState;
     }
     case C.SELECT_NOTE: {
       return { ...state, selectedNote: payload };
