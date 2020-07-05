@@ -19,16 +19,21 @@ export const MetadataViewer: React.FC<Props> = ({
   current,
   search,
 }) => {
+  if (!resources[current]) {
+    return <div>No metadada.</div>;
+  }
   const { description, createdAt, domain, link, rating, writtenBy } = resources[
     current
   ];
   return (
     <Wrapper>
-      <Italic style={{ textAlign: "right", display: "block" }}>
-        ({current + 1} / {resources.length})
-      </Italic>
-      <SearchTitle>"{search}"</SearchTitle>
-
+      <Italic style={{ textAlign: "right", display: "block" }}></Italic>
+      <SearchTitle>Note: "{search}"</SearchTitle>
+      <Info
+        title="resource"
+        content={`(${current + 1} / ${resources.length})`}
+        oneLine
+      />
       <Info
         title="description"
         content={<Typography variant="body2">{description}</Typography>}
@@ -79,7 +84,6 @@ const SearchTitle = styled(Typography).attrs({ variant: "h5" })`
 `;
 
 const Wrapper = styled.div`
-  border: 3px solid blue;
   height: 200px;
   /* Fix this */
   position: relative;

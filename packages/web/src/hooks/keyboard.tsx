@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 
-export const useRightLeftKeys = (resources: any[]) => {
+export const useRightLeftKeys = (resources: any[] = []) => {
   const [current, setCurrent] = useState<number>(0);
 
   const left = useCallback(() => {

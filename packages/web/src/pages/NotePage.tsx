@@ -1,17 +1,6 @@
-import React, { useContext } from "react";
-import {
-  RejectButton,
-  ApproveButton,
-  StyledFab,
-  //   FabLeft,
-  //   FabRight,
-  //   FabUp,
-  //   FabDown,
-} from "shared/buttons";
-import { Typography } from "@material-ui/core";
+import React, { useContext, useState } from "react";
+import { RejectButton, ApproveButton, StyledFab } from "shared/buttons";
 import styled from "styled-components";
-import UpIcon from "@material-ui/icons/KeyboardArrowUp";
-import DownIcon from "@material-ui/icons/KeyboardArrowDown";
 import LeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import RightIcon from "@material-ui/icons/KeyboardArrowRight";
 import CheckIcon from "@material-ui/icons/Check";
@@ -22,31 +11,38 @@ import { MetadataViewer } from "components/NoteMetadata/views/MetadataViewer";
 import { MediaViewer } from "components/NoteMetadata/views/MediaViewer";
 import { sortResources } from "components/NoteMetadata/tabManagerUtil";
 import { ParagraphViewer } from "components/NoteMetadata/views/ParagraphViewer";
+import isEmpty from "lodash/isEmpty";
 export interface CurrentResourceRelevantIds {
   noteId: string;
   resourceId: string;
 }
 
+type ViewTypes = "fresh" | "rejected" | "approved";
+
 interface Props {}
 export const NotePage: React.FC<Props> = (props) => {
+  const [viewType, setViewType] = useState<ViewTypes>("fresh");
   const { state, actions } = useContext(NotesContext);
   const { selectedNote } = state;
-  const { left, right, current } = useRightLeftKeys(selectedNote.resources);
+  const resourcesByType = sortResources(selectedNote.resources)[viewType] || [];
 
-  const currentResourceRelevantIds: CurrentResourceRelevantIds = {
-    noteId: selectedNote.resources[current]?.noteId,
-    resourceId: selectedNote.resources[current]?.id,
-  };
-  const currentResource = selectedNote.resources[current];
-  const resources = selectedNote.resources;
+  const { left, right, current } = useRightLeftKeys(resourcesByType);
+  const currentResourceRelevantIds: CurrentResourceRelevantIds | null = resourcesByType
+    ? {
+        noteId: resourcesByType[current]?.noteId,
+        resourceId: resourcesByType[current]?.id,
+      }
+    : null;
+
+  const currentResource = resourcesByType.length
+    ? resourcesByType[current]
+    : {};
   const handleLeft = () => {
     // @TODO: Update all props passed to other views
-    console.log("left");
     left();
   };
   const handleRight = () => {
     // @TODO: Update all props passed to other views
-    console.log("right");
     right();
   };
   const handleUp = () => {
@@ -57,21 +53,22 @@ export const NotePage: React.FC<Props> = (props) => {
   };
 
   const handleApprove = () => {
-    actions.moveResource({
-      ...currentResourceRelevantIds,
-      resourceState: "approved",
-    });
+    if (currentResourceRelevantIds) {
+      actions.moveResource({
+        ...currentResourceRelevantIds,
+        resourceState: "approved",
+      });
+    }
   };
   const handleReject = () => {
-    actions.moveResource({
-      ...currentResourceRelevantIds,
-      resourceState: "rejected",
-    });
+    if (currentResourceRelevantIds) {
+      actions.moveResource({
+        ...currentResourceRelevantIds,
+        resourceState: "rejected",
+      });
+    }
   };
-  const sortedResources = sortResources(selectedNote.resources);
-  const relevantParagraphs =
-    sortedResources.fresh[current].relevantParagraphs || [];
-
+  const relevantParagraphs = resourcesByType[current]?.relevantParagraphs || [];
   return (
     <Wrapper>
       <StyledFab onClick={handleLeft}>
@@ -81,30 +78,44 @@ export const NotePage: React.FC<Props> = (props) => {
       <div className="resource-viewer-wrapper">
         <div className="views">
           <MetadataViewer
-            resources={resources}
-            current={current}
+            {...{ resources: resourcesByType || [], current }}
             search={selectedNote.search}
           />
           <ParagraphViewer
             combinations={relevantParagraphs}
             currentNote={current}
           />
-
-          <MediaViewer images={currentResource.images} />
+          <MediaViewer images={currentResource.images || []} />
         </div>
 
         <div className="actions">
           <div className="action">
-            <ApproveButton startIcon={<CheckIcon />} onClick={handleApprove}>
+            <ApproveButton
+              disabled={isEmpty(currentResource)}
+              startIcon={<CheckIcon />}
+              onClick={handleApprove}
+            >
               Approve
             </ApproveButton>
             <a href="#">approve list</a>
           </div>
           <div className="action">
-            <RejectButton startIcon={<ClearIcon />} onClick={handleReject}>
+            <RejectButton
+              disabled={isEmpty(currentResource)}
+              startIcon={<ClearIcon />}
+              onClick={handleReject}
+            >
               Reject
             </RejectButton>
-            <a href="#">reject list</a>
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                setViewType("rejected");
+              }}
+            >
+              reject list
+            </a>
           </div>
         </div>
       </div>
@@ -150,19 +161,3 @@ const Wrapper = styled.div`
     }
   }
 `;
-
-// <wrapper>
-//   <buttonLeft />
-//   <resourceViewerWrapper>
-//     <views>
-//       <MetadataViewer />
-//       <ParagraphViewer />
-//       <MediaViewer />
-//     </views>
-//     <viewsActions>
-//       <approveBtn />
-//       <rejectBtn />
-//     </viewsActions>
-//   </resourceViewerWrapper>
-//   <buttonRight />
-// </wrapper>;

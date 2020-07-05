@@ -10,7 +10,7 @@ interface InfoProps {
 }
 
 const Info = (props: InfoProps) => {
-  const { title, content } = props;
+  const { title, content, oneLine = false } = props;
   const contentToRender =
     isString(content) || isNumber(content) ? (
       <Typography>{content}</Typography>
