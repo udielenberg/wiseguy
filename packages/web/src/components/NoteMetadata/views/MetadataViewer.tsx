@@ -80,7 +80,7 @@ const SearchTitle = styled(Typography).attrs({ variant: "h5" })`
 
 const Wrapper = styled.div`
   border: 3px solid blue;
-  height: 100px;
+  height: 200px;
   /* Fix this */
   position: relative;
   overflow: hidden;

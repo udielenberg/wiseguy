@@ -40,10 +40,12 @@ export const NotePage: React.FC<Props> = (props) => {
   const currentResource = selectedNote.resources[current];
   const resources = selectedNote.resources;
   const handleLeft = () => {
+    // @TODO: Update all props passed to other views
     console.log("left");
     left();
   };
   const handleRight = () => {
+    // @TODO: Update all props passed to other views
     console.log("right");
     right();
   };
@@ -68,7 +70,7 @@ export const NotePage: React.FC<Props> = (props) => {
   };
   const sortedResources = sortResources(selectedNote.resources);
   const relevantParagraphs =
-    sortedResources.fresh[current].relevantParagraphs || {};
+    sortedResources.fresh[current].relevantParagraphs || [];
 
   return (
     <Wrapper>
@@ -119,16 +121,6 @@ const Wrapper = styled.div`
   height: 100%;
   align-items: center;
 
-  .red {
-    background: red;
-  }
-  .blue {
-    background: blue;
-  }
-  .green {
-    background: green;
-  }
-
   .resource-viewer-wrapper {
     display: flex;
     flex-direction: column;
@@ -141,12 +133,6 @@ const Wrapper = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
-
-    .box {
-      flex: 1;
-      width: 100%;
-      height: 100px;
-    }
   }
   .actions {
     margin-top: 10px;
