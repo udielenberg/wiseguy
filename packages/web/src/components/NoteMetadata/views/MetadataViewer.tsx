@@ -20,7 +20,7 @@ export const MetadataViewer: React.FC<Props> = ({
   search,
 }) => {
   if (!resources[current]) {
-    return <div>No metadada.</div>;
+    return <EmptyContent>No metadada.</EmptyContent>;
   }
   const { description, createdAt, domain, link, rating, writtenBy } = resources[
     current
@@ -88,4 +88,12 @@ const Wrapper = styled.div`
   /* Fix this */
   position: relative;
   overflow: hidden;
+`;
+
+const EmptyContent = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: gray;
+  height: 100%;
 `;

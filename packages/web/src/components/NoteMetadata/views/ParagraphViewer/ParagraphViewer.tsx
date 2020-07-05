@@ -116,6 +116,11 @@ export const ParagraphViewer = (props: Props) => {
       window.removeEventListener("keydown", handleKeypressDown);
     };
   }, [nextParagraph, prevParagraph]);
+
+  if (!combinations.length) {
+    return null;
+  }
+
   return (
     <div>
       <Typography variant="overline">Paragraphs:</Typography>
