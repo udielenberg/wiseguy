@@ -20,11 +20,14 @@ export interface CurrentResourceRelevantIds {
 type ViewTypes = "fresh" | "rejected" | "approved";
 
 interface Props {}
+
 export const NotePage: React.FC<Props> = (props) => {
   const [viewType, setViewType] = useState<ViewTypes>("fresh");
   const { state, actions } = useContext(NotesContext);
   const { selectedNote } = state;
-  const resourcesByType = sortResources(selectedNote.resources)[viewType] || [];
+
+  const resourcesByType =
+    sortResources(selectedNote?.resources || [])[viewType] || [];
 
   const { left, right, current } = useRightLeftKeys(resourcesByType);
   const currentResourceRelevantIds: CurrentResourceRelevantIds | null = resourcesByType
@@ -79,7 +82,7 @@ export const NotePage: React.FC<Props> = (props) => {
         <div className="views">
           <MetadataViewer
             {...{ resources: resourcesByType || [], current }}
-            search={selectedNote.search}
+            search={selectedNote?.search}
           />
           <ParagraphViewer
             combinations={relevantParagraphs}
