@@ -10,6 +10,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { MainPage } from "pages/Main";
 import { NotePage } from "pages/NotePage";
+import ErrorBoundary from "./ErrorBoundary";
 
 const history = createBrowserHistory();
 function App() {
@@ -22,16 +23,19 @@ function App() {
 
   return (
     <BrowserRouter {...{ history }}>
-      <AppMain>
-        <Sidebar />
-        <AppContent>
-          <Breadcrumbs />
-          <Switch>
-            <Route exact path="/" component={MainPage} />
-            <Route exact path="/note/:id" component={NotePage} />
-          </Switch>
-        </AppContent>
-      </AppMain>
+      <ErrorBoundary>
+        <AppMain>
+          <Sidebar />
+          <AppContent>
+            <Breadcrumbs />
+            <Switch>
+              <Route exact path="/" component={MainPage} />
+              <Route exact path="/note/:id" component={NotePage} />
+              <Route render={() => <div>Wrong Page!</div>} />
+            </Switch>
+          </AppContent>
+        </AppMain>
+      </ErrorBoundary>
     </BrowserRouter>
   );
 }
