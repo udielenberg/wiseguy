@@ -1,17 +1,17 @@
 import React, { useEffect, useContext } from "react";
-import "./App.css";
+import { createBrowserHistory } from "history";
+import styled from "styled-components";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { NotesContext } from "context/Notes/";
 import { realDummyNotes } from "dummydata/notes";
 import { Sidebar } from "components/Sidebar";
 import { Breadcrumbs } from "components/Breadcrumbs";
-import styled from "styled-components";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-
-import { createBrowserHistory } from "history";
 import { MainPage } from "pages/Main";
 import { NotePage } from "pages/NotePage";
 import ErrorBoundary from "./ErrorBoundary";
 import { ListView } from "pages/ListView";
+
+import "./App.css";
 
 const history = createBrowserHistory();
 function App() {
@@ -52,6 +52,6 @@ const AppContent = styled.div`
   padding: 0 20px 20px 20px;
   display: flex;
   flex-direction: column;
-  flex: 1 1 auto;
+  flex: 1 1 70%;
   position: relative;
 `;
