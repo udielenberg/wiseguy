@@ -29,7 +29,7 @@ const links: MenuLink[] = [
     subLinks: [
       {
         title: "untouched",
-        path: "/view/untouched",
+        path: "/view/fresh",
         Icon: AccessibilityNewIcon,
       },
       { title: "approved", path: "/view/approved", Icon: ThumbUpIcon },
