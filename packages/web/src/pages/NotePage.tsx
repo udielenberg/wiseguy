@@ -9,7 +9,7 @@ import { NotesContext } from "context/Notes";
 import { useRightLeftKeys } from "hooks/keyboard";
 import { MetadataViewer } from "components/NoteMetadata/views/MetadataViewer";
 import { MediaViewer } from "components/NoteMetadata/views/MediaViewer";
-import { sortResources } from "components/NoteMetadata/tabManagerUtil";
+import { sortNoteResources } from "utils/noteUtils";
 import { ParagraphViewer } from "components/NoteMetadata/views/ParagraphViewer";
 import isEmpty from "lodash/isEmpty";
 export interface CurrentResourceRelevantIds {
@@ -27,7 +27,7 @@ export const NotePage: React.FC<Props> = (props) => {
   const { selectedNote } = state;
 
   const resourcesByType =
-    sortResources(selectedNote?.resources || [])[viewType] || [];
+    sortNoteResources(selectedNote?.resources || [])[viewType] || [];
 
   const { left, right, current } = useRightLeftKeys(resourcesByType);
   const currentResourceRelevantIds: CurrentResourceRelevantIds | null = resourcesByType
