@@ -11,6 +11,7 @@ import { createBrowserHistory } from "history";
 import { MainPage } from "pages/Main";
 import { NotePage } from "pages/NotePage";
 import ErrorBoundary from "./ErrorBoundary";
+import { ListView } from "pages/ListView";
 
 const history = createBrowserHistory();
 function App() {
@@ -31,6 +32,7 @@ function App() {
             <Switch>
               <Route exact path="/" component={MainPage} />
               <Route exact path="/note/:id" component={NotePage} />
+              <Route exact path="/view/:type" component={ListView} />
               <Route render={() => <div>Wrong Page!</div>} />
             </Switch>
           </AppContent>
@@ -50,6 +52,6 @@ const AppContent = styled.div`
   padding: 0 20px 20px 20px;
   display: flex;
   flex-direction: column;
-  flex: 1 1 85%;
+  flex: 1 1 auto;
   position: relative;
 `;
