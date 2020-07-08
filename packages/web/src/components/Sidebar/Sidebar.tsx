@@ -15,7 +15,7 @@ import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import AccessibilityNewIcon from "@material-ui/icons/AccessibilityNew";
 import { NotesContext } from "context/Notes/";
 import { sortAllResourcesByState } from "utils/noteUtils";
-
+import wiseguyLogo from "assets/wiseguy-01.svg";
 interface MenuLink {
   id: string;
   title: string | React.ReactNode;
@@ -80,7 +80,9 @@ export const Sidebar = () => {
   return (
     <Wrapper>
       <LogoWrapper>
-        <Link to="/">Wiseguy</Link>
+        <Link to="/">
+          <img src={wiseguyLogo} alt="logo" width="220" />
+        </Link>
       </LogoWrapper>
       <ListWrapper>
         {links.map(({ title, path, Icon, subLinks, id }) => {
