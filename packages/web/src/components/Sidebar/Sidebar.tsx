@@ -17,7 +17,8 @@ import { NotesContext } from "context/Notes/";
 import { sortAllResourcesByState } from "utils/noteUtils";
 
 interface MenuLink {
-  title: string;
+  id: string;
+  title: string | React.ReactNode;
   Icon: any;
   path?: string;
   subLinks?: MenuLink[];
@@ -32,23 +33,39 @@ export const Sidebar = () => {
   const { approved, rejected, fresh } = sortAllResourcesByState(notes);
 
   const links: MenuLink[] = [
-    { title: "Notes", path: "/", Icon: ViewListIcon },
+    { id: "notes", title: "Notes", path: "/", Icon: ViewListIcon },
     {
+      id: "views",
       title: "Views",
       Icon: InboxIcon,
       subLinks: [
         {
-          title: `untouched (${fresh.length})`,
+          id: "untouched",
+          title: (
+            <div className="title">
+              untouched <span className="counter">({fresh.length})</span>
+            </div>
+          ),
           path: "/view/fresh",
           Icon: AccessibilityNewIcon,
         },
         {
-          title: `approved (${approved.length})`,
+          id: "approved",
+          title: (
+            <div className="title">
+              approved <span className="counter">({approved.length})</span>
+            </div>
+          ),
           path: "/view/approved",
           Icon: ThumbUpIcon,
         },
         {
-          title: `rejected (${rejected.length})`,
+          id: "rejected",
+          title: (
+            <div className="title">
+              rejected <span className="counter">({rejected.length})</span>
+            </div>
+          ),
           path: "/view/rejected",
           Icon: ThumbDownIcon,
         },
@@ -66,9 +83,9 @@ export const Sidebar = () => {
         <Link to="/">Wiseguy</Link>
       </LogoWrapper>
       <ListWrapper>
-        {links.map(({ title, path, Icon, subLinks }) => {
+        {links.map(({ title, path, Icon, subLinks, id }) => {
           return path ? (
-            <MenuLink to={path} key={title}>
+            <MenuLink to={path} key={id}>
               <ListItem button>
                 <ItemIcon>
                   <Icon className="icon" />
@@ -77,7 +94,7 @@ export const Sidebar = () => {
               </ListItem>
             </MenuLink>
           ) : (
-            <div key={title}>
+            <div key={id}>
               <ListItem button onClick={handleClick}>
                 <ItemIcon>
                   <Icon className="icon" />
@@ -90,7 +107,7 @@ export const Sidebar = () => {
                   {subLinks &&
                     subLinks.map((subLink) => {
                       return (
-                        <MenuLink to={subLink.path || "/"} key={subLink.title}>
+                        <MenuLink to={subLink.path || "/"} key={subLink.id}>
                           <NestedItem>
                             <ItemIcon>
                               <subLink.Icon className="icon" />
@@ -114,10 +131,29 @@ const Wrapper = styled.div`
   flex-basis: 250px;
   padding: ${({ theme }) => theme.spacing.m};
   background: ${({ theme }) => theme.colors.primary};
+
+  .title {
+    display: flex;
+    align-items: center;
+    line-height: 15px;
+
+    .counter {
+      line-height: 15px;
+      font-weight: 100;
+      font-size: 0.8rem;
+      padding-left: 4px;
+    }
+  }
+
+  /* overrides */
+  && {
+    .MuiListItemIcon-root {
+      min-width: 30px !important;
+    }
+  }
 `;
 
 const LogoWrapper = styled.div`
-  border: 1px solid black;
   height: 70px;
   display: flex;
   justify-content: center;
@@ -150,6 +186,6 @@ const MenuLink = styled(Link)`
 const ItemIcon = styled(ListItemIcon)`
   .icon {
     color: ${({ theme }) => theme.colors.white};
-    font-size: 20px;
+    font-size: 18px;
   }
 `;
