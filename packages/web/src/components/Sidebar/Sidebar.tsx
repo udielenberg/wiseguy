@@ -61,8 +61,8 @@ export const Sidebar = () => {
               </ListItem>
             </MenuLink>
           ) : (
-            <>
-              <ListItem button key={title} onClick={handleClick}>
+            <div key={title}>
+              <ListItem button onClick={handleClick}>
                 <ItemIcon>
                   <Icon className="icon" />
                 </ItemIcon>
@@ -74,7 +74,7 @@ export const Sidebar = () => {
                   {subLinks &&
                     subLinks.map((subLink) => {
                       return (
-                        <MenuLink to={subLink.path || "/"}>
+                        <MenuLink to={subLink.path || "/"} key={subLink.title}>
                           <NestedItem>
                             <ItemIcon>
                               <subLink.Icon className="icon" />
@@ -86,7 +86,7 @@ export const Sidebar = () => {
                     })}
                 </List>
               </Collapse>
-            </>
+            </div>
           );
         })}
       </ListWrapper>

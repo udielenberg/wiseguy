@@ -4,7 +4,7 @@ import { NotesTable } from "components/NotesTable";
 
 interface Props {}
 
-export const MainPage: React.FC<Props> = (props) => {
+export const MainPage: React.FC<Props> = () => {
   return (
     <>
       <AddNote />
