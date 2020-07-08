@@ -3,13 +3,15 @@ import { useParams } from "react-router-dom";
 import { Resource, ResourceState } from "models/Note";
 import { NotesContext } from "context/Notes/";
 import { sortAllResourcesByState, SortedAllResources } from "utils/noteUtils";
-import { Typography, List, Button } from "@material-ui/core";
+import { Typography, Button } from "@material-ui/core";
 import styled from "styled-components";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import { formattedDate } from "utils/date";
-import Box from "@material-ui/core/Box";
-
+import { Card } from "@material-ui/core";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import IconButton from "@material-ui/core/IconButton";
+import OpenInNewIcon from "@material-ui/icons/OpenInNew";
 interface Props {
   data: Resource[];
   type: string;
@@ -24,6 +26,11 @@ interface ButtonProps {
   onClick?: any;
   text: string;
   relevantIds: RelevantIds;
+}
+
+interface ResourceAction {
+  text: string;
+  onClick: (ids: RelevantIds) => void;
 }
 
 const MyButton: React.FC<ButtonProps> = ({ onClick, text, relevantIds }) => {
@@ -69,7 +76,7 @@ export const ListView: React.FC<Props> = ({ data, type }) => {
     });
   };
 
-  let buttons: { text: string; onClick: (ids: RelevantIds) => void }[];
+  let buttons: ResourceAction[];
   const approveBtn = { text: "approve", onClick: approve };
   const rejectBtn = { text: "reject", onClick: reject };
   const unreadBtn = { text: "mark as unread", onClick: untouch };
@@ -90,51 +97,17 @@ export const ListView: React.FC<Props> = ({ data, type }) => {
         {viewType} Resources
       </Typography>
 
-      {resources.length ? (
-        <List dense>
-          {resources.map((resource: Resource) => {
+      {resources.length
+        ? resources.map((resource) => {
             return (
-              <ListItem className="resource-item" key={resource.id}>
-                <ListItemText primary={formattedDate(resource.createdAt)} />
-                <ListItemText
-                  primary={
-                    <div
-                      style={{
-                        width: 400,
-                        maxHeight: 100,
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      <Box
-                        component="div"
-                        my={4}
-                        textOverflow="ellipsis"
-                        overflow="hidden"
-                      >
-                        {resource.description}
-                      </Box>
-                    </div>
-                  }
-                />
-                <ListItemText primary={<a href={resource.link}>link</a>} />
-                {buttons.map(({ text, onClick }) => (
-                  <MyButton
-                    key={text}
-                    {...{
-                      text,
-                      onClick,
-                      relevantIds: {
-                        resourceId: resource.id,
-                        noteId: resource.noteId,
-                      },
-                    }}
-                  />
-                ))}
-              </ListItem>
+              <ResourceItem
+                key={resource.id}
+                {...{ resource }}
+                actions={buttons}
+              />
             );
-          })}
-        </List>
-      ) : null}
+          })
+        : null}
     </Wrapper>
   );
 };
@@ -160,4 +133,58 @@ const Wrapper = styled.div`
   .button {
     margin: 0 10px;
   }
+`;
+
+interface ResourceItemProps {
+  // resource: Resource & Pick<Note, "search" | "includeWords">;
+  resource: any; //TODO: type Resource + note.search + note.includeWords
+  actions: ResourceAction[];
+}
+
+const ResourceItem: React.FC<ResourceItemProps> = ({ resource, actions }) => {
+  // add StyledCard
+  const {
+    search = "note search value",
+    link = "http://www.walla.co.il",
+    description = "lorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsum",
+    createdAt = new Date().toTimeString(),
+  } = resource;
+  const includeWords = ["one", "two", "three"]; // TODO: bring it from Note somehow
+
+  return (
+    <StyledCard>
+      <CardHeader title={search} subheader={formattedDate(createdAt)} />
+      <CardContent>
+        <Typography variant="body2" color="textSecondary" component="p">
+          {description}
+        </Typography>
+      </CardContent>
+      <CardActions disableSpacing>
+        {actions.map(({ text, onClick }) => {
+          return (
+            <MyButton
+              {...{
+                text,
+                onClick,
+                relevantIds: {
+                  resourceId: resource.id,
+                  noteId: resource.noteId,
+                },
+              }}
+              key={text}
+            />
+          );
+        })}
+        <a href={link} target="_blank" rel="noopener noreferrer">
+          <IconButton aria-label="open in new window">
+            <OpenInNewIcon />
+          </IconButton>
+        </a>
+      </CardActions>
+    </StyledCard>
+  );
+};
+
+const StyledCard = styled(Card).attrs({ elevation: 4 })`
+  margin: 10px 0;
 `;
