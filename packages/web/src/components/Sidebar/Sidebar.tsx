@@ -15,7 +15,7 @@ import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import AccessibilityNewIcon from "@material-ui/icons/AccessibilityNew";
 import { NotesContext } from "context/Notes/";
 import { sortAllResourcesByState } from "utils/noteUtils";
-import wiseguyLogo from "assets/wiseguy-01.svg";
+import wiseguyLogo from "assets/wiseguy-01.png";
 interface MenuLink {
   id: string;
   title: string | React.ReactNode;
