@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import List from "@material-ui/core/List";
@@ -13,6 +13,8 @@ import ViewListIcon from "@material-ui/icons/ViewList";
 import ThumbDownIcon from "@material-ui/icons/ThumbDown";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import AccessibilityNewIcon from "@material-ui/icons/AccessibilityNew";
+import { NotesContext } from "context/Notes/";
+import { sortAllResourcesByState } from "utils/noteUtils";
 
 interface MenuLink {
   title: string;
@@ -21,25 +23,39 @@ interface MenuLink {
   subLinks?: MenuLink[];
 }
 
-const links: MenuLink[] = [
-  { title: "Notes", path: "/", Icon: ViewListIcon },
-  {
-    title: "Views",
-    Icon: InboxIcon,
-    subLinks: [
-      {
-        title: "untouched",
-        path: "/view/fresh",
-        Icon: AccessibilityNewIcon,
-      },
-      { title: "approved", path: "/view/approved", Icon: ThumbUpIcon },
-      { title: "rejected", path: "/view/rejected", Icon: ThumbDownIcon },
-    ],
-  },
-];
-
 export const Sidebar = () => {
   const [open, setOpen] = useState(false);
+  const {
+    state: { notes },
+  } = useContext(NotesContext);
+
+  const { approved, rejected, fresh } = sortAllResourcesByState(notes);
+
+  const links: MenuLink[] = [
+    { title: "Notes", path: "/", Icon: ViewListIcon },
+    {
+      title: "Views",
+      Icon: InboxIcon,
+      subLinks: [
+        {
+          title: `untouched (${fresh.length})`,
+          path: "/view/fresh",
+          Icon: AccessibilityNewIcon,
+        },
+        {
+          title: `approved (${approved.length})`,
+          path: "/view/approved",
+          Icon: ThumbUpIcon,
+        },
+        {
+          title: `rejected (${rejected.length})`,
+          path: "/view/rejected",
+          Icon: ThumbDownIcon,
+        },
+      ],
+    },
+  ];
+
   const handleClick = () => {
     setOpen(!open);
   };
