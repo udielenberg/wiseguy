@@ -72,14 +72,14 @@ export const ListView: React.FC<Props> = ({ data, type }) => {
   let buttons: { text: string; onClick: (ids: RelevantIds) => void }[];
   const approveBtn = { text: "approve", onClick: approve };
   const rejectBtn = { text: "reject", onClick: reject };
-  const untouchBtn = { text: "untouch", onClick: untouch };
+  const unreadBtn = { text: "mark as unread", onClick: untouch };
 
   if (viewType === "approved") {
-    buttons = [rejectBtn, untouchBtn];
+    buttons = [rejectBtn, unreadBtn];
   } else if (viewType === "rejected") {
-    buttons = [approveBtn, untouchBtn];
+    buttons = [approveBtn, unreadBtn];
   } else {
-    buttons = [approveBtn, rejectBtn];
+    throw new Error(`unknown viewType: ${viewType}`);
   }
 
   const resources = sortedResources[viewType as ResourceState];

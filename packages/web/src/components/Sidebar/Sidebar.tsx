@@ -30,7 +30,7 @@ export const Sidebar = () => {
     state: { notes },
   } = useContext(NotesContext);
 
-  const { approved, rejected, fresh } = sortAllResourcesByState(notes);
+  const { approved, rejected } = sortAllResourcesByState(notes);
 
   const links: MenuLink[] = [
     { id: "notes", title: "Notes", path: "/", Icon: ViewListIcon },
@@ -39,16 +39,6 @@ export const Sidebar = () => {
       title: "Views",
       Icon: InboxIcon,
       subLinks: [
-        {
-          id: "untouched",
-          title: (
-            <div className="title">
-              untouched <span className="counter">({fresh.length})</span>
-            </div>
-          ),
-          path: "/view/fresh",
-          Icon: AccessibilityNewIcon,
-        },
         {
           id: "approved",
           title: (
