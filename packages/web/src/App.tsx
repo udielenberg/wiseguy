@@ -32,7 +32,7 @@ function App() {
             <Switch>
               <Route exact path="/" component={MainPage} />
               <Route exact path="/note/:id" component={NotePage} />
-              <Route exact path="/view/:type" component={ListView} />
+              <Route exact path="/resources/:type" component={ListView} />
               <Route render={() => <div>Wrong Page!</div>} />
             </Switch>
           </AppContent>

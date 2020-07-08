@@ -35,8 +35,8 @@ export const Sidebar = () => {
   const links: MenuLink[] = [
     { id: "notes", title: "Notes", path: "/", Icon: ViewListIcon },
     {
-      id: "views",
-      title: "Views",
+      id: "resources",
+      title: "Resources",
       Icon: InboxIcon,
       subLinks: [
         {
@@ -46,7 +46,7 @@ export const Sidebar = () => {
               approved <span className="counter">({approved.length})</span>
             </div>
           ),
-          path: "/view/approved",
+          path: "/resources/approved",
           Icon: ThumbUpIcon,
         },
         {
@@ -56,7 +56,7 @@ export const Sidebar = () => {
               rejected <span className="counter">({rejected.length})</span>
             </div>
           ),
-          path: "/view/rejected",
+          path: "/resources/rejected",
           Icon: ThumbDownIcon,
         },
       ],
