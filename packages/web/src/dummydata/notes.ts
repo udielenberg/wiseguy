@@ -76,7 +76,7 @@ export const realDummyNotes: Note[] = [
         resources: [
             {
                 id: 'r1_bbbbbbbbbbbbbbb',
-                noteId: 'aaaaaaaaaaaaaaaaa',
+                noteId: 'bbbbbbbbbbbbbbb',
                 state: 'fresh',
                 rating: 100,
                 link: 'https://en.wikipedia.org/wiki/Phil_Jackson',
@@ -102,7 +102,7 @@ export const realDummyNotes: Note[] = [
             },
             {
                 id: 'r2_bbbbbbbbbbbbbbb',
-                noteId: 'aaaaaaaaaaaaaaaaa',
+                noteId: 'bbbbbbbbbbbbbbb',
                 state: 'fresh',
                 rating: 50,
                 link: 'https://bleacherreport.com/articles/2888850-michael-jordan-once-opposed-phil-jacksons-triangle-offense-f-king-bulls-t',
