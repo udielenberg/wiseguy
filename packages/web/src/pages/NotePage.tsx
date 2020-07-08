@@ -100,7 +100,6 @@ export const NotePage: React.FC<Props> = (props) => {
             >
               Approve
             </ApproveButton>
-            <a href="#">approve list</a>
           </div>
           <div className="action">
             <RejectButton
@@ -110,15 +109,6 @@ export const NotePage: React.FC<Props> = (props) => {
             >
               Reject
             </RejectButton>
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                setViewType("rejected");
-              }}
-            >
-              reject list
-            </a>
           </div>
         </div>
       </div>
