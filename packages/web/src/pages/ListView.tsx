@@ -156,4 +156,8 @@ const Wrapper = styled.div`
       background: lightgray;
     }
   }
+
+  .button {
+    margin: 0 10px;
+  }
 `;
