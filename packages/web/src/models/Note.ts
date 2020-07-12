@@ -20,6 +20,9 @@ export interface Resource {
     domain: string;
     relevantParagraphs: Paragraph[]
 }
+
+export type ExtendedResource = Resource & { noteSearch: string | undefined }
+
 export interface Note {
     id: string;
     created: Date;

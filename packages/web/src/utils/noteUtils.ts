@@ -1,3 +1,4 @@
+import { ExtendedResource } from './../models/Note';
 import { Note, NoteSearchAndWords, WordOption, Resource } from "models/Note";
 import { baseNote } from "models/Note";
 import faker from "faker";
@@ -15,12 +16,13 @@ export const cleanedWordsList = (words: WordOption[]) => words.reduce((agg, opti
     return agg;
 }, [] as string[]);
 
-export const sortNoteResources = (resources: any) => resources?.reduce((all: any, resource: Resource) => {
+export const sortNoteResources = (note: Note) => note.resources.reduce((all: any, resource: Resource) => {
+    const extendedResource: ExtendedResource = { ...resource, noteSearch: note.search }
     if (all[resource.state]) {
-        all[resource.state].push(resource);
+        all[resource.state].push(extendedResource);
     } else {
         all[resource.state] = [];
-        all[resource.state].push(resource);
+        all[resource.state].push(extendedResource);
     }
     return all;
 }, {});
@@ -33,7 +35,7 @@ export interface SortedAllResources {
 
 export const sortAllResourcesByState = (notes: Note[]): SortedAllResources => {
     return notes.reduce((allResources: any, note: Note, index: number) => {
-        const sortedResourcesByNote = sortNoteResources(note.resources);
+        const sortedResourcesByNote = sortNoteResources(note);
         return {
             fresh: [...allResources.fresh, sortedResourcesByNote.fresh ? [...sortedResourcesByNote.fresh] : []].flat(),
             approved: [...allResources.approved, sortedResourcesByNote.approved ? [...sortedResourcesByNote.approved] : []].flat(),

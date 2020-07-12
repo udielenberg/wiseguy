@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
-import { Resource, ResourceState } from "models/Note";
+import { ResourceState, ExtendedResource } from "models/Note";
 import { NotesContext } from "context/Notes/";
 import { sortAllResourcesByState, SortedAllResources } from "utils/noteUtils";
 import { Typography, Button } from "@material-ui/core";
@@ -12,8 +12,9 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import IconButton from "@material-ui/core/IconButton";
 import OpenInNewIcon from "@material-ui/icons/OpenInNew";
+
 interface Props {
-  data: Resource[];
+  data: ExtendedResource[];
   type: string;
 }
 
@@ -146,7 +147,7 @@ interface ResourceItemProps {
 const ResourceItem: React.FC<ResourceItemProps> = ({ resource, actions }) => {
   // add StyledCard
   const {
-    search = "note search value",
+    noteSearch = "note search value",
     link = "http://www.walla.co.il",
     description = "lorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsum",
     createdAt = new Date().toTimeString(),
@@ -155,7 +156,7 @@ const ResourceItem: React.FC<ResourceItemProps> = ({ resource, actions }) => {
 
   return (
     <StyledCard>
-      <CardHeader title={search} subheader={formattedDate(createdAt)} />
+      <CardHeader title={noteSearch} subheader={formattedDate(createdAt)} />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {description}
