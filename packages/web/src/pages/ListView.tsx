@@ -97,17 +97,19 @@ export const ListView: React.FC<Props> = ({ data, type }) => {
         {viewType} Resources
       </Typography>
 
-      {resources.length
-        ? resources.map((resource) => {
-            return (
-              <ResourceItem
-                key={resource.id}
-                {...{ resource }}
-                actions={buttons}
-              />
-            );
-          })
-        : null}
+      {resources.length ? (
+        resources.map((resource) => {
+          return (
+            <ResourceItem
+              key={resource.id}
+              {...{ resource }}
+              actions={buttons}
+            />
+          );
+        })
+      ) : (
+        <EmptyList>List is empty.</EmptyList>
+      )}
     </Wrapper>
   );
 };
@@ -187,4 +189,13 @@ const ResourceItem: React.FC<ResourceItemProps> = ({ resource, actions }) => {
 
 const StyledCard = styled(Card).attrs({ elevation: 4 })`
   margin: 10px 0;
+`;
+
+const EmptyList = styled.div`
+  margin-top: 50px;
+  padding: 20px;
+  color: lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
