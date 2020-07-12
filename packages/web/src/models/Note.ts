@@ -21,7 +21,7 @@ export interface Resource {
     relevantParagraphs: Paragraph[]
 }
 
-export type ExtendedResource = Resource & { noteSearch: string | undefined }
+export type ExtendedResource = Resource & { noteSearch: string | undefined, includedWords: string[] }
 
 export interface Note {
     id: string;

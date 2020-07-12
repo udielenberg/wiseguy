@@ -12,6 +12,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import IconButton from "@material-ui/core/IconButton";
 import OpenInNewIcon from "@material-ui/icons/OpenInNew";
+import { StyledChip } from "shared/Styled";
 
 interface Props {
   data: ExtendedResource[];
@@ -139,24 +140,27 @@ const Wrapper = styled.div`
 `;
 
 interface ResourceItemProps {
-  // resource: Resource & Pick<Note, "search" | "includeWords">;
-  resource: any; //TODO: type Resource + note.search + note.includeWords
+  resource: ExtendedResource;
   actions: ResourceAction[];
 }
 
 const ResourceItem: React.FC<ResourceItemProps> = ({ resource, actions }) => {
-  // add StyledCard
   const {
     noteSearch = "note search value",
     link = "http://www.walla.co.il",
     description = "lorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsum",
-    createdAt = new Date().toTimeString(),
+    createdAt = new Date(),
+    includedWords = ["one", "two", "three"],
   } = resource;
-  const includeWords = ["one", "two", "three"]; // TODO: bring it from Note somehow
 
   return (
     <StyledCard>
       <CardHeader title={noteSearch} subheader={formattedDate(createdAt)} />
+      <CardContent>
+        {includedWords.map((word) => (
+          <StyledChip key={word} label={word} />
+        ))}
+      </CardContent>
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {description}

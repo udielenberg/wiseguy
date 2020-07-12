@@ -17,7 +17,7 @@ export const cleanedWordsList = (words: WordOption[]) => words.reduce((agg, opti
 }, [] as string[]);
 
 export const sortNoteResources = (note: Note) => note.resources.reduce((all: any, resource: Resource) => {
-    const extendedResource: ExtendedResource = { ...resource, noteSearch: note.search }
+    const extendedResource: ExtendedResource = { ...resource, noteSearch: note.search, includedWords: note.includeWords }
     if (all[resource.state]) {
         all[resource.state].push(extendedResource);
     } else {
