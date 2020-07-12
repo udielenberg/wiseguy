@@ -25,9 +25,7 @@ export const NotePage: React.FC<Props> = (props) => {
   const [viewType, setViewType] = useState<ViewTypes>("fresh");
   const { state, actions } = useContext(NotesContext);
   const { selectedNote } = state;
-
-  const resourcesByType =
-    sortNoteResources(selectedNote?.resources || [])[viewType] || [];
+  const resourcesByType = sortNoteResources(selectedNote)[viewType] || [];
 
   const { left, right, current } = useRightLeftKeys(resourcesByType);
   const currentResourceRelevantIds: CurrentResourceRelevantIds | null = resourcesByType
