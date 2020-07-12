@@ -28,9 +28,9 @@ export const sortNoteResources = (note: Note) => note.resources.reduce((all: any
 }, {});
 
 export interface SortedAllResources {
-    fresh: Resource[];
-    approved: Resource[];
-    rejected: Resource[];
+    fresh: ExtendedResource[];
+    approved: ExtendedResource[];
+    rejected: ExtendedResource[];
 }
 
 export const sortAllResourcesByState = (notes: Note[]): SortedAllResources => {
