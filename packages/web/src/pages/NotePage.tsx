@@ -72,7 +72,11 @@ export const NotePage: React.FC<Props> = (props) => {
   const relevantParagraphs = resourcesByType[current]?.relevantParagraphs || [];
   return (
     <Wrapper>
-      <StyledFab disabled={!resourcesByType.length} onClick={handleLeft}>
+      <StyledFab
+        disabled={!resourcesByType.length}
+        onClick={handleLeft}
+        aria-label="previous resource"
+      >
         <LeftIcon />
       </StyledFab>
 
@@ -111,7 +115,11 @@ export const NotePage: React.FC<Props> = (props) => {
         </div>
       </div>
 
-      <StyledFab disabled={!resourcesByType.length} onClick={handleRight}>
+      <StyledFab
+        disabled={!resourcesByType.length}
+        onClick={handleRight}
+        aria-label="next resource"
+      >
         <RightIcon />
       </StyledFab>
     </Wrapper>
