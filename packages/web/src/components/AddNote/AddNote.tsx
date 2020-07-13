@@ -60,6 +60,7 @@ export const AddNote = () => {
           onKeyDown={handleEnter}
           onChange={handleChange}
           fullWidth
+          inputProps={{ "data-testid": "new-note" }}
         />
         <StyledTooltip
           title={
@@ -81,7 +82,12 @@ export const AddNote = () => {
         setWord={setWordValue}
       />
 
-      <Button onClick={handleAdd} variant="contained" color="primary">
+      <Button
+        data-testid="add-note"
+        onClick={handleAdd}
+        variant="contained"
+        color="primary"
+      >
         Add
       </Button>
     </Wrapper>
