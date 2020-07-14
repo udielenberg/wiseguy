@@ -77,7 +77,7 @@ export const Sidebar = () => {
         {links.map(({ title, path, Icon, subLinks, id }) => {
           return path ? (
             <MenuLink to={path} key={id}>
-              <ListItem button>
+              <ListItem button data-testid="menu-link">
                 <ItemIcon>
                   <Icon className="icon" />
                 </ItemIcon>
