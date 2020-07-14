@@ -22,7 +22,7 @@ describe("View Note", () => {
       expect(el.text()).to.include("1");
     });
   });
-  it("should have the current Note set as watched", () => {});
+  it.skip("should have the current Note set as watched", () => {});
   it("should update resources to their right list", () => {
     noteData.approvedListItem().click();
     noteData.resourceRejectButton().click();
