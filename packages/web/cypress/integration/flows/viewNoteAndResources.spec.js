@@ -1,7 +1,9 @@
 import Note from "../pages/mainPage";
 import NoteData from "../pages/notePage";
+
 const noteData = new NoteData();
 const note = new Note();
+
 describe("View Note", () => {
   before(() => {
     cy.visit("/");

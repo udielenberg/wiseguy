@@ -3,6 +3,7 @@ import NoteData from "../pages/notePage";
 
 const newNote = new NewNote();
 const noteData = new NoteData();
+
 context("Move between resources", () => {
   beforeEach(() => {
     cy.visit("/");

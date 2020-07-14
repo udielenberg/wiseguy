@@ -1,8 +1,10 @@
 import NewNote from "../pages/mainPage";
 import NoteData from "../pages/notePage";
 import range from "lodash/range";
+
 const newNote = new NewNote();
 const noteData = new NoteData();
+
 context("Move between resources", () => {
   beforeEach(() => {
     cy.visit("/");

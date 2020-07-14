@@ -1,6 +1,7 @@
 import Note from "../pages/mainPage";
 
 const note = new Note();
+
 context("Add Note", () => {
   const newTaskValue = "Covid19";
 
