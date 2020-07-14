@@ -39,18 +39,10 @@ export const NotePage: React.FC<Props> = (props) => {
     ? resourcesByType[current]
     : {};
   const handleLeft = () => {
-    // @TODO: Update all props passed to other views
     left();
   };
   const handleRight = () => {
-    // @TODO: Update all props passed to other views
     right();
-  };
-  const handleUp = () => {
-    console.log("up");
-  };
-  const handleDown = () => {
-    console.log("down");
   };
 
   const handleApprove = () => {

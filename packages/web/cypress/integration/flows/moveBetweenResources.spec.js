@@ -7,7 +7,7 @@ context("Move between resources", () => {
   beforeEach(() => {
     cy.visit("/");
   });
-  it("move between resources", () => {
+  it("should move between resources", () => {
     newNote.firstNote().click();
     noteData.noteResourceCount().then((el) => {
       expect(el).to.have.text("(1 / 2)");

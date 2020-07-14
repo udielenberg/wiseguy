@@ -17,7 +17,7 @@
   - expect page.contains('1/7)
 - Read note
   - click first note > approve x1 reject x1 (click)
-    - expect page.contains('no metatada')
+    - expect page.contains('no metadata')
     * go to / ('notes') - item should be watched:true
     * go to (click) /resources
       - expect approved_lists .should.contains(1)
