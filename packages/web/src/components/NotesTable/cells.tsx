@@ -50,7 +50,7 @@ export const CellType: React.FC<Props> = (props) => {
           e.stopPropagation();
           data.remove();
         }}
-        aria-label="add an alarm"
+        aria-label="delete note"
       >
         <DeleteIcon />
       </DeleteIconButton>

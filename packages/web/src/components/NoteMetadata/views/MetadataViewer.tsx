@@ -20,7 +20,7 @@ export const MetadataViewer: React.FC<Props> = ({
   search,
 }) => {
   if (!resources[current]) {
-    return <EmptyContent>No metadada.</EmptyContent>;
+    return <EmptyContent>No metadata.</EmptyContent>;
   }
   const { description, createdAt, domain, link, rating, writtenBy } = resources[
     current

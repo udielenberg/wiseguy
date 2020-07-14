@@ -12,7 +12,6 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import ViewListIcon from "@material-ui/icons/ViewList";
 import ThumbDownIcon from "@material-ui/icons/ThumbDown";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
-import AccessibilityNewIcon from "@material-ui/icons/AccessibilityNew";
 import { NotesContext } from "context/Notes/";
 import { sortAllResourcesByState } from "utils/noteUtils";
 import wiseguyLogo from "assets/wiseguy-01.png";
@@ -78,7 +77,7 @@ export const Sidebar = () => {
         {links.map(({ title, path, Icon, subLinks, id }) => {
           return path ? (
             <MenuLink to={path} key={id}>
-              <ListItem button>
+              <ListItem button data-testid="menu-link">
                 <ItemIcon>
                   <Icon className="icon" />
                 </ItemIcon>
