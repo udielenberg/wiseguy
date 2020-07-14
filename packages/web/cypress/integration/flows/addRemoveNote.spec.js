@@ -1,4 +1,4 @@
-import Note from "../../fixtures/pages/mainPage";
+import Note from "../pages/mainPage";
 
 const note = new Note();
 context("Add Note", () => {
