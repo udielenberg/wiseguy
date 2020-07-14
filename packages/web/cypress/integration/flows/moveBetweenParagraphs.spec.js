@@ -5,7 +5,7 @@ const newNote = new NewNote();
 const noteData = new NoteData();
 context("Move between resources", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:3000");
+    cy.visit("/");
   });
   it("move between note's paragraphs", () => {
     newNote.firstNote().click();
