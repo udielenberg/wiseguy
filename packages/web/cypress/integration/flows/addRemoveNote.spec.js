@@ -9,7 +9,7 @@ context("Add Note", () => {
   });
   it("add/remove a new note", () => {
     note.newNoteInput().type(`${newTaskValue} {enter}`);
-    note.firstNewNote().contains(newTaskValue);
+    note.firstNote().contains(newTaskValue);
     note.deleteNewNoteButton().click();
     note.notesTable().contains(newTaskValue).should("not.exist");
   });

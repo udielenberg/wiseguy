@@ -8,7 +8,7 @@ context("Move between resources", () => {
     cy.visit("http://localhost:3000");
   });
   it("move between note's paragraphs", () => {
-    newNote.firstNewNote().click();
+    newNote.firstNote().click();
     noteData.resourceParagraphCount().then((el) => {
       console.log("first counter:", el.text());
       expect(el).to.have.text("1 / 7");

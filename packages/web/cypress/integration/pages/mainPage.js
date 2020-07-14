@@ -5,7 +5,7 @@ class note {
   addButton() {
     return cy.get("body").contains("Add");
   }
-  firstNewNote() {
+  firstNote() {
     return cy.get("tbody > tr > td").first();
   }
   deleteNewNoteButton() {

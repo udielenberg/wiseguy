@@ -8,7 +8,7 @@ context("Move between resources", () => {
     cy.visit("http://localhost:3000");
   });
   it("move between resources", () => {
-    newNote.firstNewNote().click();
+    newNote.firstNote().click();
     noteData.noteResourceCount().then((el) => {
       expect(el).to.have.text("(1 / 2)");
     });
