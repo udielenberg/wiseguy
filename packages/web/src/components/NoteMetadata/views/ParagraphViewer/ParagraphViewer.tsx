@@ -125,7 +125,10 @@ export const ParagraphViewer = (props: Props) => {
     <div>
       <Typography variant="overline">Paragraphs:</Typography>
       <InnerWrapper>
-        <HorizontalNavButton onClick={prevParagraph}>
+        <HorizontalNavButton
+          onClick={prevParagraph}
+          aria-label="previous paragraph"
+        >
           <KeyboardArrowUpIcon />
         </HorizontalNavButton>
         <ViewerWrapper>
@@ -143,7 +146,9 @@ export const ParagraphViewer = (props: Props) => {
                   </>
                 ) : null}
               </HorizontalCenterContainer>
-              {paragraphLocation.current} / {paragraphLocation.total}
+              <div data-testid="paragraph-counter">
+                {paragraphLocation.current} / {paragraphLocation.total}
+              </div>
             </FullCenterContainer>
           </div>
           <Typography variant="body1">
@@ -155,7 +160,10 @@ export const ParagraphViewer = (props: Props) => {
             />
           </Typography>
         </ViewerWrapper>
-        <HorizontalNavButton onClick={nextParagraph}>
+        <HorizontalNavButton
+          onClick={nextParagraph}
+          aria-label="next paragraph"
+        >
           <KeyboardArrowDownIcon />
         </HorizontalNavButton>
       </InnerWrapper>
