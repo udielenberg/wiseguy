@@ -1,5 +1,5 @@
-import NewNote from "../../fixtures/pages/mainPage";
-import NoteData from "../../fixtures/pages/notePage";
+import NewNote from "../pages/mainPage";
+import NoteData from "../pages/notePage";
 
 const newNote = new NewNote();
 const noteData = new NoteData();
@@ -12,15 +12,15 @@ context("Move between resources", () => {
     noteData.noteResourceCount().then((el) => {
       expect(el).to.have.text("(1 / 2)");
     });
-    noteData.goRightResource().click();
+    noteData.goNextResource().click();
     noteData.noteResourceCount().then((el) => {
       expect(el).to.have.text("(2 / 2)");
     });
-    noteData.goRightResource().click();
+    noteData.goNextResource().click();
     noteData.noteResourceCount().then((el) => {
       expect(el).to.have.text("(2 / 2)");
     });
-    noteData.goLeftResource().click();
+    noteData.goPrevResource().click();
     noteData.noteResourceCount().then((el) => {
       expect(el).to.have.text("(1 / 2)");
     });
