@@ -122,8 +122,7 @@ export const ParagraphViewer = (props: Props) => {
   }
 
   return (
-    <div>
-      <Typography variant="overline">Paragraphs:</Typography>
+    <Wrapper>
       <InnerWrapper>
         <HorizontalNavButton
           onClick={prevParagraph}
@@ -167,16 +166,22 @@ export const ParagraphViewer = (props: Props) => {
           <KeyboardArrowDownIcon />
         </HorizontalNavButton>
       </InnerWrapper>
-    </div>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  background: red;
+  flex: 3 1 auto;
+  margin-top: 50px;
+  display: flex;
+`;
 
 const ViewerWrapper = styled.div`
   background: #ccc;
   padding: 20px;
-  border-radius: 5px;
-  height: 200px;
   overflow: scroll;
+  flex: 1;
 
   .paragraph {
     line-height: 200%;
@@ -196,5 +201,7 @@ const HorizontalNavButton = styled(Button).attrs({
 })``;
 
 const InnerWrapper = styled.div`
-  margin: 10px 0 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 `;

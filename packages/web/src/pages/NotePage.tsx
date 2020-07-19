@@ -134,8 +134,11 @@ const Wrapper = styled.div`
     flex: 1;
     display: flex;
     flex-direction: column;
+    flex-basis: 90%;
   }
   .actions {
+    flex-basis: 50px;
+
     margin-top: 10px;
     display: flex;
     justify-content: space-between;

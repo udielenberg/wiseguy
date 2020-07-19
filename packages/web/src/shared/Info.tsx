@@ -6,7 +6,7 @@ import isString from "lodash/isString";
 import isNumber from "lodash/isNumber";
 interface InfoProps {
   title: string;
-  content: string | React.ReactNode;
+  content: string | React.ReactNode | null;
   oneLine?: boolean;
 }
 
