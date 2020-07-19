@@ -132,7 +132,6 @@ const Wrapper = styled.div`
   }
   .views {
     flex: 1;
-    height: 100%;
     display: flex;
     flex-direction: column;
   }
