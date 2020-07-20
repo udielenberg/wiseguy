@@ -124,6 +124,8 @@ const Wrapper = styled.div`
   align-items: center;
 
   .resource-viewer-wrapper {
+    position: relative;
+    overflow: scroll;
     display: flex;
     flex-direction: column;
     flex: 1;

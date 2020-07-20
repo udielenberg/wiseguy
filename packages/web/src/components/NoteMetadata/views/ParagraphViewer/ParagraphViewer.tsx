@@ -172,8 +172,9 @@ export const ParagraphViewer = (props: Props) => {
 
 const Wrapper = styled.div`
   background: red;
+  max-height: 400px;
   flex: 3 1 auto;
-  margin-top: 50px;
+  margin-top: 25px;
   display: flex;
 `;
 
