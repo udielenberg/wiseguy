@@ -87,15 +87,6 @@ export const NotePage: React.FC<Props> = (props) => {
 
         <div className="actions">
           <div className="action">
-            <ApproveButton
-              disabled={isEmpty(currentResource)}
-              startIcon={<CheckIcon />}
-              onClick={handleApprove}
-            >
-              Approve
-            </ApproveButton>
-          </div>
-          <div className="action">
             <RejectButton
               disabled={isEmpty(currentResource)}
               startIcon={<ClearIcon />}
@@ -103,6 +94,15 @@ export const NotePage: React.FC<Props> = (props) => {
             >
               Reject
             </RejectButton>
+          </div>
+          <div className="action">
+            <ApproveButton
+              disabled={isEmpty(currentResource)}
+              startIcon={<CheckIcon />}
+              onClick={handleApprove}
+            >
+              Approve
+            </ApproveButton>
           </div>
         </div>
       </div>
@@ -143,9 +143,12 @@ const Wrapper = styled.div`
 
     margin-top: 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
 
     .action {
+      &:first-child {
+        margin-right: 20px;
+      }
       display: flex;
       flex-direction: column;
       align-items: center;
