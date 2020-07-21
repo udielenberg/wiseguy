@@ -30,7 +30,8 @@ jobs:
           npm install
           npm run test
       - name: Running E2E tests
-        run: |
-          npm install
-          npm run e2e
+        run: npm run e2e
+#         run: |
+#           npm install
+#           npm run e2e
 
