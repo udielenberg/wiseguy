@@ -27,54 +27,72 @@ export const MetadataViewer: React.FC<Props> = ({
   ];
   return (
     <Wrapper>
-      <Italic style={{ textAlign: "right", display: "block" }}></Italic>
-      <SearchTitle>Note: "{search}"</SearchTitle>
-      <Info
-        title="resource"
-        content={`(${current + 1} / ${resources.length})`}
-        oneLine
-      />
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <SearchTitle>Note: "{search}"</SearchTitle>
+        <div
+          style={{
+            padding: "20px 0",
+            flex: "3 1 200px",
+            alignSelf: "flex-end",
+          }}
+        >
+          <StyledTypography>
+            resource {current + 1} / {resources.length}
+          </StyledTypography>
+        </div>
+      </div>
       <Info
         title="description"
         content={<Typography variant="body2">{description}</Typography>}
       />
-      <Info
-        title="created at"
-        content={
-          <Typography variant="overline">{formattedDate(createdAt)}</Typography>
-        }
-      />
-      <Info
-        title="rating"
-        content={
-          <span>
-            <img src={star} alt="star" />
-            {rating}
-            <img src={star} alt="star" />
-          </span>
-        }
-      />
-      <Info
-        title="domain"
-        content={<StyledChip color="primary" label={domain}></StyledChip>}
-      />
-      <Info
-        title="article"
-        content={
-          <Button
-            {...securedNewWindow}
-            color="primary"
-            size="small"
-            href={link}
-          >
-            Open
-          </Button>
-        }
-      />
-      <Info
-        title="written by"
-        content={<Typography variant="subtitle1">{writtenBy}</Typography>}
-      />
+
+      <div
+        style={{
+          marginTop: "20px",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <Info
+          title="created at"
+          content={
+            <Typography variant="overline">
+              {formattedDate(createdAt)}
+            </Typography>
+          }
+        />
+        <Info
+          title="rating"
+          content={
+            <span>
+              <img src={star} alt="star" />
+              {rating}
+              <img src={star} alt="star" />
+            </span>
+          }
+        />
+        <Info
+          title="domain"
+          content={<StyledChip color="primary" label={domain}></StyledChip>}
+        />
+        <Info
+          title="written by"
+          content={<Typography variant="subtitle1">{writtenBy}</Typography>}
+        />
+        <Info
+          title="article"
+          content={
+            <Button
+              {...securedNewWindow}
+              color="primary"
+              size="small"
+              href={link}
+            >
+              Open
+            </Button>
+          }
+        />
+      </div>
     </Wrapper>
   );
 };
@@ -84,10 +102,8 @@ const SearchTitle = styled(Typography).attrs({ variant: "h5" })`
 `;
 
 const Wrapper = styled.div`
-  height: 200px;
-  /* Fix this */
+  flex: 1 1 auto;
   position: relative;
-  overflow: hidden;
 `;
 
 const EmptyContent = styled.div`
@@ -96,4 +112,14 @@ const EmptyContent = styled.div`
   align-items: center;
   color: gray;
   height: 100%;
+`;
+
+const StyledTypography = styled(Typography).attrs({
+  variant: "overline",
+  display: "block",
+})`
+  && {
+    text-align: right;
+    font-style: italic;
+  }
 `;

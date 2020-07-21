@@ -62,16 +62,18 @@ export const AddNote = () => {
           fullWidth
           inputProps={{ "data-testid": "new-note" }}
         />
-        <StyledTooltip
-          title={
-            <div style={{ padding: 15, fontSize: "1.2rem", lineHeight: 2 }}>
-              {whatItsAllAbout}
-            </div>
-          }
-          placement="right-start"
-        >
-          <HelpIcon />
-        </StyledTooltip>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <StyledTooltip
+            title={
+              <div style={{ padding: 15, fontSize: "1.2rem", lineHeight: 2 }}>
+                {whatItsAllAbout}
+              </div>
+            }
+            placement="right-start"
+          >
+            <HelpIcon />
+          </StyledTooltip>
+        </div>
       </div>
       <AddIncludeWords
         noteText={noteText}
