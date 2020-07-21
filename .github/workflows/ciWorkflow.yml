@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12]
+        node-version: [13]
     steps:
       - name: Checkout
         uses: actions/checkout@master
@@ -25,7 +25,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 13.x
       - name: Installing
         working-directory: packages/web
         run: npm install
