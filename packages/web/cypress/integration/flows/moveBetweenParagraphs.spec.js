@@ -12,21 +12,21 @@ context("Move between resources", () => {
   it("should move between note's paragraphs", () => {
     newNote.firstNote().click();
     noteData.resourceParagraphCount().then((el) => {
-      expect(el).to.have.text("1 / 7");
+      expect(el.text()).to.include("1 / 7");
     });
     noteData.goNextParagraph().click();
     noteData.resourceParagraphCount().then((el) => {
-      expect(el).to.have.text("2 / 7");
+      expect(el.text()).to.include("2 / 7");
     });
     range(6).forEach(() => {
       noteData.goNextParagraph().click();
     });
     noteData.resourceParagraphCount().then((el) => {
-      expect(el).to.have.text("1 / 7");
+      expect(el.text()).to.include("1 / 7");
     });
     noteData.goPrevParagraph().click();
     noteData.resourceParagraphCount().then((el) => {
-      expect(el).to.have.text("7 / 7");
+      expect(el.text()).to.include("7 / 7");
     });
   });
 });

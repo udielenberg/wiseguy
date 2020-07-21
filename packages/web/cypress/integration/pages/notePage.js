@@ -6,7 +6,7 @@ class note {
     return cy.get('[aria-label="next resource"]');
   }
   noteResourceCount() {
-    return cy.get('[data-testid="metadata-section"]').first();
+    return cy.get('[data-testid="resource-counter"]');
   }
   goPrevParagraph() {
     return cy.get('[aria-label="previous paragraph"]');

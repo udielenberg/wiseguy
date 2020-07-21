@@ -11,19 +11,19 @@ context("Move between resources", () => {
   it("should move between resources", () => {
     newNote.firstNote().click();
     noteData.noteResourceCount().then((el) => {
-      expect(el).to.have.text("(1 / 2)");
+      expect(el.text()).to.include("1 / 2");
     });
     noteData.goNextResource().click();
     noteData.noteResourceCount().then((el) => {
-      expect(el).to.have.text("(2 / 2)");
+      expect(el.text()).to.include("2 / 2");
     });
     noteData.goNextResource().click();
     noteData.noteResourceCount().then((el) => {
-      expect(el).to.have.text("(2 / 2)");
+      expect(el.text()).to.include("2 / 2");
     });
     noteData.goPrevResource().click();
     noteData.noteResourceCount().then((el) => {
-      expect(el).to.have.text("(1 / 2)");
+      expect(el.text()).to.include("1 / 2");
     });
   });
 });
