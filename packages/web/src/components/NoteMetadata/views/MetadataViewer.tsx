@@ -117,6 +117,7 @@ const EmptyContent = styled.div`
 const StyledTypography = styled(Typography).attrs({
   variant: "overline",
   display: "block",
+  "data-testid": "resource-counter",
 })`
   && {
     text-align: right;
