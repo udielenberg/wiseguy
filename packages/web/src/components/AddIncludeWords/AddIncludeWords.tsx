@@ -17,18 +17,35 @@ export const AddIncludeWords = (props: Props) => {
   const { words, word, setWord, setWords, addNote, noteText } = props;
 
   const handleInputChange = (input: string) => {
+    if (input === ",") return;
     setWord(input);
   };
   const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+    // condition: word is not empty
     const validInput = !!word;
-    if (!validInput && event.key === "Enter" && noteText) {
+    // condition: means there are no more new words to add cuz "validInput" is empty, so Enter can finally Add a Note
+    const readyToSubmit = !validInput && event.key === "Enter" && noteText;
+    // condition: new word is not unique
+    const isUniqueNewWord = !Boolean(
+      words.find((_word) => _word.value === word)
+    );
+    // condition: new word is valid and ready to be added
+    const validNewWordToAdd =
+      validInput &&
+      (event.key === "Enter" || event.key === "Tab" || event.key === ",");
+
+    if (readyToSubmit) {
       addNote();
     }
-    if (validInput && (event.key === "Enter" || event.key === "Tab")) {
-      const newWord = { value: word, label: word };
-      const updatedWords: WordOption[] = [...words, newWord];
-      setWords(updatedWords);
-      setWord("");
+
+    if (validNewWordToAdd) {
+      // Prevent from adding a word that already exists
+      if (isUniqueNewWord) {
+        const newWord = { value: word, label: word };
+        const updatedWords: WordOption[] = [...words, newWord];
+        setWords(updatedWords);
+        setWord("");
+      }
     }
   };
 
