@@ -30,7 +30,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jest-environment-jsdom-sixteen",
     "eject": "react-scripts eject",
-    "e2e": "cypress open"
+    "e2e": "cypress open",
+    "e2e:headless": "cypress run"
   },
   "eslintConfig": {
     "extends": [
