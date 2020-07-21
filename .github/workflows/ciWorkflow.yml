@@ -15,13 +15,22 @@ jobs:
   test:
     name: Running Tests
     runs-on: ubuntu-latest
+    
     steps:
-    - name: Running Unit tests
-      run: | 
-        npm install
-        npm run test
-    - name: Running E2E tests
-      run: |
-        npm install
-        npm run e2e
-  
+      - name: Checkout
+        uses: actions/checkout@master
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with: 
+          node-version: 12.x
+        
+      - name: Running Unit tests
+        run: | 
+          npm install
+          npm run test
+      - name: Running E2E tests
+        run: |
+          npm install
+          npm run e2e
+
