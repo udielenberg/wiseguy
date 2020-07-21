@@ -24,12 +24,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
+      - name: Installing
+        working-directory: packages/web
+        run: npm install
 
       - name: Running Front-end Unit tests
         working-directory: packages/web
-        run: |
-          npm install
-          npm run test
+        run: npm run test
       - name: Running Front-end E2E tests
         working-directory: packages/web
         # run: npm run e2e:ci
