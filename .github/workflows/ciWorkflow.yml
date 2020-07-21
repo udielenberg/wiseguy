@@ -25,11 +25,13 @@ jobs:
         with: 
           node-version: 12.x
         
-      - name: Running Unit tests
+      - name: Running Front-end Unit tests
+        working-directory: packages/web
         run: | 
           npm install
           npm run test
-      - name: Running E2E tests
+      - name: Running Front-end E2E tests
+        working-directory: packages/web
         run: npm run e2e
 #         run: |
 #           npm install
