@@ -17,6 +17,7 @@ export const AddIncludeWords = (props: Props) => {
   const { words, word, setWord, setWords, addNote, noteText } = props;
 
   const handleInputChange = (input: string) => {
+    if (input === ",") return;
     setWord(input);
   };
   const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
@@ -24,7 +25,11 @@ export const AddIncludeWords = (props: Props) => {
     if (!validInput && event.key === "Enter" && noteText) {
       addNote();
     }
-    if (validInput && (event.key === "Enter" || event.key === "Tab")) {
+
+    if (
+      validInput &&
+      (event.key === "Enter" || event.key === "Tab" || event.key === ",")
+    ) {
       const newWord = { value: word, label: word };
       const updatedWords: WordOption[] = [...words, newWord];
       setWords(updatedWords);
